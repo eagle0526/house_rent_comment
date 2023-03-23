@@ -32,3 +32,8 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+
+.env
+.env.development*
+.env.test*
