@@ -11,8 +11,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body>    
     <main class="container px-5 mx-auto mt-28">
+      <section>
+        <%= render "shared/navbar" %>
+        <%= render "shared/flash" %>
+      </section>
       <%= yield %>
     </main>
   </body>

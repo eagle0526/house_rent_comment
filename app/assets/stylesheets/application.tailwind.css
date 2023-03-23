@@ -2,12 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
+
 
 @layer components {
   .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+    @apply inline-flex items-center px-6 py-2 text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-400;
+  }
+
+  .second-btn {
+    @apply inline-flex items-center px-6 py-2 text-white bg-red-500 rounded cursor-pointer hover:bg-red-400;
+  }
+
+  .form-field {
+    @apply w-4/5 px-4 py-2 bg-gray-100 rounded;
   }
 }
 
-*/
+
