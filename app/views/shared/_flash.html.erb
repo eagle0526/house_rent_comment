@@ -1,0 +1,12 @@
+<% if flash[:notice] %>
+  <div class="fixed bottom-0 right-0 flex items-center justify-between p-4 m-5 text-center text-white bg-blue-500 rounded-lg w-60">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+
+<% if flash[:alert] %>
+  <div class="fixed bottom-0 right-0 flex items-center justify-between p-4 m-5 text-center text-white bg-red-500 rounded-lg w-60">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
