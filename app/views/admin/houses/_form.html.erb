@@ -10,6 +10,13 @@
       <%= f.text_area :description, class: 'form-field' %>
     </div>
 
+    <div class="my-4">
+      <%= f.label :images, '廣告照片：' %>
+      <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'form-field' %>
+    </div>
+
+
+
     <div>      
       <%= f.submit class: 'btn-primary' %>
     </div>
