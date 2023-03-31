@@ -1,14 +1,14 @@
 <h2 class="text-lg text-center">使用者列表</h2>
 <div class="my-4">
-  <h3>使用者暱稱：<span class="p-2 border"><%= current_user.nickname %></span></h3>
+  <h3>使用者暱稱：<span class="p-2 border"><%= current_user.name %></span></h3>
 </div>
 
 <%= form_with model: current_user, url: admin_user_path(current_user.id) do |f| %>
   <%#= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :nickname %><br />
-    <%= f.text_field :nickname, autofocus: true, class: "form-field" %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, class: "form-field" %>
   </div>
 
 

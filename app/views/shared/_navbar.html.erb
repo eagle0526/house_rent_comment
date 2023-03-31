@@ -7,6 +7,7 @@
     <div class="flex">
       <div class="flex items-center">
         <% if current_user %>          
+          <li><%= link_to "新增房屋", admin_user_houses_path(current_user), class:"mr-2 text-lg hover:text-major" %></li>
           <li><%= link_to "更新暱稱", edit_admin_user_path(current_user.id), class:"mr-2 text-lg hover:text-major" %></li>
           <li><%= link_to current_user.email, root_path, class:"mr-2 text-lg hover:text-major" %></li>
           <li class= "text-lg btn-primary">
