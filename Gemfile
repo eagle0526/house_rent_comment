@@ -75,8 +75,17 @@ group :test do
   gem "webdrivers"
 end
 
+# google login
 gem "devise", "~> 4.9"
 gem "omniauth", "~> 2.1"
 gem "omniauth-google-oauth2", "~> 1.1"
 gem "omniauth-facebook", "~> 9.0"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+# aws image
+gem 'carrierwave'
+gem "ruby-vips", "~> 2.1"
+gem 'image_processing'
+gem "aws-sdk-s3", require: false
+
+gem "paranoia", "~> 2.6"

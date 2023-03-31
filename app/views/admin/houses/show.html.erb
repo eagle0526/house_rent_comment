@@ -1,0 +1,48 @@
+<h2>使用者新增的房屋</h2>
+
+<br>
+<%= link_to "編輯", edit_admin_house_path(@house.id), class: "second-btn" %>
+<br>
+<section>
+  <div>
+    <h3 class="mb-4 text-center">你新增的所有房屋</h3>
+  </div>
+
+  <table class="w-full text-base text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+          <th class="px-6 py-3">id</th>
+          <th class="px-6 py-3">房屋名稱</th>
+          <th class="px-6 py-3">房屋描述</th>
+          <th class="px-6 py-3">圖片</th>
+      </tr>
+      </thead>
+      
+      <tbody>
+      
+      <tr>          
+          <td class="px-6 py-4"><%= @house.id %></td>
+          <td class="px-6 py-4"><%= @house.title %></td>
+          <td class="px-6 py-4"><%= @house.description %></td>
+          <% if @house.images.first %>
+            <td class="px-6 py-4"><%= image_tag @house.images.first %></td>
+          <% end %>
+
+      </tr>
+      
+      </tbody>
+      
+  </table>
+
+  <div>
+    <%= link_to "上一頁", admin_user_houses_path(current_user), class: "second-btn" %>
+    
+  
+  </div>
+
+
+</section>
+
+
+
+
