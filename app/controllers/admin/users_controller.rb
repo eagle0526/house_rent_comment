@@ -20,7 +20,7 @@ module Admin
     private
 
     def params_user
-      params.require(:user).permit(:nickname)
+      params.require(:user).permit(:name)
     end
   end
 end

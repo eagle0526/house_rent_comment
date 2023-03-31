@@ -1,0 +1,18 @@
+<div>
+  <%= form_with model: house, url: url do |f| %>
+    <div class="my-4">
+      <%= f.label :title, '新增房屋名稱' %>
+      <%= f.text_field :title, class: 'form-field' %>
+    </div>
+    
+    <div class="my-4">
+      <%= f.label :description, '新增房屋描述' %>
+      <%= f.text_area :description, class: 'form-field' %>
+    </div>
+
+    <div>      
+      <%= f.submit class: 'btn-primary' %>
+    </div>
+    
+  <% end %>
+</div>
