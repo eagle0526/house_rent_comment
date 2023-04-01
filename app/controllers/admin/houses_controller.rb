@@ -45,6 +45,14 @@ module Admin
       redirect_to admin_user_houses_path(current_user), alert: "成功刪除房屋"
     end
 
+    def destroy_image
+      # render html: params
+      @house = House.find_by(id: params[:house_id])
+      @house.images.find(params[:image_id]).purge
+      redirect_to edit_admin_house_path(@house), alert: "成功刪除圖片"
+
+    end
+
     private
 
     def params_house
