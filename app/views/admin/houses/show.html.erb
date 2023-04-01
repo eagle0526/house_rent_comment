@@ -24,8 +24,18 @@
           <td class="px-6 py-4"><%= @house.id %></td>
           <td class="px-6 py-4"><%= @house.title %></td>
           <td class="px-6 py-4"><%= @house.description %></td>
-          <% if @house.images.first %>
-            <td class="px-6 py-4"><%= image_tag @house.images.first %></td>
+          <% if @house.images.blank? %>
+            <td class="px-6 py-4">
+              123
+            </td>
+          <% else %>
+            <td class="px-6 py-4">
+              
+              <% @house.images.each do |image| %>
+                <%= image_tag image.variant(:thumb) %>                        
+              <% end %>
+            </td>
+
           <% end %>
 
       </tr>
