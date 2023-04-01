@@ -31,7 +31,7 @@
           <td class="px-6 py-4"><%= house.title %></td>
           <td class="px-6 py-4"><%= house.description %></td>
           <% if house.images.first %>
-            <td class="px-6 py-4"><%= image_tag house.images.first %></td>
+            <td class="px-6 py-4"><%= image_tag house.images.first.variant(:normal) %></td>
           <% end %>
           <td class="px-6 py-4"><%= link_to "刪除房屋", admin_house_path(house.id), data: { turbo_method: "delete", confirm: "確定嗎？" }, class: "second-btn" %></td>
 

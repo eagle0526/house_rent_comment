@@ -49,7 +49,7 @@ module Admin
       # render html: params
       @house = House.find_by(id: params[:house_id])
       @house.images.find(params[:image_id]).purge
-      redirect_to edit_admin_house_path(@house), alert: "成功刪除圖片"
+      redirect_to admin_house_path(@house), alert: "成功刪除圖片"
 
     end
 

@@ -29,11 +29,19 @@
               123
             </td>
           <% else %>
-            <td class="px-6 py-4">
-              
-              <% @house.images.each do |image| %>
-                <%= image_tag image.variant(:thumb) %>                        
-              <% end %>
+            <td class="px-6 py-4">            
+              <div class="grid grid-cols-4 gap-2" data-controller="house-delete">
+                <% @house.images.each do |image| %>
+                  <div class="relative">
+                    <%= link_to admin_house_destroy_image_path(@house, image), data: {turbo_method: "delete", confirm: "確定刪除?"} do %>
+                      <div class= 'absolute top-0 right-0 flex items-center justify-center w-5 h-5 mt-2 mr-2 text-white bg-red-600 rounded-full '>
+                        <i class= "text-xs fa-solid fa-x"></i>                                
+                      </div>              
+                    <% end %>
+                    <%= image_tag image.variant(:normal) %>
+                  </div>
+                <% end %>        
+              </div>              
             </td>
 
           <% end %>
