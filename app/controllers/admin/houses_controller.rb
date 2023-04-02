@@ -6,7 +6,7 @@ module Admin
 
     def index
 
-      @houses = House.all
+      @houses = current_user.houses
 
     end
 
