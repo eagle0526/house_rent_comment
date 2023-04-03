@@ -1,7 +1,7 @@
 module Admin
   class HousesController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_hosue, only: [:show, :edit, :update, :destroy]
+    before_action :find_house, only: [:show, :edit, :update, :destroy]
     # before_action :params_house, only: [:create, :update]
 
     def index
@@ -59,7 +59,7 @@ module Admin
       params.require(:house).permit(:title, :description, :tel, :address, :owner, images: [])
     end
 
-    def find_hosue
+    def find_house
       @house = House.find(params[:id])
     end
 

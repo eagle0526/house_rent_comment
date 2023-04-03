@@ -89,3 +89,6 @@ gem 'image_processing'
 gem "aws-sdk-s3", require: false
 
 gem "paranoia", "~> 2.6"
+
+gem "friendly_id", "~> 5.5"
+gem "babosa", "~> 2.0"
