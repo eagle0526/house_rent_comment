@@ -1,7 +1,7 @@
 module Admin
   class HousesController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_house, only: [:show, :edit, :update, :destroy]
+    before_action :find_house, only: [:show, :edit, :update, :destroy, :destroy_image]
     # before_action :params_house, only: [:create, :update]
 
     def index
@@ -46,8 +46,7 @@ module Admin
     end
 
     def destroy_image
-      # render html: params
-      @house = House.find_by(id: params[:house_id])
+      # render html: params      
       @house.images.find(params[:image_id]).purge
       redirect_to admin_house_path(@house), alert: "成功刪除圖片"
 
