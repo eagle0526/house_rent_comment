@@ -1,10 +1,4 @@
-<section class="mt-20">
-  <h2>個別頁面</h2>
-</section>
-
-
-
-<section class="mx-20">
+<section class="mx-36">
   <div class="mb-6 bg-white rounded-lg shadow">
             <div class="flex flex-row px-2 py-3 mx-3">
                 <div class="w-auto h-auto rounded-full">
@@ -29,34 +23,26 @@
                 </div>
             </div>
             <div class="border-b border-gray-100"></div>
-            <div class="px-2 mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">
-              
-                <div class="grid grid-cols-6 col-span-2 gap-2 ">                                      
-                  <% @house.images.each do |image| %>
-                    <div class=" overflow-hidden rounded-xl col-span-3 max-h-[14rem]">                        
-                        <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
-                          <%= image_tag image, class: "object-cover w-full h-full" %>
-                        </div>                                                                        
-                    </div>
-                  <% end %>                      
-                    <%# <div class=" overflow-hidden rounded-xl col-span-3 max-h-[14rem]"> %>
-                        <%# <img class="object-cover w-full h-full " src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1399&amp;q=80" alt=""> %>
-                        <%#= image_tag @house.images.second, class: "object-cover w-full h-full" %>
-                    <%# </div> %>
-                    <%# <div class=" overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
-                        <img class="object-cover w-full h-full " src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80" alt="">
-                    </div>
-                    <div class=" overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
-                        <img class="object-cover w-full h-full " src="https://images.unsplash.com/photo-1503602642458-232111445657?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=687&amp;q=80" alt="">
-                    </div>
-                    <div class="relative overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
-                        <img class="object-cover w-full h-full " src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=765&amp;q=80" alt="">
-                    </div> %>
-                  <%# end %>
+            <div class="px-2 mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">                            
+              <div class="flex gap-2">   
+                <div class="overflow-hidden rounded-xl max-h-[30rem] w-1/2">                        
+                  <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
+                    <%= image_tag @house.images.first, class: "object-cover w-full h-full" %>
+                  </div>                                                                        
                 </div>
-              
+                <div class="w-1/2 overflow-hidden rounded-xl">                    
+                    <div class="grid grid-cols-2 grid-rows-2 gap-4">
+                      <% @house.images[1..4].each do |image| %>
+                      <div class="w-full row-span-1 mr-1 text-xs text-blue-700 cursor-pointer font-base">
+                        <%#= image_tag image, class: "object-contain w-full h-full" %>
+                        <%= link_to image_tag(image), image.url, data: { lightbox: 'image-gallery' }, class: "object-cover w-full h-full" %>
+                      </div>
+                      <% end %>
+                    </div>                                                                          
+                </div>
+              </div>                              
             </div>
-            <div class="px-2 mx-3 mb-6 text-sm text-gray-500">Lorem Ipsum is simply dummy ... <span class="text-gray-400">more</span></div>
+            <div class="px-2 mx-3 mb-6 text-sm text-gray-500"><%= @house.description %>... <span class="text-gray-400">看更多</span></div>
             <div class="flex justify-start mb-4 border-t border-gray-100">
                 <div class="flex w-full pt-2 pl-5 mt-1">
                     <span class="w-8 h-8 px-2 pt-2 mr-2 text-center text-gray-400 transition duration-300 ease-out bg-white border rounded-full cursor-pointer hover:text-red-500">
