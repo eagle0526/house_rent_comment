@@ -15,7 +15,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :houses
+  resources :houses do
+    member do
+      resources :comments, shallow: true
+    end
+    
+  end
 
 
   # Defines the root path route ("/")
