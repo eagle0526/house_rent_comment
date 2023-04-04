@@ -5,8 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
 
-
+  # 一個使用者有新增多的租屋 
   has_many :houses
+
+  # 一個使用者，有很多的評論
+  has_many :comments
+  has_many :commented_houses, through: :comments, source: :house
 
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)

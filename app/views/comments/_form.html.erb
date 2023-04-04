@@ -1,0 +1,13 @@
+<section>
+  <%= form_with model: @comment, url: comments_path(house) do |f| %>
+    <div class="my-4">
+      <%= f.label :content, '留言' %>
+      <%= f.text_area :content, class: 'form-field' %>
+    </div>
+    
+    <div class="my-4">      
+      <%= f.submit class: 'btn-primary' %>
+    </div>
+    
+  <% end %>
+</section>

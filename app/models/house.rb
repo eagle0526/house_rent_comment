@@ -7,6 +7,11 @@ class House < ApplicationRecord
     attachable.variant :normal, resize_to_limit: [300, 300]
   end
 
+
+  # 一個房子，有很多的評論
+  has_many :comments
+  has_many :be_user_commented, through: :comments, source: :house
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
