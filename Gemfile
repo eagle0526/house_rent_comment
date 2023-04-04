@@ -87,8 +87,11 @@ gem 'carrierwave'
 gem "ruby-vips", "~> 2.1"
 gem 'image_processing'
 gem "aws-sdk-s3", require: false
+gem "lightbox2-rails", "~> 2.8"
 
 gem "paranoia", "~> 2.6"
 
 gem "friendly_id", "~> 5.5"
 gem "babosa", "~> 2.0"
+
+
