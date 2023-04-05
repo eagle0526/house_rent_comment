@@ -6,8 +6,15 @@
     <span class="ml-4 text-xs text-slate-400"><%= comment.created_at %></span>
   </p>
   <small class="mr-4">by <%= comment.user.name %></small>
+  <small class="mr-4">
+    <%= link_to '編輯', edit_comment_path(comment) %>
+  </small>
   <small class="mr-4">回覆</small>
-  <small class="mr-4">刪除留言</small>
+  <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
+    <small class="mr-4">    
+      <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", confirm: "確定嗎？"}, class: "text-red-500" %>
+    </small>
+  <% end %>
 
   <%# <div class="hidden"> %>
   <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>
