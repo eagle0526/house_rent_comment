@@ -9,9 +9,9 @@
   <small class="mr-4">回覆</small>
   <small class="mr-4">刪除留言</small>
 
-  <div class="hidden">
+  <%# <div class="hidden"> %>
   <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>
-  <%# <div class=""> %>
+  <div class="">
     <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment }%>          
   </div>
   
