@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :find_house, only: [:create]
+  before_action :find_comment, only: [:destroy]
 #   before_action :find_comment, only: [:show, :edit, :update, :destroy, :destroy_image]
 
   
@@ -14,6 +15,17 @@ class CommentsController < ApplicationController
       render html: '失敗增加留言'
     end
 
+  end
+
+
+  def edit
+    
+  end
+
+  def destroy
+    # render html: params
+    @comment.destroy
+    redirect_to house_path(@comment.house_id), alert: "成功刪除留言"
   end
 
   private
