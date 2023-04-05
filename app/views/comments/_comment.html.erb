@@ -1,6 +1,31 @@
 
+<%# 這個頁面是被選染出來的留言介面 %>
 <article>
-  <p><%= comment.content %></p>
-  <small>by <%= comment.user.name %></small>
+  <p>
+    <span><%= comment.content %></span>
+    <span class="ml-4 text-xs text-slate-400"><%= comment.created_at %></span>
+  </p>
+  <small class="mr-4">by <%= comment.user.name %></small>
+  <small class="mr-4">回覆</small>
+  <small class="mr-4">刪除留言</small>
+
+  <div class="hidden">
+  <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>
+  <%# <div class=""> %>
+    <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment }%>          
+  </div>
+  
+  <hr>
+
+  <%# 這裡的意思是，把該留言的子留言全部選染出來 %>
+  <%# ex. c = Comment.find(12)  c.comments => id=12 的全部留言抓出來並選染    %>
+  <%# 這裡拿到的comment是 @comments = @house.comments 這個迴圈轉出來的 %>
+  <div class="m-10">
+    <%= render comment.comments %>
+  </div>
+  
 </article>
-<hr>
+<%# <hr> %>
+
+
+<%# 之後整體邏輯應該是要這樣，一開始啥留言都沒有的時候，就留一個留言框框，之後如果有人留言了，就會選是一條訊息在下方，並且此訊息也可以被回覆，接下來 %>
