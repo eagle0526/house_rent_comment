@@ -92,7 +92,7 @@
             <div class="w-full p-10 mb-8 border-gray-100 border-y">
               <%= render @comments %>
               <%# 下面這邊是渲染留言表單出來，順便會把兩個實體變數傳過去，一個是房子實體變數傳過去變區域變數，一個是把nil當作parent區域變數傳過去 <%>
-              <%= render partial: 'comments/form', locals: { house: @house, parent: nil } %>
+              <%= render partial: 'comments/form', locals: { house: @house, parent: nil, url: comments_path(@house) } %>
             </div>            
             <br>
         </div>        
