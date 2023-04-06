@@ -70,7 +70,7 @@
             </div>
             <div class="flex w-full border-t border-gray-100">
                 <div class="flex flex-row mx-5 mt-3 text-xs">
-                    <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">Comments:<div class="ml-1 text-gray-400 text-ms"> 30</div></div>
+                    <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">Comments:<div class="ml-1 text-gray-400 text-ms"><%= @house.comments.size %></div></div>
                     <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">Views: <div class="ml-1 text-gray-400 text-ms"> 60k</div></div>
                 </div>
                 <div class="flex justify-end w-full mx-5 mt-3 text-xs">
@@ -91,18 +91,11 @@
 
             <div class="w-full p-10 mb-8 border-gray-100 border-y">
               <%= render @comments %>
-            </div>
+              <%# 下面這邊是渲染留言表單出來，順便會把兩個實體變數傳過去，一個是房子實體變數傳過去變區域變數，一個是把nil當作parent區域變數傳過去 <%>
+              <%= render partial: 'comments/form', locals: { house: @house, parent: nil } %>
+            </div>            
             <br>
         </div>        
-                   <%# 這邊是把所有留言渲染出來的地方 %>
-                   <div class="my-20">
-                     <strong>Comments</strong>
-                     <%# 這個之後要寫在controller，這邊目前是，只要有一個comment，就會把一個留言渲染出來，因為@house.comments的關係 %>
-                     <%= render @house.comments.where("parent_id IS NULL OR parent_id = 0").includes(:user).order(id: :desc) %>
-                     <%#= render @house.comments.includes(:user).order(id: :desc) %>           
-                     <%# 下面這邊是渲染留言表單出來，順便會把兩個實體變數傳過去，一個是房子實體變數傳過去變區域變數，一個是把nil當作parent區域變數傳過去 <%>
-                     <%= render partial: 'comments/form', locals: { house: @house, parent: nil } %>
-                   </div>        
   </div>
 </section>
 
