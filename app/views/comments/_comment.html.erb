@@ -1,5 +1,6 @@
 
 <%# 這個頁面是被選染出來的留言介面 %>
+<%= turbo_frame_tag dom_id(comment) do %>
 <article data-controller="comment-reply" class="">
   
   <p>
@@ -32,6 +33,7 @@
   </div>
   
 </article>
+<% end %>
 <%# <hr> %>
 
 
