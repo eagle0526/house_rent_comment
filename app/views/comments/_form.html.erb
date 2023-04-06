@@ -11,13 +11,13 @@
       <input type="hidden" name="parent_id" value="<%= parent.id %>">
     <% end %>
     <div class="my-4">
-      <%= f.label :content, '留言' %>
-      <%= f.text_area :content, class: 'form-field' %>
+      <%= f.label :content, '留言' %>      
+      <%= f.text_area :content, class: 'w-full py-2 pl-4 pr-10 text-sm placeholder-gray-400 bg-gray-100 border border-transparent appearance-none rounded-tg focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue' %>
     </div>
 
     
     <div class="my-4">      
-      <%= f.submit class: 'btn-primary' %>
+      <%= f.submit "送出", class: 'btn-primary' %>
     </div>
     
   <% end %>
