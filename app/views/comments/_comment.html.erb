@@ -19,7 +19,7 @@
 
   <div class="hidden" data-comment-reply-target="form">
   <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>  
-    <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment } %>          
+    <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment, url: comments_path(comment.house_id) } %>          
   </div>
   
   <hr>
