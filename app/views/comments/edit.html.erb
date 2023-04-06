@@ -1,3 +1,5 @@
 <h2>留言編輯</h2>
 
-<%= render "form", house: @house, comment: @comment, parent: @comment, url: comment_path(@comment) %>
+<%= turbo_frame_tag dom_id(@comment) do %>
+  <%= render "form", house: @house, comment: @comment, parent: @comment, url: comment_path(@comment) %>
+<% end %>
