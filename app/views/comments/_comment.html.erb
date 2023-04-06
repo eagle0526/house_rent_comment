@@ -8,9 +8,11 @@
     <span class="ml-4 text-xs text-slate-400"><%= comment.created_at %></span>
   </p>
   <small class="mr-4">by <%= comment.user.name %></small>
-  <small class="mr-4">
-    <%= link_to '編輯', edit_comment_path(comment) %>
-  </small>
+  <% if comment.user_id == current_user.id %>
+    <small class="mr-4">
+      <%= link_to '編輯', edit_comment_path(comment) %>
+    </small>
+  <% end %>
   <small class="mr-4 cursor-pointer" data-action="click->comment-reply#reply">回覆</small>
   <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
     <small class="mr-4">    

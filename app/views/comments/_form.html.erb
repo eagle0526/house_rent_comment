@@ -1,7 +1,5 @@
 <%# 這邊是被選染出來的留言表單 %>
-<section>
-  <%# 用form_with model的變數是 "無效的" 不過應該可以用 show那邊的參數傳過來才對%>
-  <%#= form_with model: @comment, url: comments_path(house) do |f| %>
+<section>    
   <%= form_with model: @comment, url: url do |f| %>
 
   <%# 用這個就可以了，所以也可以寫在 controller 的 show 那邊，最後再傳過來就好 %>
@@ -12,13 +10,13 @@
       <input type="hidden" name="parent_id" value="<%= parent.id %>">
     <% end %>
     <div class="my-4">
-      <%= f.label :content, '留言' %>      
-      <%= f.text_area :content, class: 'w-full py-2 pl-4 pr-10 text-sm placeholder-gray-400 bg-gray-100 border border-transparent appearance-none rounded-tg focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue' %>
+      <%#= f.label :content, '留言' %>      
+      <%= f.text_area :content, placeholder: '留下你的想法' ,class: 'w-full py-2 pl-4 pr-10 text-sm placeholder-gray-400 bg-gray-100 border border-transparent appearance-none rounded-tg focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue h-20' %>
     </div>
 
     
     <div class="my-4">      
-      <%= f.submit class: 'btn-primary' %>
+      <%= f.submit "送出", class: 'btn-primary' %>
     </div>
     
   <% end %>
