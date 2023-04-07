@@ -20,7 +20,7 @@ export default class extends Controller {
     if (likeState === 'true') {
       this.heartTarget.classList.add("bg-blue-100")
     } else if (likeState === 'false') {
-      this.heartCrackTarget.classList.add("bg-blue-100")      
+      this.heartCrackTarget.classList.add("bg-blue-100")
     }
 
   }

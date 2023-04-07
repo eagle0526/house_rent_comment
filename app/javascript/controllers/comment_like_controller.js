@@ -1,38 +1,84 @@
 import { Controller } from "@hotwired/stimulus"
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faHeartCrack } from '@fortawesome/free-solid-svg-icons' 
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { faThumbsUp as regularThumbsUp , faThumbsDown as  regularThumbsUDown } from '@fortawesome/free-regular-svg-icons'
+import { faThumbsUp as solidThumbsUP, faThumbsDown as solidThumbsDown } from '@fortawesome/free-solid-svg-icons' 
 
 export default class extends Controller {
 
-  static targets = [ 'heart', "heartCrack" ]
+  static targets = [ 'thumbsUp', "thumbsDown" ]
 
   initialize(){    
-    library.add(faHeart, faHeartCrack)
+    library.add(regularThumbsUp, regularThumbsUDown, solidThumbsUP, solidThumbsDown, )
   }
   connect() {
     dom.watch()
+
+    
+    const commentLikeState = this.element.dataset.commentLikeState
+    if (commentLikeState === 'true') {
+      this.thumbsUpTarget.classList.add("fa-solid")
+      this.thumbsUpTarget.classList.remove("fa-regular")
+
+      this.thumbsDownTarget.classList.add("fa-regular")
+      this.thumbsDownTarget.classList.remove("fa-solid")
+
+    } else if (commentLikeState === 'false') {
+      this.thumbsUpTarget.classList.add("fa-regular")
+      this.thumbsUpTarget.classList.remove("fa-solid")
+      
+      this.thumbsDownTarget.classList.add("fa-solid")
+      this.thumbsDownTarget.classList.remove("fa-regular")
+    }
+    
+  }
+
+  like() {    
+        
+    const commentId = this.element.dataset.commentId
+    const token = document.querySelector("meta[name='csrf-token']").content
+
+    fetch((`/comments/${commentId}/like`), {
+      method: "PATCH",
+      headers: {
+        "X-CSRF-Token": token
+      }
+    })
+    .then((resp) => {
+      return resp.json()
+    })
+    .then(({status}) => {
+      
+      if (status === "liked comment") {
+        this.thumbsUpTarget.classList.add("fa-solid")
+        this.thumbsUpTarget.classList.remove("fa-regular")
+      } else if (status === "delete comment like_state") {        
+        this.thumbsUpTarget.classList.add("fa-regular")
+        this.thumbsUpTarget.classList.remove("fa-solid")
+      } else {
+        // 倒讚
+        this.thumbsDownTarget.classList.remove("fa-solid")
+        this.thumbsDownTarget.classList.add("fa-regular")
+        // 正讚
+        this.thumbsUpTarget.classList.add("fa-solid")
+        this.thumbsUpTarget.classList.remove("fa-regular")
+      }
+
+    })
+    .catch((err) => {
+      console.log(err);
+    })
     
 
-    // 一進來就先判斷，LikeState中的state到底是空的還是false還是true
-    const likeState = this.element.dataset.likeState
-
-    if (likeState === 'true') {
-      this.heartTarget.classList.add("bg-blue-100")
-    } else if (likeState === 'false') {
-      this.heartCrackTarget.classList.add("bg-blue-100")      
-    }
 
   }
 
-  heart() {
+  dislike() {    
+    // console.log(this.thumbsDownTarget);
 
-    console.log(this.element.dataset);
-    const houseID = this.element.dataset.id
-    const token = document.querySelector("meta[name='csrf-token']").content    
+    const commentId = this.element.dataset.commentId
+    const token = document.querySelector("meta[name='csrf-token']").content
 
-    // 這個是新增like的路徑 - /houses/:id/like
-    fetch(`/houses/${houseID}/like`, {
+    fetch((`/comments/${commentId}/dislike`), {
       method: "PATCH",
       headers: {
         "X-CSRF-Token": token
@@ -41,49 +87,32 @@ export default class extends Controller {
     .then((resp) => {
       return resp.json()
     })
-    .then(({status}) => {      
-
-      if (status === "liked") {
-        this.heartTarget.classList.add("bg-blue-100")
-      } else if ( status === 'delete like_state' ) {
-        this.heartTarget.classList.remove("bg-blue-100") 
+    .then(({status}) => {
+      
+      if (status === "disliked comment") {
+        this.thumbsDownTarget.classList.add("fa-solid")
+        this.thumbsDownTarget.classList.remove("fa-regular")
+      } else if (status === "delete comment like_state") {        
+        this.thumbsDownTarget.classList.add("fa-regular")
+        this.thumbsDownTarget.classList.remove("fa-solid")
       } else {
-        this.heartCrackTarget.classList.remove("bg-blue-100")
-        this.heartTarget.classList.add("bg-blue-100") 
+        // 倒讚
+        this.thumbsUpTarget.classList.remove("fa-solid")
+        this.thumbsUpTarget.classList.add("fa-regular")
+        // 正讚
+        this.thumbsDownTarget.classList.add("fa-solid")
+        this.thumbsDownTarget.classList.remove("fa-regular")
       }
+
     })
     .catch((err) => {
       console.log(err);
     })
+
+
   }
 
-  heartCrack() {
 
-    const houseID = this.element.dataset.id
-    const token = document.querySelector("meta[name='csrf-token']").content    
 
-    fetch(`/houses/${houseID}/dislike`, {
-      method: "PATCH",
-      headers: {
-        "X-CSRF-Token": token
-      }
-    })
-    .then((resp) => {
-      return resp.json()
-    })
-    .then(({status}) => {      
-      if (status === "disliked") {
-        this.heartCrackTarget.classList.add("bg-blue-100")
-      } else if (status === "delete like_state")  {
-        this.heartCrackTarget.classList.remove("bg-blue-100") 
-      } else {
-        this.heartCrackTarget.classList.add("bg-blue-100")
-        this.heartTarget.classList.remove("bg-blue-100") 
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    }) 
-  }
 }
 
