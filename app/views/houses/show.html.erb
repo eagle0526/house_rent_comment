@@ -55,12 +55,12 @@
                     <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80" alt="">
                     <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.25&amp;w=256&amp;h=256&amp;q=80" alt="">
                 </div>
+                <%# 如果有找到該間房子，再查看他的state，如果state是true， %>
                 <div class="flex justify-end w-full pt-2 pr-5 mt-1"  
                      data-controller="house-like" 
                      data-id = '<%= @house.id %>'
                      data-user = '<%= current_user.id %>'
-                     data-liked = '<%= current_user.like_states.any? { |ele| ele.likeable_id == @house.id && ele.state == true } %>'                     
-                     data-disliked = '<%= current_user.like_states.any? { |ele| ele.likeable_id == @house.id && ele.state == false } %>'                     
+                     data-like-state = '<%= current_user.like_states.find_by(likeable_id: @house.id) ? current_user.like_states.find_by(likeable_id: @house.id).state : 'vacant' %>'                     
                      >
 
                   <span class="flex items-center justify-center px-2 py-2 mr-2 transition duration-300 ease-out border rounded-full cursor-pointer h-9 hover:bg-blue-50"   
@@ -83,7 +83,11 @@
                     <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">Views: <div class="ml-1 text-gray-400 text-ms"> 60k</div></div>
                 </div>
                 <div class="flex justify-end w-full mx-5 mt-3 text-xs">
-                    <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md">Likes: <div class="ml-1 text-gray-400 text-ms"> 120k</div></div>
+                  <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md">Likes: 
+                    <div class="ml-1 text-gray-400 text-ms">
+                      <%= @house.like_states.select { |like| like.state }.size %>
+                    </div>
+                  </div>
                 </div>
             </div>
 

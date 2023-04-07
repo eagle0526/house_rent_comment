@@ -33,7 +33,7 @@ module Admin
     end
 
     def update
-      if @house.update(params_house)
+      if @house.update(params_house)        
         redirect_to admin_house_path(@house), notice: "成功編輯房屋"
       else
         render :edit
@@ -55,6 +55,9 @@ module Admin
     private
 
     def params_house
+      # attributes = [ :title, :description, :tel, :address, :owner, images: [] ]
+      # params.require(:house).permit(*attributes)
+      
       params.require(:house).permit(:title, :description, :tel, :address, :owner, images: [])
     end
 
