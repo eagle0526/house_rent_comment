@@ -20,28 +20,53 @@ class HousesController < ApplicationController
 
   def like
 
+    # 先確認之前有沒有資料存在裡面
+    like_state = current_user.like_states.find_by(likeable_id: @house.id)
+
+    # 如果今天有資料存在裡面，有兩種狀況
+    # (1) 之前有人按過倒讚，所以state是false => 因此這個我們要把它變成true
+    # (2) 之前有人按過正讚，所以state是true => 因此這個我們要移除like_state
+    # 如果沒有資料存在裡面，有兩種情況
+    # (1) 從來沒有點過讚
+    # (2) 有點過讚，但是點第二次，被刪掉了 => 兩種情況都一樣，我們要新增一個新的state: true的like_state進去
+    if like_state
+      if like_state.state == false
+        like_state.update(state: true)
+        render json: { status: 'covert dislike to liked' }
+      else
+        like_state.delete
+        render json: { status: 'delete like_state' }
+      end
+    else
+      current_user.like_states.create(state: true, likeable: @house)
+      render json: { status: 'liked' }
+
+    end
+
+
+
     # u1.like_states.new(boolean: true, likeable: h)
 
-    # 如果今天使用者有對這間房屋按讚 - 先抓出使用者 <-> Like 的表，查看state是不是true
-    if current_user.like_states.any? { |ele| ele.likeable_id == @house.id && ele.state == true }
-      # 我們把state轉成false  
-      like_state = current_user.like_states.find_by(likeable_id: @house.id)
-      like_state.update(state: false)
-      render json: { status: 'disliked', like_state: like_state }
-    else
-      # 如果沒有，我們像這樣新增u1.like_states.new(boolean: true, likeable: h)，state是true
-      # 如果曾經有資料有在裡面，只是state狀態為false的話
-      if current_user.like_states.find_by(likeable_id: @house.id)
-        like_state = current_user.like_states.find_by(likeable_id: @house.id)
-        like_state.update(state: true)      
-      else
-        # 如果完全沒有在裡面，就直接新增一個LikeState
-        current_user.like_states.new(state: true, likeable: @house)
-        current_user.save
-      end      
+    # # 如果今天使用者有對這間房屋按讚 - 先抓出使用者 <-> Like 的表，查看state是不是true
+    # if current_user.like_states.any? { |ele| ele.likeable_id == @house.id && ele.state == true }
+    #   # 我們把state轉成false  
+    #   like_state = current_user.like_states.find_by(likeable_id: @house.id)
+    #   like_state.update(state: false)
+    #   render json: { status: 'disliked', like_state: like_state }
+    # else
+    #   # 如果沒有，我們像這樣新增u1.like_states.new(boolean: true, likeable: h)，state是true
+    #   # 如果曾經有資料有在裡面，只是state狀態為false的話
+    #   if current_user.like_states.find_by(likeable_id: @house.id)
+    #     like_state = current_user.like_states.find_by(likeable_id: @house.id)
+    #     like_state.update(state: true)      
+    #   else
+    #     # 如果完全沒有在裡面，就直接新增一個LikeState
+    #     current_user.like_states.new(state: true, likeable: @house)
+    #     current_user.save
+    #   end      
       
-      render json: { status: 'liked' }
-    end
+    #   render json: { status: 'liked' }
+    # end
     # 我們把state轉成false
 
     # 如果沒有，我們像這樣新增u1.like_states.new(boolean: true, likeable: h)，state是true
