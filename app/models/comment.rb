@@ -4,6 +4,9 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :house
 
+  # 一個留言，有很多被按讚
+  has_many :like_states, as: :likeable
+
   validates :content, presence: true, length: { minimum: 5 }
 
   # 留言自聯結
