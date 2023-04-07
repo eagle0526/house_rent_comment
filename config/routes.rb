@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   resources :houses do
     member do
       resources :comments, shallow: true
+
+      # 房子按讚
+      patch :like
+      patch :dislike
     end
     
   end

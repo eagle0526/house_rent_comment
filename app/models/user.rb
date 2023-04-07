@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :comments
   has_many :commented_houses, through: :comments, source: :house
 
+  # 一個使用者，按很多留言/房子的讚/倒讚
+  has_many :like_states
+
 
   def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
     data = access_token.info

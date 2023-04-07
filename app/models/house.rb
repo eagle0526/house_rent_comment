@@ -12,6 +12,9 @@ class House < ApplicationRecord
   has_many :comments
   has_many :be_user_commented, through: :comments, source: :house
 
+  # 一個房子，有很多被按讚
+  has_many :like_states, as: :likeable
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
