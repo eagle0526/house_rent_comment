@@ -1,40 +1,64 @@
 
 <%# 這個頁面是被選染出來的留言介面 %>
 <%= turbo_frame_tag dom_id(comment) do %>
-<article data-controller="comment-reply" class="">
-  
-  <p>
-    <span><%= comment.content %></span>
-    <span class="ml-4 text-xs text-slate-400"><%= comment.created_at %></span>
-  </p>
-  <small class="mr-4">by <%= comment.user.name %></small>
-  <% if comment.user_id == current_user.id %>
-    <small class="mr-4">
-      <%= link_to '編輯', edit_comment_path(comment) %>
-    </small>
-  <% end %>
-  <small class="mr-4 cursor-pointer" data-action="click->comment-reply#reply">回覆</small>
-  <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
-    <small class="mr-4">    
-      <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", confirm: "確定嗎？"}, class: "text-red-500" %>
-    </small>
-  <% end %>
+  <article data-controller="comment-reply" class="">
+    
+    <p class="my-4">
+      <span><%= comment.content %></span>
+      <span class="ml-4 text-xs text-slate-400"><%= comment.created_at %></span>
+    </p>
 
-  <div class="hidden" data-comment-reply-target="form">
-  <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>  
-    <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment, url: comments_path(comment.house_id) } %>          
-  </div>
-  
-  <hr>
+    <small data-controller="comment-like"
+           data-comment-id = "<%= comment.id %>"
+           data-comment-like-state = '<%= current_user.like_states.find_by(likeable_type: "Comment", likeable_id: comment.id) ? current_user.like_states.find_by(likeable_type: "Comment", likeable_id: comment.id).state : 'vacant' %>'  >
+      <span class="mr-4">        
+        <i class="cursor-pointer fa-regular fa-thumbs-up" data-action = "click->comment-like#like" 
+                                                          data-comment-like-target="thumbsUp"></i>
+        
+        <span>123</span>
+      </span>
+      <span class="mr-4">
+        <i class="cursor-pointer fa-regular fa-thumbs-down" data-action = "click->comment-like#dislike" 
+                                                            data-comment-like-target="thumbsDown"></i>
+        <%# <i class="fa-solid fa-thumbs-down"></i> %>
+        <span>123</span>
+      </span>      
+    </small>
 
-  <%# 這裡的意思是，把該留言的子留言全部選染出來 %>
-  <%# ex. c = Comment.find(12)  c.comments => id=12 的全部留言抓出來並選染    %>
-  <%# 這裡拿到的comment是 @comments = @house.comments 這個迴圈轉出來的 %>
-  <div class="m-10">
-    <%= render comment.comments %>
-  </div>
+    <small class="mr-4">by <%= comment.user.name %></small>
+
+    <% if comment.user_id == current_user.id %>
+      <small class="mr-4">
+        <%= link_to '編輯', edit_comment_path(comment) %>
+      </small>
+    <% end %>
+
+    <small class="mr-4 cursor-pointer" data-action="click->comment-reply#reply">回覆</small>
+
+
+      
+    
+    <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
+      <small class="mr-4">    
+        <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", confirm: "確定嗎？"}, class: "text-red-500" %>
+      </small>
+    <% end %>
   
-</article>
+    <div class="hidden" data-comment-reply-target="form">
+    <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>  
+      <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment, url: comments_path(comment.house_id) } %>          
+    </div>
+    
+    <hr>
+  
+    <%# 這裡的意思是，把該留言的子留言全部選染出來 %>
+    <%# ex. c = Comment.find(12)  c.comments => id=12 的全部留言抓出來並選染    %>
+    <%# 這裡拿到的comment是 @comments = @house.comments 這個迴圈轉出來的 %>
+    <div class="m-10">
+      <%= render comment.comments %>
+    </div>
+    
+  </article>
 <% end %>
 <%# <hr> %>
 
