@@ -33,7 +33,8 @@ class CommentsController < ApplicationController
 
   def like        
     # 先確定有沒有在資料庫裡面
-    comment_like_state = current_user.like_states.find_by(likeable_type: "Comment", likeable_id: @comment.id)
+    # comment_like_state = current_user.like_states.find_by(likeable_type: "Comment", likeable_id: @comment.id)
+    comment_like_state = current_user.comment_like_state(@comment.id)
 
     # 如果有在裡面，代表兩件事
     # (1) 之前有人對該則留言按過讚 state: true -> 之後我們要把該則留言刪掉
@@ -60,7 +61,8 @@ class CommentsController < ApplicationController
 
   def dislike
     # 先確定有沒有在資料庫裡面
-    comment_like_state = current_user.like_states.find_by(likeable_type: "Comment", likeable_id: @comment.id)    
+    # comment_like_state = current_user.like_states.find_by(likeable_type: "Comment", likeable_id: @comment.id)
+    comment_like_state = current_user.comment_like_state(@comment.id)
 
     # 如果有在裡面，代表兩件事
     # (1) 之前有人對該則留言按過倒讚 state: false -> 之後我們要把該則留言刪掉

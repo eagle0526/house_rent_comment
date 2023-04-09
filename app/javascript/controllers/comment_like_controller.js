@@ -33,7 +33,7 @@ export default class extends Controller {
   }
 
   like() {    
-        
+    console.log(this.element.dataset);    
     const commentId = this.element.dataset.commentId
     const token = document.querySelector("meta[name='csrf-token']").content
 
