@@ -25,7 +25,7 @@ export default class extends Controller {
 
   }
 
-  heart() {
+  heart() {    
 
     console.log(this.element.dataset);
     const houseID = this.element.dataset.id
@@ -43,9 +43,9 @@ export default class extends Controller {
     })
     .then(({status}) => {      
 
-      if (status === "liked") {
+      if (status === "liked house") {
         this.heartTarget.classList.add("bg-blue-100")
-      } else if ( status === 'delete like_state' ) {
+      } else if ( status === 'delete house like_state' ) {
         this.heartTarget.classList.remove("bg-blue-100") 
       } else {
         this.heartCrackTarget.classList.remove("bg-blue-100")
@@ -72,9 +72,9 @@ export default class extends Controller {
       return resp.json()
     })
     .then(({status}) => {      
-      if (status === "disliked") {
+      if (status === "disliked houses") {
         this.heartCrackTarget.classList.add("bg-blue-100")
-      } else if (status === "delete like_state")  {
+      } else if (status === "delete house like_state")  {
         this.heartCrackTarget.classList.remove("bg-blue-100") 
       } else {
         this.heartCrackTarget.classList.add("bg-blue-100")

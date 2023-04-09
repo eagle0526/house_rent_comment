@@ -9,8 +9,9 @@
     </p>
 
     <small data-controller="comment-like"
-           data-comment-id = "<%= comment.id %>"
-           data-comment-like-state = '<%= current_user.like_states.find_by(likeable_type: "Comment", likeable_id: comment.id) ? current_user.like_states.find_by(likeable_type: "Comment", likeable_id: comment.id).state : 'vacant' %>'  >
+           data-comment-id = "<%= comment.id %>"           
+           data-comment-like-state = '<%= current_user.comment_like_state(comment.id) ? current_user.comment_like_state(comment.id).state : 'vacant' %>'
+           >
       <span class="mr-4">        
         <i class="cursor-pointer fa-regular fa-thumbs-up" data-action = "click->comment-like#like" 
                                                           data-comment-like-target="thumbsUp"></i>
@@ -19,8 +20,7 @@
       </span>
       <span class="mr-4">
         <i class="cursor-pointer fa-regular fa-thumbs-down" data-action = "click->comment-like#dislike" 
-                                                            data-comment-like-target="thumbsDown"></i>
-        <%# <i class="fa-solid fa-thumbs-down"></i> %>
+                                                            data-comment-like-target="thumbsDown"></i>        
         <span>123</span>
       </span>      
     </small>

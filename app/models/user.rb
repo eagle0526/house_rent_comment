@@ -68,4 +68,14 @@ class User < ApplicationRecord
     return user
   end
 
+  # 找到指定的house 
+  def house_like_state(house)
+    like_states.find_by(likeable_type: "House", likeable_id: house)
+  end
+
+  # 找到指定的comment
+  def comment_like_state(comment)
+    like_states.find_by(likeable_type: "Comment", likeable_id: comment)
+  end
+
 end

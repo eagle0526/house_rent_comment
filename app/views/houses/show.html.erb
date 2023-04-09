@@ -58,9 +58,9 @@
                 <%# 如果有找到該間房子，再查看他的state，如果state是true， %>
                 <div class="flex justify-end w-full pt-2 pr-5 mt-1"  
                      data-controller="house-like" 
-                     data-id = '<%= @house.id %>'
+                     data-id = '<%= @house.id %>'                     
                      data-user = '<%= current_user.id %>'
-                     data-like-state = '<%= current_user.like_states.find_by(likeable_id: @house.id) ? current_user.like_states.find_by(likeable_id: @house.id).state : 'vacant' %>'                     
+                     data-like-state = '<%= current_user.house_like_state(@house.id) ? current_user.house_like_state(@house.id).state : 'vacant'%>'
                      >
 
                   <span class="flex items-center justify-center px-2 py-2 mr-2 transition duration-300 ease-out border rounded-full cursor-pointer h-9 hover:bg-blue-50"   
