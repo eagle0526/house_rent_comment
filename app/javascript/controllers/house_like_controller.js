@@ -5,14 +5,13 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 
 export default class extends Controller {
 
-  static targets = [ 'heart', "heartCrack" ]
+  static targets = [ 'heart', "heartCrack", "houseLikeCount" ]
 
   initialize(){    
     library.add(faHeart, faHeartCrack)
   }
   connect() {
-    dom.watch()
-    
+    dom.watch()    
 
     // 一進來就先判斷，LikeState中的state到底是空的還是false還是true
     const likeState = this.element.dataset.likeState
@@ -27,7 +26,7 @@ export default class extends Controller {
 
   heart() {    
 
-    console.log(this.element.dataset);
+    
     const houseID = this.element.dataset.id
     const token = document.querySelector("meta[name='csrf-token']").content    
 
@@ -41,7 +40,7 @@ export default class extends Controller {
     .then((resp) => {
       return resp.json()
     })
-    .then(({status}) => {      
+    .then(({status, likeCount, dislikeCount}) => {      
 
       if (status === "liked house") {
         this.heartTarget.classList.add("bg-blue-100")
@@ -51,10 +50,19 @@ export default class extends Controller {
         this.heartCrackTarget.classList.remove("bg-blue-100")
         this.heartTarget.classList.add("bg-blue-100") 
       }
+
+    
+    // 這邊把後端傳來的實際數量，再用dispatch傳到顯示數量的controller
+    const increaseCount = new CustomEvent("increase", {
+      detail: {likeCount: likeCount, dislikeCount: dislikeCount}
+    }) 
+    window.dispatchEvent(increaseCount)
+
     })
     .catch((err) => {
       console.log(err);
     })
+
   }
 
   heartCrack() {
@@ -71,7 +79,7 @@ export default class extends Controller {
     .then((resp) => {
       return resp.json()
     })
-    .then(({status}) => {      
+    .then(({status, likeCount, dislikeCount}) => {      
       if (status === "disliked houses") {
         this.heartCrackTarget.classList.add("bg-blue-100")
       } else if (status === "delete house like_state")  {
@@ -80,10 +88,21 @@ export default class extends Controller {
         this.heartCrackTarget.classList.add("bg-blue-100")
         this.heartTarget.classList.remove("bg-blue-100") 
       }
+
+
+
+      // 這邊把後端傳來的實際數量，再用dispatch傳到顯示數量的controller
+      const decreaseCount = new CustomEvent("decrease", {
+        detail: {likeCount: likeCount, dislikeCount: dislikeCount}
+      }) 
+      window.dispatchEvent(decreaseCount)
     })
     .catch((err) => {
       console.log(err);
     }) 
+
+
+
   }
 }
 
