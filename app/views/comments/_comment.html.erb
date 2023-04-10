@@ -10,7 +10,7 @@
 
     <small data-controller="comment-like"
            data-comment-id = "<%= comment.id %>"           
-           data-comment-like-state = '<%= current_user.comment_like_state(comment.id) ? current_user.comment_like_state(comment.id).state : 'vacant' %>'
+           data-comment-like-state = '<%= current_user.comment_like_state(comment.id) ? current_user.comment_like_state(comment.id).state : 'vacant' if current_user %>'
            >
       <span class="mr-4">        
         <i class="cursor-pointer fa-regular fa-thumbs-up" data-action = "click->comment-like#like" 
@@ -26,24 +26,25 @@
     </small>
 
     <small class="mr-4">by <%= comment.user.name %></small>
-
-    <% if comment.user_id == current_user.id %>
-      <small class="mr-4">
-        <%= link_to '編輯', edit_comment_path(comment) %>
-      </small>
+    <% if current_user %>
+      <% if comment.user_id == current_user.id %>
+        <small class="mr-4">
+          <%= link_to '編輯', edit_comment_path(comment) %>
+        </small>
+      <% end %>
     <% end %>
 
     <small class="mr-4 cursor-pointer" data-action="click->comment-reply#reply">回覆</small>
 
 
       
-    
-    <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
-      <small class="mr-4">    
-        <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", confirm: "確定嗎？"}, class: "text-red-500" %>
-      </small>
+    <% if current_user %>
+      <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
+        <small class="mr-4">    
+          <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", confirm: "確定嗎？"}, class: "text-red-500" %>
+        </small>
+      <% end %>
     <% end %>
-  
     <div class="hidden" data-comment-reply-target="form">
     <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>  
       <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment, url: comments_path(comment.house_id) } %>          
