@@ -16,25 +16,18 @@ export default class extends Controller {
     
     const commentLikeState = this.element.dataset.commentLikeState
     if (commentLikeState === 'true') {
-      this.thumbsUpTarget.classList.add("fa-solid")
-      this.thumbsUpTarget.classList.remove("fa-regular")
-
-      this.thumbsDownTarget.classList.add("fa-regular")
-      this.thumbsDownTarget.classList.remove("fa-solid")
+      // 如果是正讚，讓正讚是solid，倒讚是regular
+      this.likeButtonSolid()
+      this.dislikeButtonRegular()
 
     } else if (commentLikeState === 'false') {
-      this.thumbsUpTarget.classList.add("fa-regular")
-      this.thumbsUpTarget.classList.remove("fa-solid")
-      
-      this.thumbsDownTarget.classList.add("fa-solid")
-      this.thumbsDownTarget.classList.remove("fa-regular")
+      this.dislikeButtonSolid()
+      this.likeButtonRegular()
     }
     
   }
 
   like() {    
-    console.log(this.element.dataset);    
-    console.log(this.commentLikeCountTarget);
 
     const commentId = this.element.dataset.commentId
     const token = document.querySelector("meta[name='csrf-token']").content
@@ -51,22 +44,17 @@ export default class extends Controller {
     .then(({status, likeCommentCount, dislikeCommentCount}) => {
       
       if (status === "liked comment") {
-        this.thumbsUpTarget.classList.add("fa-solid")
-        this.thumbsUpTarget.classList.remove("fa-regular")
+        this.likeButtonSolid()
       } else if (status === "delete comment like_state") {        
-        this.thumbsUpTarget.classList.add("fa-regular")
-        this.thumbsUpTarget.classList.remove("fa-solid")
+        this.likeButtonRegular()
       } else {
-        // 倒讚
-        this.thumbsDownTarget.classList.remove("fa-solid")
-        this.thumbsDownTarget.classList.add("fa-regular")
-        // 正讚
-        this.thumbsUpTarget.classList.add("fa-solid")
-        this.thumbsUpTarget.classList.remove("fa-regular")
+        // 倒讚Regular        
+        this.dislikeButtonRegular()
+        // 正讚Solid
+        this.likeButtonSolid()
       }
 
-      this.commentLikeCountTarget.textContent = likeCommentCount
-      this.commentDislikeCountTarget.textContent = dislikeCommentCount
+      this.setTextContent(likeCommentCount, dislikeCommentCount)
 
     })
     .catch((err) => {
@@ -94,30 +82,51 @@ export default class extends Controller {
     .then(({status, likeCommentCount, dislikeCommentCount}) => {
       
       if (status === "disliked comment") {
-        this.thumbsDownTarget.classList.add("fa-solid")
-        this.thumbsDownTarget.classList.remove("fa-regular")
+        this.dislikeButtonSolid()
       } else if (status === "delete comment like_state") {        
-        this.thumbsDownTarget.classList.add("fa-regular")
-        this.thumbsDownTarget.classList.remove("fa-solid")
+        this.dislikeButtonRegular()
       } else {
-        // 倒讚
-        this.thumbsUpTarget.classList.remove("fa-solid")
-        this.thumbsUpTarget.classList.add("fa-regular")
-        // 正讚
-        this.thumbsDownTarget.classList.add("fa-solid")
-        this.thumbsDownTarget.classList.remove("fa-regular")
+        // 正讚Regular
+        this.likeButtonRegular()
+        // 倒讚Solid
+        this.dislikeButtonSolid()
       }
 
-
-      this.commentLikeCountTarget.textContent = likeCommentCount
-      this.commentDislikeCountTarget.textContent = dislikeCommentCount
+      this.setTextContent(likeCommentCount, dislikeCommentCount)
 
     })
     .catch((err) => {
       console.log(err);
     })
+  }
+
+  
+
+  likeButtonSolid() {
+    this.thumbsUpTarget.classList.add("fa-solid")
+    this.thumbsUpTarget.classList.remove("fa-regular")
+  }
+
+  likeButtonRegular() {
+   this.thumbsUpTarget.classList.remove("fa-solid")
+   this.thumbsUpTarget.classList.add("fa-regular")
+  }
+
+  dislikeButtonSolid() {
+    this.thumbsDownTarget.classList.add("fa-solid")
+    this.thumbsDownTarget.classList.remove("fa-regular")
+  }
+
+  dislikeButtonRegular(){
+    this.thumbsDownTarget.classList.add("fa-regular")
+    this.thumbsDownTarget.classList.remove("fa-solid")
+  }
 
 
+
+  setTextContent(likeCommentCount, dislikeCommentCount) {
+    this.commentLikeCountTarget.textContent = likeCommentCount
+    this.commentDislikeCountTarget.textContent = dislikeCommentCount
   }
 
 

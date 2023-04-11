@@ -15,16 +15,17 @@ export default class extends Controller {
   }
 
   increase({detail}) {    
-
-    this.likeCountTarget.textContent = detail.houseLikeCount    
-    this.disLikeCountTarget.textContent = detail.houseDislikeCount
+    this.setTextContent(detail.houseLikeCount, detail.houseDislikeCount)
   }
 
   decrease({detail}) {
-    
-    this.likeCountTarget.textContent = detail.houseLikeCount
-    this.disLikeCountTarget.textContent = detail.houseDislikeCount
+    this.setTextContent(detail.houseLikeCount, detail.houseDislikeCount)    
 
+  }
+
+  setTextContent(houseLikeCount, houseDislikeCount) {
+    this.likeCountTarget.textContent = houseLikeCount
+    this.disLikeCountTarget.textContent = houseDislikeCount
   }
 
 
