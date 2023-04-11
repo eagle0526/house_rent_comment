@@ -16,14 +16,16 @@
         <i class="cursor-pointer fa-regular fa-thumbs-up" data-action = "click->comment-like#like" 
                                                           data-comment-like-target="thumbsUp"></i>
         
-        <span>
-          <%= comment.like_states.size %>
+        <span data-comment-like-target="commentLikeCount">
+          <%= comment.like_states.comment_true_count %>
         </span>
       </span>
       <span class="mr-4">
         <i class="cursor-pointer fa-regular fa-thumbs-down" data-action = "click->comment-like#dislike" 
                                                             data-comment-like-target="thumbsDown"></i>        
-        <span>123</span>
+        <span data-comment-like-target="commentDislikeCount">
+          <%= comment.like_states.comment_false_count %>
+        </span>
       </span>      
     </small>
 

@@ -5,7 +5,7 @@ import { faThumbsUp as solidThumbsUP, faThumbsDown as solidThumbsDown } from '@f
 
 export default class extends Controller {
 
-  static targets = [ 'thumbsUp', "thumbsDown" ]
+  static targets = [ 'thumbsUp', "thumbsDown", "commentLikeCount", "commentDislikeCount" ]
 
   initialize(){    
     library.add(regularThumbsUp, regularThumbsUDown, solidThumbsUP, solidThumbsDown, )
@@ -34,6 +34,8 @@ export default class extends Controller {
 
   like() {    
     console.log(this.element.dataset);    
+    console.log(this.commentLikeCountTarget);
+
     const commentId = this.element.dataset.commentId
     const token = document.querySelector("meta[name='csrf-token']").content
 
@@ -46,7 +48,7 @@ export default class extends Controller {
     .then((resp) => {
       return resp.json()
     })
-    .then(({status}) => {
+    .then(({status, likeCommentCount, dislikeCommentCount}) => {
       
       if (status === "liked comment") {
         this.thumbsUpTarget.classList.add("fa-solid")
@@ -63,6 +65,9 @@ export default class extends Controller {
         this.thumbsUpTarget.classList.remove("fa-regular")
       }
 
+      this.commentLikeCountTarget.textContent = likeCommentCount
+      this.commentDislikeCountTarget.textContent = dislikeCommentCount
+
     })
     .catch((err) => {
       console.log(err);
@@ -72,8 +77,7 @@ export default class extends Controller {
 
   }
 
-  dislike() {    
-    // console.log(this.thumbsDownTarget);
+  dislike() {        
 
     const commentId = this.element.dataset.commentId
     const token = document.querySelector("meta[name='csrf-token']").content
@@ -87,7 +91,7 @@ export default class extends Controller {
     .then((resp) => {
       return resp.json()
     })
-    .then(({status}) => {
+    .then(({status, likeCommentCount, dislikeCommentCount}) => {
       
       if (status === "disliked comment") {
         this.thumbsDownTarget.classList.add("fa-solid")
@@ -103,6 +107,10 @@ export default class extends Controller {
         this.thumbsDownTarget.classList.add("fa-solid")
         this.thumbsDownTarget.classList.remove("fa-regular")
       }
+
+
+      this.commentLikeCountTarget.textContent = likeCommentCount
+      this.commentDislikeCountTarget.textContent = dislikeCommentCount
 
     })
     .catch((err) => {
