@@ -32,12 +32,5 @@ class House < ApplicationRecord
   end  
 
 
-  # house被點讚數量
-  # scope :liked_count, -> {
-  #   joins(:like_states).where('like_states.state = ?', true).count
-  # }
-
-  # scope :good, -> { where(id: 1) }
-
 
 end

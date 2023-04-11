@@ -13,10 +13,11 @@ class HousesController < ApplicationController
     @comment = @house.comments.new
     @comments = @house.comments.where("parent_id IS NULL OR parent_id = 0").includes(:user)
     
-    # 喜歡的數量
-    @liked_houses_count = @house.like_states.select { |like| like.state }.size
-    # 不喜歡的數量
-    @dislikeed_houses_count = @house.like_states.size - @house.like_states.select { |like| like.state }.size
+    # 喜歡的數量    
+    @liked_houses_count = @house.like_states.house_true_count
+    # 不喜歡的數量    
+    @dislikeed_houses_count = @house.like_states.house_state_count
+
   end
 
 

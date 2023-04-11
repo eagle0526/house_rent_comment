@@ -16,7 +16,9 @@
         <i class="cursor-pointer fa-regular fa-thumbs-up" data-action = "click->comment-like#like" 
                                                           data-comment-like-target="thumbsUp"></i>
         
-        <span>123</span>
+        <span>
+          <%= comment.like_states.size %>
+        </span>
       </span>
       <span class="mr-4">
         <i class="cursor-pointer fa-regular fa-thumbs-down" data-action = "click->comment-like#dislike" 
