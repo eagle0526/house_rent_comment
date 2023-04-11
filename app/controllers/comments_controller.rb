@@ -35,6 +35,10 @@ class CommentsController < ApplicationController
     # 先確定有沒有在資料庫裡面
     # comment_like_state = current_user.like_states.find_by(likeable_type: "Comment", likeable_id: @comment.id)
     comment_like_state = current_user.comment_like_state(@comment.id)
+    
+    # 計算喜歡和不喜歡的數量
+    like_comment_count = @comment.like_states.comment_true_count
+    dislike_comment_count = @comment.like_states.comment_false_count
 
     # 如果有在裡面，代表兩件事
     # (1) 之前有人對該則留言按過讚 state: true -> 之後我們要把該則留言刪掉
@@ -46,15 +50,17 @@ class CommentsController < ApplicationController
 
       if comment_like_state.state == true
         comment_like_state.delete
-        render json: { status: 'delete comment like_state' }
+        render json: { status: 'delete comment like_state', likeCommentCount: like_comment_count-1, dislikeCommentCount: dislike_comment_count }
       else
         comment_like_state.update(state: true)
-        render json: { status: 'covert comment disliked to liked' }
+        render json: { status: 'covert comment disliked to liked', likeCommentCount: like_comment_count+1, dislikeCommentCount: dislike_comment_count-1 }
       end
     else
       current_user.like_states.create(state: true, likeable: @comment)
-      render json: { status: 'liked comment' }
+      render json: { status: 'liked comment', likeCommentCount: like_comment_count+1, dislikeCommentCount: dislike_comment_count }
     end
+
+
 
   end
 
@@ -63,6 +69,10 @@ class CommentsController < ApplicationController
     # 先確定有沒有在資料庫裡面
     # comment_like_state = current_user.like_states.find_by(likeable_type: "Comment", likeable_id: @comment.id)
     comment_like_state = current_user.comment_like_state(@comment.id)
+
+    # 計算喜歡和不喜歡的數量
+    like_comment_count = @comment.like_states.comment_true_count
+    dislike_comment_count = @comment.like_states.comment_false_count
 
     # 如果有在裡面，代表兩件事
     # (1) 之前有人對該則留言按過倒讚 state: false -> 之後我們要把該則留言刪掉
@@ -74,14 +84,14 @@ class CommentsController < ApplicationController
     if comment_like_state
       if comment_like_state.state == false
         comment_like_state.delete
-        render json: { status: 'delete comment like_state' }
+        render json: { status: 'delete comment like_state', likeCommentCount: like_comment_count, dislikeCommentCount: dislike_comment_count-1 }
       else
         comment_like_state.update(state: false)
-        render json: { status: 'covert comment liked to disliked' }
+        render json: { status: 'covert comment liked to disliked', likeCommentCount: like_comment_count-1, dislikeCommentCount: dislike_comment_count+1 }
       end
     else
       current_user.like_states.create(state: false, likeable: @comment)
-      render json: { status: 'disliked comment' }
+      render json: { status: 'disliked comment', likeCommentCount: like_comment_count, dislikeCommentCount: dislike_comment_count+1 }
     end
     
   end
@@ -103,3 +113,4 @@ class CommentsController < ApplicationController
 
 
 end
+

@@ -40,7 +40,7 @@ export default class extends Controller {
     .then((resp) => {
       return resp.json()
     })
-    .then(({status, likeCount, dislikeCount}) => {      
+    .then(({status, houseLikeCount, houseDislikeCount}) => {      
 
       if (status === "liked house") {
         this.heartTarget.classList.add("bg-blue-100")
@@ -54,7 +54,7 @@ export default class extends Controller {
     
     // 這邊把後端傳來的實際數量，再用dispatch傳到顯示數量的controller
     const increaseCount = new CustomEvent("increase", {
-      detail: {likeCount: likeCount, dislikeCount: dislikeCount}
+      detail: {houseLikeCount: houseLikeCount, houseDislikeCount: houseDislikeCount}
     }) 
     window.dispatchEvent(increaseCount)
 
@@ -79,7 +79,7 @@ export default class extends Controller {
     .then((resp) => {
       return resp.json()
     })
-    .then(({status, likeCount, dislikeCount}) => {      
+    .then(({status, houseLikeCount, houseDislikeCount}) => {      
       if (status === "disliked houses") {
         this.heartCrackTarget.classList.add("bg-blue-100")
       } else if (status === "delete house like_state")  {
@@ -93,7 +93,7 @@ export default class extends Controller {
 
       // 這邊把後端傳來的實際數量，再用dispatch傳到顯示數量的controller
       const decreaseCount = new CustomEvent("decrease", {
-        detail: {likeCount: likeCount, dislikeCount: dislikeCount}
+        detail: {houseLikeCount: houseLikeCount, houseDislikeCount: houseDislikeCount}
       }) 
       window.dispatchEvent(decreaseCount)
     })
