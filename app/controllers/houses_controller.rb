@@ -75,6 +75,7 @@ class HousesController < ApplicationController
     
   end
 
+
   private
   def find_house
     @house = House.find(params[:id])

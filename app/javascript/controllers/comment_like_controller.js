@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { fetchWithoutParams } from "../controllers/lib/fetcher"
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faThumbsUp as regularThumbsUp , faThumbsDown as  regularThumbsUDown } from '@fortawesome/free-regular-svg-icons'
 import { faThumbsUp as solidThumbsUP, faThumbsDown as solidThumbsDown } from '@fortawesome/free-solid-svg-icons' 
@@ -27,41 +28,30 @@ export default class extends Controller {
     
   }
 
-  like() {    
+  like() {        
 
     const commentId = this.element.dataset.commentId
-    const token = document.querySelector("meta[name='csrf-token']").content
+    const token = document.querySelector("meta[name='csrf-token']").content    
 
-    fetch((`/comments/${commentId}/like`), {
-      method: "PATCH",
-      headers: {
-        "X-CSRF-Token": token
-      }
-    })
-    .then((resp) => {
-      return resp.json()
-    })
-    .then(({status, likeCommentCount, dislikeCommentCount}) => {
-      
-      if (status === "liked comment") {
-        this.likeButtonSolid()
-      } else if (status === "delete comment like_state") {        
-        this.likeButtonRegular()
-      } else {
-        // 倒讚Regular        
-        this.dislikeButtonRegular()
-        // 正讚Solid
-        this.likeButtonSolid()
-      }
 
-      this.setTextContent(likeCommentCount, dislikeCommentCount)
-
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    
-
+    fetchWithoutParams(`/comments/${commentId}/like`, "PATCH")
+      .then(({status, likeCommentCount, dislikeCommentCount}) => {
+        if (status === "liked comment") {
+          this.likeButtonSolid()
+        } else if (status === "delete comment like_state") {        
+          this.likeButtonRegular()
+        } else {
+          // 倒讚Regular        
+          this.dislikeButtonRegular()
+          // 正讚Solid
+          this.likeButtonSolid()
+        }
+  
+        this.setTextContent(likeCommentCount, dislikeCommentCount)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
 
   }
 
@@ -70,37 +60,28 @@ export default class extends Controller {
     const commentId = this.element.dataset.commentId
     const token = document.querySelector("meta[name='csrf-token']").content
 
-    fetch((`/comments/${commentId}/dislike`), {
-      method: "PATCH",
-      headers: {
-        "X-CSRF-Token": token
-      }
-    })
-    .then((resp) => {
-      return resp.json()
-    })
-    .then(({status, likeCommentCount, dislikeCommentCount}) => {
-      
-      if (status === "disliked comment") {
-        this.dislikeButtonSolid()
-      } else if (status === "delete comment like_state") {        
-        this.dislikeButtonRegular()
-      } else {
-        // 正讚Regular
-        this.likeButtonRegular()
-        // 倒讚Solid
-        this.dislikeButtonSolid()
-      }
+    fetchWithoutParams(`/comments/${commentId}/dislike`, "PATCH")
+      .then(({status, likeCommentCount, dislikeCommentCount}) => {
 
-      this.setTextContent(likeCommentCount, dislikeCommentCount)
-
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
+        if (status === "disliked comment") {
+          this.dislikeButtonSolid()
+        } else if (status === "delete comment like_state") {        
+          this.dislikeButtonRegular()
+        } else {
+          // 正讚Regular
+          this.likeButtonRegular()
+          // 倒讚Solid
+          this.dislikeButtonSolid()
+        }
   
+        this.setTextContent(likeCommentCount, dislikeCommentCount)
+
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+  }
 
   likeButtonSolid() {
     this.thumbsUpTarget.classList.add("fa-solid")
