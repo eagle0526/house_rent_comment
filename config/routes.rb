@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       # 房子按讚
       patch :like
       patch :dislike
+      post :good
     end
     
   end
