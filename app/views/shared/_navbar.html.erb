@@ -1,4 +1,4 @@
-<nav class="fixed top-0 left-0 z-50 w-full px-3 py-4 bg-white shadow md:flex md-items-center md:justify-between">
+<nav class="fixed top-0 left-0 z-50 w-full px-3 py-4 bg-white shadow md:flex md-items-center md:justify-between" data-controller="nav-bar">
   <div class="flex items-center justify-between w-full">
     <span class="text-2xl cursor-pointer">
       <%= link_to "租屋評價", root_path %>
@@ -20,8 +20,55 @@
           <li class= "text-lg hover:text-major">
             <%= link_to '登入', new_user_session_path, class: "second-btn" %>
           </li>  
+            <button class= "mx-5 second-btn", data-action="click->nav-bar#login">
+              <p>社群登入</p>
+            </button>
         <% end %>
       </div>
     </div>
   </ul>
 </nav>
+
+
+
+
+
+
+
+
+<!-- ads/popup.html.erb -->
+<section class="hidden" data-controller="nav-pop-up"
+                        data-nav-pop-up-target="page"
+                        data-action="popup@window->nav-pop-up#showPop">
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <%# <i class= "absolute text-xs fa-solid fa-x"></i> %>
+    <!-- 背景是半透明的黑色蓋板廣告 -->
+    <div class="p-20 bg-white rounded-lg w-96">
+
+      <!-- 白色蓋板廣告的內容 -->
+
+      <%# 關閉icon，因為是用絕對定位，所以今天如果改變白色框框的大小，叉叉icon都要再調整過 %>
+      
+      <i class= "absolute text-xs fa-solid fa-x right-[47em] top-[25em] cursor-pointer" data-action="click->nav-pop-up#close"></i>
+            
+      
+      <h2 class="mb-4 text-2xl font-bold">社群登入</h2>
+
+      <%# 原始的登入code %>
+      <%#= button_to "google登入", user_google_oauth2_omniauth_authorize_path, data: {turbo: "false"}, class: "btn-primary rounded-full w-full " %>    
+          
+      <%= button_to user_google_oauth2_omniauth_authorize_path, data: {turbo: "false"}, class: "inline-flex px-6 py-2 cursor-pointer hover:bg-blue-100 items-center rounded-full w-full border bg-white flex text-black" do %>        
+        <div class="w-1/6 mr-8">
+          <img src="/assets/google_logo.png" class="object-cover w-full h-full">
+        </div>
+        <div class="">
+          <span>google登入</span>
+        </div>                     
+      <% end %>
+
+    </div>
+  </div>
+</section>
+
+
+

@@ -16,30 +16,16 @@ class User < ApplicationRecord
   has_many :like_states
 
 
-  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    data = access_token.info
-    user = User.where(:google_token => access_token.credentials.token, :google_uid => access_token.uid ).first    
-    if user
-      return user
-    else
-      existing_user = User.where(:email => data["email"]).first
-      if  existing_user
-        existing_user.google_uid = access_token.uid
-        existing_user.google_token = access_token.credentials.token
-        existing_user.save!
-        return existing_user
-      else
-    # Uncomment the section below if you want users to be created if they don't exist
-        user = User.create(
-            name: data["name"],
-            email: data["email"],
-            password: Devise.friendly_token[0,20],
-            google_token: access_token.credentials.token,
-            google_uid: access_token.uid
-          )
-      end
+  # google登入方法
+  def self.create_from_provider_data(provider_data)
+    where(email: provider_data.info.email).first_or_create do |user|
+      user.email = provider_data.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = provider_data.info.last_name
+      user.provider = provider_data.provider
+      user.uid = provider_data.uid
     end
-  end
+   end      
 
   def self.from_omniauth(auth)
     # Case 1: Find existing user by facebook uid
