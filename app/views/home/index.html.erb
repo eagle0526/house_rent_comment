@@ -48,7 +48,7 @@
 			  	    <%= house.title %>
 			  	  </h4>
 			    </div>
-			    <div class="flex items-center justify-between space-x-4">
+			    <div class="flex items-center justify-between py-4 space-x-4 border-b-4">
 			  	  <div class="flex gap-3 space-y-1">
               		<%# 這個是大頭貼圖，如果以後有加上大頭貼，再補 %>
 			  		<%# <img  src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"  class="w-8 h-8 rounded-full" /> %>
@@ -56,7 +56,7 @@
 			  	  </div>
 				  
               	  <%# 這一區塊是愛心、留言數 %>
-			  	  <div class="flex flex-row px-3 py-1 space-x-2 rounded-lg ">
+			  	  <%# <div class="flex flex-row px-3 py-1 space-x-2 rounded-lg ">
 			  	    <div class="flex items-center justify-center text-center cursor-pointer text-md">
 			  	      <i class="fa-regular fa-heart"></i>
 			  	      <span class="mx-1 text-md">80</span>
@@ -65,13 +65,21 @@
 			  	      <i class="fa-regular fa-comment-dots"></i>
 			  	      <span class="mx-1 text-md">80</span>
 			  	    </div>
-			  	  </div>				  
+			  	  </div>				   %>
 			    </div>
 				<%# 新增房屋時間 %>
 			    <div class="flex items-center justify-between space-x-4">
 			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">
 			  	    <i class="fa-regular fa-clock"></i>
 			  	    <p class="text-xs"><%= house.created_at %></p>
+			  	  </div>
+			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">
+			  	    <i class="fa-regular fa-comment-dots"></i>
+			  	    <p class="text-xs"><%= house.comments.size %></p>
+			  	  </div>
+			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">			  	    
+			  	    <i class="fa-regular fa-eye"></i>
+			  	    <p class="text-xs">100</p>
 			  	  </div>
 				  
               	  <%# 這一區塊是倒讚、正讚數 %>
