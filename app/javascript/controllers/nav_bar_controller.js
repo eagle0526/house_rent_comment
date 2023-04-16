@@ -1,13 +1,21 @@
 import { Controller } from "@hotwired/stimulus"
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faX } from '@fortawesome/free-solid-svg-icons' 
+import { faCaretDown, faDoorOpen, faBook, faPlus, faHouse } from '@fortawesome/free-solid-svg-icons' 
+import { faUser } from '@fortawesome/free-regular-svg-icons' 
+// import { faUser, faChevronDown } from '@fortawesome/free-regular-svg-icons' 
 
 export default class extends Controller {
+
+  static targets = [ 'information' ]
+
   initialize(){    
-    library.add(faX)
+    library.add(faUser, faCaretDown, faDoorOpen, faBook, faPlus, faHouse)    
   }
   connect() {
     dom.watch()
+
+    this.infoState = false
+
   }
 
 
@@ -16,5 +24,15 @@ export default class extends Controller {
 
     const evt = new CustomEvent("popup")
     window.dispatchEvent(evt)
+  }
+
+  info() {
+
+    if (this.infoState) {
+      this.informationTarget.classList.add("hidden")
+    } else {
+      this.informationTarget.classList.remove("hidden")
+    }
+    this.infoState = !this.infoState    
   }
 }

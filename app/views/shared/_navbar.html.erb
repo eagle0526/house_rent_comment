@@ -7,22 +7,61 @@
     <div class="flex">
       <div class="flex items-center">
         <% if current_user %>          
-          <li><%= link_to "新增房屋", admin_user_houses_path(current_user), class:"mr-2 text-lg hover:text-major" %></li>
-          <li><%= link_to "更新暱稱", edit_admin_user_path(current_user.id), class:"mr-2 text-lg hover:text-major" %></li>
-          <li><%= link_to current_user.email, root_path, class:"mr-2 text-lg hover:text-major" %></li>
-          <li class= "text-lg btn-primary">
-            <%= link_to '登出', destroy_user_session_path, data: {turbo_method: :delete} %>
+          <li>
+            <%# 新增房屋區塊，下面那一行註解是最初的形式 %>
+            <%#= link_to "新增房屋", admin_user_houses_path(current_user), class:"mr-2 text-lg hover:text-major" %>
+            <div class="flex items-center px-4 py-2 mx-2 border cursor-pointer hover:bg-blue-300">
+              <%= link_to admin_user_houses_path(current_user) do %>
+                <i class="fa-solid fa-plus"></i>
+              <% end %>                            
+            </div>            
           </li>
+          <li>
+            <%= link_to current_user.email, root_path, class:"mx-2 text-lg hover:text-major" %>
+          </li>
+          <li>
+            <div class= "px-6 py-2 mx-3 border cursor-pointer hover:bg-gray-100", data-action="click->nav-bar#info">
+              <div class="">
+                <span>
+                  <i class="fa-regular fa-user"></i>
+                </span>
+               <span>                   
+                  <i class="fa-solid fa-caret-down"></i>
+               </span>                 
+              </div>
+
+              <%# 以下是點開個人資料的區塊  %>
+              <div class="absolute border top-[3.5em] right-[1.5em] bg-white hidden" data-nav-bar-target="information">                
+                <div class="flex items-center px-8 py-4 border cursor-pointer hover:bg-blue-300">
+                  <i class="mr-5 fa-solid fa-house"></i>
+                  <%= link_to "新增房屋", admin_user_houses_path(current_user), class:"mr-2 text-lg hover:text-major" %>
+                </div>
+                <div class="flex items-center px-8 py-4 border cursor-pointer hover:bg-blue-300">
+                  <i class="mr-5 fa-solid fa-book"></i>
+                  <%= link_to "個人資料", edit_admin_user_path(current_user.id), class:"mr-2 text-lg hover:text-major" %>
+                </div>
+                <div class="flex items-center px-8 py-4 border cursor-pointer hover:bg-blue-300">                  
+                  <i class="mr-5 fa-solid fa-door-open"></i>
+                  <%= link_to '登出', destroy_user_session_path, data: {turbo_method: :delete} %>
+                </div>
+              </div>
+
+            </div>          
+          </li>          
         <% else %>
-          <li class= "mr-2 text-lg hover:text-major">
-            <%= link_to '註冊', new_user_registration_path, class: "btn-primary" %>
+          <%# <li class= "mr-2 text-lg hover:text-major"> %>
+            <%#= link_to '註冊', new_user_registration_path, class: "btn-primary" %>
+          <%# </li> %>
+          <%# <li class= "text-lg hover:text-major"> %>
+            <%#= link_to '登入', new_user_session_path, class: "second-btn" %>
+          <%# </li>   %>
+          <li>
+            <button class= "relative mx-3 navbar-btn", data-action="click->nav-bar#login">
+              <p>註冊 / 登入</p>
+            </button>          
           </li>
-          <li class= "text-lg hover:text-major">
-            <%= link_to '登入', new_user_session_path, class: "second-btn" %>
-          </li>  
-            <button class= "mx-5 second-btn", data-action="click->nav-bar#login">
-              <p>社群登入</p>
-            </button>
+
+
         <% end %>
       </div>
     </div>
@@ -57,7 +96,7 @@
       <%# 原始的登入code %>
       <%#= button_to "google登入", user_google_oauth2_omniauth_authorize_path, data: {turbo: "false"}, class: "btn-primary rounded-full w-full " %>    
           
-      <%= button_to user_google_oauth2_omniauth_authorize_path, data: {turbo: "false"}, class: "inline-flex px-6 py-2 cursor-pointer hover:bg-blue-100 items-center rounded-full w-full border bg-white flex text-black" do %>        
+      <%= button_to user_google_oauth2_omniauth_authorize_path, data: {turbo: "false"}, class: "google-login-btn" do %>        
         <div class="w-1/6 mr-8">
           <img src="/assets/google_logo.png" class="object-cover w-full h-full">
         </div>
