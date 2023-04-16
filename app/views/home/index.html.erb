@@ -9,13 +9,13 @@
     </div>
 
     <div class="relative flex items-center justify-center w-full gap-4 mt-6">
-      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform rounded-md bg-indigo-600/95 hover:bg-indigo-700">Get started for free</a>
-      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform border rounded-md border-slate-200 hover:bg-black"> Request a demo </a>
+      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform rounded-md bg-indigo-600/95 hover:bg-indigo-700">依照房屋名稱搜尋</a>
+      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform border rounded-md border-slate-200 hover:bg-black">依照縣市搜尋</a>
     </div>
 
     <div class="relative flex w-full mt-10">
       <%= form_with(url: root_path, method: :get, class: "flex items-center w-full justify-between" )do |form| %>
-        <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "form-field w-full placeholder-black" %>
+        <%= form.text_field :search, placeholder: "輸入房屋名稱", class: "form-field w-full placeholder-black" %>
         <%= button_tag type:'submit', class: 'btn-primary px-8 py-2' do %>
           <i class="text-2xl text-white fa-solid fa-magnifying-glass"></i>
         <% end %>        
