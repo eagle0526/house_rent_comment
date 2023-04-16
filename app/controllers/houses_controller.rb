@@ -16,7 +16,7 @@ class HousesController < ApplicationController
     # 喜歡房子的數量    
     @liked_houses_count = @house.like_states.house_true_count
     # 不喜歡房子的數量    
-    @dislikeed_houses_count = @house.like_states.house_state_count
+    @dislikeed_houses_count = @house.like_states.house_false_count
 
   end
 

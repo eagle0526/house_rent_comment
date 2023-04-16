@@ -24,65 +24,84 @@
   </div>
 </section>
 
-<section class="m-10" data-controller="home-card">
-  <% @houses.each do |house| %>
-
+<% @houses.each do |house| %>
+  <section class="m-10" data-controller="home-card"
+  						data-house-id="<%= house.id %>">
+  
+  
     <!-- component -->	
     <div class='flex items-center justify-center my-10'>
-	  <div class="">
-	    <%= link_to house_path(house), class: "p-4 items-center justify-center w-[1200px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl" do %>				
-        	<%= image_tag house.images.first, class: 'block w-4/12 h-100 mx-auto rounded-lg' %>
+	  <div class="p-4 items-center justify-center w-[1200px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
+	  
+	    <%# 這一段連結，是整張卡片的連結 %>
+	    <%#= link_to house_path(house), class: "p-4 items-center justify-center w-[1200px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl 
+		hover:rounded-2xl" do %>		
+
+		  <%# card 圖片，之後要改成羅輪播圖 %>
+          <%= image_tag house.images.first, class: 'block w-4/12 h-100 mx-auto rounded-lg' %>
+			<%# 卡片右側區塊 %>
 		    <div class="p-5 pl-0 sm:w-8/12">
-			    <div class="space-y-2">
-				    <div class="space-y-4">
-					  <h4 class="font-semibold text-justify text-md text-cyan-900">
-					    <%= house.title %>
-					  </h4>
-				    </div>
-				    <div class="flex items-center justify-between space-x-4">
-					  <div class="flex gap-3 space-y-1">
-                <%# 這個是大頭貼圖，如果以後有加上大頭貼，再補 %>
-						    <%# <img  src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"  class="w-8 h-8 rounded-full" /> %>
-						  <span class="text-sm"><%= house.description %></span>
-					  </div>
-
-              			<%# 這一區塊是愛心、留言數 %>
-					  <div class="flex flex-row px-3 py-1 space-x-2 rounded-lg ">
-					    <div class="flex items-center justify-center text-center cursor-pointer text-md">
-					      <i class="fa-regular fa-heart"></i>
-					      <span class="mx-1 text-md">80</span>
-					    </div>
-					    <div class="flex items-center justify-center text-center cursor-pointer text-md">							  
-					      <i class="fa-regular fa-comment-dots"></i>
-					      <span class="mx-1 text-md">80</span>
-					    </div>
-					  </div>
-				    </div>
-				    <div class="flex items-center justify-between space-x-4">
-					  <div class="flex flex-row my-4 space-x-1 text-grey-500">
-					    <i class="fa-regular fa-clock"></i>
-					    <p class="text-xs"><%= house.created_at %></p>
-					  </div>
-
-              			<%# 這一區塊是倒讚、正讚數 %>
-					  <div class="flex flex-row space-x-1">						  
-						<div class="flex flex-row items-center justify-center px-3 py-1 space-x-2 text-center text-white bg-red-500 shadow-lg cursor-pointer shadow- shadow-red-600 rounded-xl">
-						  <i class="text-xl fa-regular fa-thumbs-down"></i>
-						  <span>23</span>
-						</div>
-						<div class="flex flex-row items-center justify-center px-3 py-1 space-x-2 text-center text-white bg-green-500 shadow-lg cursor-pointer shadow- shadow-green-600 rounded-xl">							   
-						  <i class="text-xl fa-regular fa-thumbs-up"></i>
-						  <span>23</span>
-						</div>
-					  </div>
-				    </div>
+			  <div class="space-y-2">
+			    <%# 房屋標題 %>
+			    <div class="space-y-4">
+			  	  <h4 class="font-semibold text-justify text-md text-cyan-900">
+			  	    <%= house.title %>
+			  	  </h4>
 			    </div>
+			    <div class="flex items-center justify-between space-x-4">
+			  	  <div class="flex gap-3 space-y-1">
+              		<%# 這個是大頭貼圖，如果以後有加上大頭貼，再補 %>
+			  		<%# <img  src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"  class="w-8 h-8 rounded-full" /> %>
+			  		<span class="text-sm"><%= house.description %></span>
+			  	  </div>
+				  
+              	  <%# 這一區塊是愛心、留言數 %>
+			  	  <div class="flex flex-row px-3 py-1 space-x-2 rounded-lg ">
+			  	    <div class="flex items-center justify-center text-center cursor-pointer text-md">
+			  	      <i class="fa-regular fa-heart"></i>
+			  	      <span class="mx-1 text-md">80</span>
+			  	    </div>
+			  	    <div class="flex items-center justify-center text-center cursor-pointer text-md">							  
+			  	      <i class="fa-regular fa-comment-dots"></i>
+			  	      <span class="mx-1 text-md">80</span>
+			  	    </div>
+			  	  </div>				  
+			    </div>
+				<%# 新增房屋時間 %>
+			    <div class="flex items-center justify-between space-x-4">
+			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">
+			  	    <i class="fa-regular fa-clock"></i>
+			  	    <p class="text-xs"><%= house.created_at %></p>
+			  	  </div>
+				  
+              	  <%# 這一區塊是倒讚、正讚數 %>
+			  	  <div class="flex flex-row space-x-1">
+			  	    <div class="thumb-btn" data-action="click->home-card#decrease">
+					  <span>
+					    <i class="text-xl fa-regular fa-thumbs-down"></i>
+					  </span>			  	      
+			  		  <span data-home-card-target="houseDisLikeCount">
+					    <%= house.like_states.house_false_count %>
+					  </span>
+			  	    </div>
+			  		<div class="bg-green-500 thumb-btn shadow-green-600" data-action="click->home-card#increase">
+					  <span>
+					    <i class="text-xl fa-regular fa-thumbs-up"></i>
+					  </span>			  		  
+			  		  <span data-home-card-target="houseLikeCount">					    
+					    <%= house.like_states.house_true_count %>
+					  </span>
+			  		</div>
+			  	  </div>
+			    </div>
+
+			  </div>
 		    </div>
-		<% end %>
+		<%# end %>
 	  </div>	  
     </div>	
-  <% end %>  
-</section>
-
+  
+  </section>
+<% end %>  
 
 
