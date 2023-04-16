@@ -11,7 +11,7 @@ class LikeState < ApplicationRecord
   def self.house_true_count
     self.house_state_true.size
   end
-  def self.house_state_count
+  def self.house_false_count
     self.house_state_false.size
   end
 

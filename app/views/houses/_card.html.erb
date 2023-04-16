@@ -1,0 +1,122 @@
+    <%# 最上方區塊 %>
+    <div class="flex flex-row px-2 py-3 mx-3">
+      
+      <div class="w-auto h-auto rounded-full">
+        <img src="/assets/home.jpg" class="object-cover w-12 h-12 rounded-full shadow cursor-pointer" alt="Your Image">
+      </div>
+      <div class="flex flex-col mt-1 mb-2 ml-4">
+        <div class="text-sm font-semibold text-gray-600">
+          匿名
+        </div>
+
+        <div class="flex flex-wrap w-full mt-1">
+          <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
+            <p>房屋：<%= house.title %></p>
+          </div>
+          <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
+            <p>電話：<%= house.tel %></p>
+          </div>
+          <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
+            <p>地址：<%= house.address %></p>
+          </div>
+          <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
+            <p>房東：<%= house.owner %></p>                  
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%# 圖片區塊 %>
+    <div class="border-b border-gray-100"></div>
+    <div class="px-2 mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">                            
+      <div class="flex gap-2">   
+        <div class="overflow-hidden rounded-xl max-h-[30rem] w-1/2">                        
+          <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
+            <%= image_tag house.images.first, class: "object-cover w-full h-full" %>
+          </div>                                                                        
+        </div>
+        <div class="w-1/2 overflow-hidden rounded-xl">                    
+            <div class="grid grid-cols-2 grid-rows-2 gap-4">
+              <% house.images[1..4].each do |image| %>
+              <div class="w-full row-span-1 mr-1 text-xs text-blue-700 cursor-pointer font-base">
+                <%#= image_tag image, class: "object-contain w-full h-full" %>
+                <%= link_to image_tag(image), image.url, data: { lightbox: 'image-gallery' }, class: "object-cover w-full h-full", target: "_blank" %>
+              </div>
+              <% end %>
+            </div>                                                                          
+        </div>
+      </div>                              
+    </div>
+            
+    <%# 房子內容 %>
+    <div class="px-2 mx-3 mb-6 text-sm text-gray-500"><%= house.description %>... <span class="text-gray-400">看更多</span></div>
+            
+    <%# 誰點房子讚圖片區塊 %>
+    <div class="flex justify-start mb-4 border-t border-gray-100">
+      <div class="flex w-full pt-2 pl-5 mt-1">
+        <span class="w-8 h-8 px-2 pt-2 mr-2 text-center text-gray-400 transition duration-300 ease-out bg-white border rounded-full cursor-pointer hover:text-red-500">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="14px" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+          </svg>
+        </span>
+        <img class="inline-block object-cover w-8 h-8 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+        <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+        <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80" alt="">
+        <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.25&amp;w=256&amp;h=256&amp;q=80" alt="">
+      </div>
+
+      <%# 房子愛心區塊 %>
+      <div class="flex justify-end w-full pt-2 pr-5 mt-1"  
+           data-controller="house-like" 
+           data-id = '<%= house.id %>'                                          
+           data-like-state = '<%= current_user.house_like_state(house.id) ? current_user.house_like_state(house.id).state : 'vacant' if current_user%>'
+           data-house-like-count = '<%= house.like_states.select { |like| like.state }.size %>'
+           data-test = '<%= @liked_houses_count %>'
+           >
+
+        <span class="flex items-center justify-center px-2 py-2 mr-2 transition duration-300 ease-out border rounded-full cursor-pointer h-9 hover:bg-blue-50"   
+              data-house-like-target="heart"
+              data-action="click->house-like#heart"
+              >
+          <i class="text-lg text-red-500 fa-regular fa-heart"></i>          
+        </span>
+        
+        <span class="flex items-center justify-center px-2 py-2 transition duration-300 ease-out border rounded-full cursor-pointer h-9 hover:bg-gray-50" 
+              data-house-like-target="heartCrack"
+              data-action="click->house-like#heartCrack">                    
+          <i class="text-lg text-red-500 fa-solid fa-heart-crack"></i>                        
+        </span>
+      </div>
+    </div>
+            
+    <%# 留言、喜歡次數 %>
+    <div class="flex w-full border-t border-gray-100" data-controller="house-like-count"
+                                                        data-action = 'increase@window->house-like-count#increase decrease@window->house-like-count#decrease'
+                                                        data-amount = "<%= house.like_states.select { |like| like.state }.size %>">
+      <div class="flex flex-row mx-5 mt-3 text-xs">
+        <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
+          Comments:
+          <div class="ml-1 text-gray-400 text-ms">
+            <%= house.comments.size %>
+          </div>
+        </div>
+        <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
+          Views: 
+          <div class="ml-1 text-gray-400 text-ms"> 
+            60k
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-end w-full mx-5 mt-3 text-xs">
+        <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md">Likes: 
+          <div class="ml-1 text-gray-400 text-ms" data-house-like-count-target="likeCount">
+            <%= @liked_houses_count %>
+          </div>
+        </div>
+        <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md" >disLikes: 
+          <div class="ml-1 text-gray-400 text-ms" data-house-like-count-target="disLikeCount">
+            <%= @dislikeed_houses_count %>
+          </div>
+        </div>
+      </div>
+    </div>
