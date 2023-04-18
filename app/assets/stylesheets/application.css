@@ -13,3 +13,76 @@
  *= require_tree .
  *= require_self
  */
+
+
+
+.swiper-container {
+   position: relative;
+}
+
+
+.black {
+    background-color: blue;
+}
+
+.pink {
+    background-color: pink;
+}
+
+.green {
+    background-color: green;
+}
+
+
+  
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+
+  /* height: 250px; */
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+  
+
+.swiper-pagination {    
+    width: 100px;
+    height: 15px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;        
+    background-color: gray;
+}
+
+.swiper-pagination-bullet {
+        
+    /* 大小 */
+    /* --swiper-pagination-bullet-size: 20px; */
+    /* 顏色 */
+    /* --swiper-pagination-progressbar-bg-color: white; */
+    --swiper-pagination-color: white;
+
+}
+
+
+.swiper-button-next {        
+    --swiper-theme-color: black;    
+    --swiper-navigation-size: 30px;    
+}
+
+.swiper-button-prev {        
+    --swiper-theme-color: black;    
+    --swiper-navigation-size: 30px;    
+}
+
+/* 這裡很重要，這樣設定，才可以把箭頭放在白色色塊前面 */
+.swiper-button-next:after {
+    z-index: 99;
+}
+
+.swiper-button-prev:after {
+    z-index: 99;
+}
+
