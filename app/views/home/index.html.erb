@@ -38,7 +38,16 @@
 		hover:rounded-2xl" do %>		
 
 		  <%# card 圖片，之後要改成羅輪播圖 %>
-          <%= image_tag house.images.first, class: 'block w-4/12 h-100 mx-auto rounded-lg' %>
+		  <div class="w-1/3">
+		  	<%# 這是單張圖片 %>
+		    <%#= image_tag house.images.first, class: 'block h-100 mx-auto rounded-lg' %>
+			
+			<%# 這是輪播圖 %>
+			<%= render "carousel", house: house %>
+		  </div>
+		  
+
+
 			<%# 卡片右側區塊 %>
 		    <div class="p-5 pl-0 sm:w-8/12">
 			  <div class="space-y-2">

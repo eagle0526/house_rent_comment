@@ -1,0 +1,30 @@
+
+<div class="swiper-container" data-controller="carousel" 
+                              data-carousel-options-value='{
+                                "pagination": { "el": ".swiper-pagination", 
+                                                "dynamicBullets": "true" },
+                                "navigation": { "nextEl": ".swiper-button-next", 
+                                                "prevEl": ".swiper-button-prev"},
+                                "effect": "fade"
+                                }'>
+  <div class="swiper-wrapper">
+	<% house.images.each do |image| %>
+	  <div class="swiper-slide">	    
+        <%= link_to image_tag(image), house_path(house), class: 'w-full mx-auto rounded-lg' %>
+	  </div>
+	<% end %>  
+  </div>
+
+  <!-- Add Pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- Add Navigation -->
+  <div class="mr-5 swiper-button-next">
+    <div class="w-[60px] h-[60px] bg-white absolute opacity-90 rounded-full"></div>
+  </div>
+  
+  <div class="ml-5 swiper-button-prev">
+    <div class="w-[60px] h-[60px] bg-white absolute opacity-90 rounded-full"></div>
+  </div>  
+  
+</div>
