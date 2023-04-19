@@ -1,6 +1,8 @@
 class House < ApplicationRecord
   acts_as_paranoid
-  is_impressionable
+  # is_impressionable
+  is_impressionable :counter_cache => true, :column_name => :houses_count
+
 
   belongs_to :user
   has_many_attached :images do |attachable|
