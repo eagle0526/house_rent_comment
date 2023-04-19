@@ -142,6 +142,8 @@ GEM
     importmap-rails (1.1.5)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
+    impressionist (2.0.0)
+      nokogiri (~> 1)
     io-console (0.5.11)
     irb (1.5.1)
       reline (>= 0.3.0)
@@ -318,6 +320,7 @@ DEPENDENCIES
   friendly_id (~> 5.5)
   image_processing
   importmap-rails
+  impressionist (~> 2.0)
   jbuilder
   lightbox2-rails (~> 2.8)
   omniauth (~> 2.1)

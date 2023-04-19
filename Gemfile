@@ -95,3 +95,5 @@ gem "friendly_id", "~> 5.5"
 gem "babosa", "~> 2.0"
 
 
+
+gem "impressionist", "~> 2.0"
