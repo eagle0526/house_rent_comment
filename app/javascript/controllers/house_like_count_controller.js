@@ -15,7 +15,7 @@ export default class extends Controller {
   }
 
   increase({detail}) {    
-    this.setTextContent(detail.houseLikeCount, detail.houseDislikeCount)
+    this.setTextContent(detail.houseLikeCount, detail.houseDislikeCount)    
   }
 
   decrease({detail}) {
