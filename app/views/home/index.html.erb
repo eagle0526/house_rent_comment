@@ -88,27 +88,27 @@
 			  	  </div>
 			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">			  	    
 			  	    <i class="fa-regular fa-eye"></i>
-			  	    <p class="text-xs">100</p>
+			  	    <p class="text-xs"><%= house.impressionist_count(:filter => :session_hash) %></p>
 			  	  </div>
 				  
               	  <%# 這一區塊是倒讚、正讚數 %>
 			  	  <div class="flex flex-row space-x-1">
 			  	    <div class="thumb-btn" data-action="click->home-card#decrease">
-					  <span>
-					    <i class="text-xl fa-regular fa-thumbs-down"></i>
-					  </span>			  	      
-			  		  <span data-home-card-target="houseDisLikeCount">
-					    <%= house.like_states.house_false_count %>
-					  </span>
+				  	  <span>
+				  	    <i class="text-xl fa-regular fa-thumbs-down"></i>
+				  	  </span>			  	      
+			  	  	  <span data-home-card-target="houseDisLikeCount">
+				  	    <%= house.like_states.house_false_count %>
+				  	  </span>
 			  	    </div>
-			  		<div class="bg-green-500 thumb-btn shadow-green-600" data-action="click->home-card#increase">
-					  <span>
-					    <i class="text-xl fa-regular fa-thumbs-up"></i>
-					  </span>			  		  
-			  		  <span data-home-card-target="houseLikeCount">					    
-					    <%= house.like_states.house_true_count %>
-					  </span>
-			  		</div>
+			  	  	<div class="bg-green-500 thumb-btn shadow-green-600" data-action="click->home-card#increase">
+				  	  <span>
+				  	    <i class="text-xl fa-regular fa-thumbs-up"></i>
+				  	  </span>			  		  
+			  	  	  <span data-home-card-target="houseLikeCount">					    
+			      		 <%= house.like_states.house_true_count %>
+				  	  </span>
+			  	  	</div>
 			  	  </div>
 			    </div>
 
