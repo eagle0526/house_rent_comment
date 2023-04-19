@@ -26,7 +26,8 @@
 
 <% @houses.each do |house| %>
   <section class="m-10" data-controller="home-card"
-  						data-house-id="<%= house.id %>">
+  						data-house-id="<%= house.id %>"
+  						data-current-user-id="<%= current_user ? current_user.id : 'Logged out' %>">
   
   
     <!-- component -->	
