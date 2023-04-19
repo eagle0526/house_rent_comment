@@ -1,5 +1,6 @@
 class House < ApplicationRecord
   acts_as_paranoid
+  is_impressionable
 
   belongs_to :user
   has_many_attached :images do |attachable|

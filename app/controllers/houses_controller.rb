@@ -1,5 +1,6 @@
 class HousesController < ApplicationController
   before_action :find_house, only: [:show, :like, :dislike]
+  
 
   def index
   end
@@ -17,6 +18,9 @@ class HousesController < ApplicationController
     @liked_houses_count = @house.like_states.house_true_count
     # 不喜歡房子的數量    
     @dislikeed_houses_count = @house.like_states.house_false_count
+
+    # 計算瀏覽次數
+    impressionist(@house)
 
   end
 

@@ -103,7 +103,7 @@
         <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
           Views: 
           <div class="ml-1 text-gray-400 text-ms"> 
-            60k
+            <%= house.impressionist_count(:filter => :session_hash) %>
           </div>
         </div>
       </div>
