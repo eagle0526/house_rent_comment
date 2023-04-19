@@ -103,13 +103,14 @@
   <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <%# <i class= "absolute text-xs fa-solid fa-x"></i> %>
     <!-- 背景是半透明的黑色蓋板廣告 -->
-    <div class="p-20 bg-white rounded-lg w-96">
+    <div class="relative p-20 bg-white rounded-lg w-96">
 
       <!-- 白色蓋板廣告的內容 -->
 
       <%# 關閉icon，因為是用絕對定位，所以今天如果改變白色框框的大小，叉叉icon都要再調整過 %>
       
-      <i class= "absolute text-xs fa-solid fa-x right-[47em] top-[25em] cursor-pointer" data-action="click->nav-pop-up#close"></i>
+      <%# <i class= "absolute text-xs fa-solid fa-x right-[47em] top-[25em] cursor-pointer" data-action="click->nav-pop-up#close"></i> %>
+      <i class= "absolute text-xs cursor-pointer right-5 top-5 fa-solid fa-x" data-action="click->nav-pop-up#close"></i>
             
       
       <h2 class="mb-4 text-2xl font-bold">社群登入</h2>

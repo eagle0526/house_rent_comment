@@ -72,6 +72,7 @@
            data-like-state = '<%= current_user.house_like_state(house.id) ? current_user.house_like_state(house.id).state : 'vacant' if current_user%>'
            data-house-like-count = '<%= house.like_states.select { |like| like.state }.size %>'
            data-test = '<%= @liked_houses_count %>'
+           data-current-user-id="<%= current_user ? current_user.id : 'Logged out' %>"
            >
 
         <span class="flex items-center justify-center px-2 py-2 mr-2 transition duration-300 ease-out border rounded-full cursor-pointer h-9 hover:bg-blue-50"   
