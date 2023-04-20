@@ -1,5 +1,7 @@
 <%# 這邊是被選染出來的留言表單 %>
-<section>    
+<section data-controller="comment-form"
+         data-current-user-id="<%= current_user ? current_user.id : 'Logged out' %>"
+         >   
   <%= form_with model: @comment, url: url do |f| %>
 
   <%# 用這個就可以了，所以也可以寫在 controller 的 show 那邊，最後再傳過來就好 %>
@@ -9,9 +11,10 @@
     <% if !parent.nil? %>    
       <input type="hidden" name="parent_id" value="<%= parent.id %>">
     <% end %>
+    
     <div class="my-4">
       <%#= f.label :content, '留言' %>      
-      <%= f.text_area :content, placeholder: '留下你的想法' ,class: 'w-full py-2 pl-4 pr-10 text-sm placeholder-gray-400 bg-gray-100 border border-transparent appearance-none rounded-tg focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue h-20' %>
+      <%= f.text_area :content, placeholder: '留下你的想法' , class: 'comment-field h-20', data: {action: "click->comment-form#comment"} %>
     </div>
 
     
