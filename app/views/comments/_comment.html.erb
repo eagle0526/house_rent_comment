@@ -4,9 +4,13 @@
   <article data-controller="comment-reply" class="">
     
     <p class="my-4">
-      <span><%= comment.content %></span>
+      <span><%= comment.user.name %></span>
       <span class="ml-4 text-xs text-slate-400"><%= comment.created_at %></span>
     </p>
+
+    <div class="my-5 text-sm text-gray-600">
+      <span><%= simple_format(comment.content) %></span>
+    </div>
 
     <small data-controller="comment-like"
            data-comment-id = "<%= comment.id %>"           
@@ -28,8 +32,7 @@
         </span>
       </span>      
     </small>
-
-    <small class="mr-4">by <%= comment.user.name %></small>
+    
     <% if current_user %>
       <% if comment.user_id == current_user.id %>
         <small class="mr-4">
@@ -39,9 +42,7 @@
     <% end %>
 
     <small class="mr-4 cursor-pointer" data-action="click->comment-reply#reply">回覆</small>
-
-
-      
+          
     <% if current_user %>
       <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
         <small class="mr-4">    
