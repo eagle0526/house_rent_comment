@@ -17,7 +17,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to current_user.email, root_path, class:"mx-2 text-lg hover:text-major" %>
+            <%= link_to current_user.email, edit_admin_user_path(current_user.id), class:"mx-2 text-lg hover:text-major" %>
           </li>
           <li>
             <div class= "px-6 py-2 mx-3 border cursor-pointer hover:bg-gray-100", data-action="click->nav-bar#info">
@@ -39,7 +39,7 @@
                       <i class="mr-5 fa-solid fa-house"></i>                
                     </div>
                     <div class="w-2/3">
-                      <p>新增房屋</p>
+                      <p>管理房屋</p>
                     </div>                                        
                   </div>
                 <% end %>
