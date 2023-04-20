@@ -48,8 +48,6 @@ gem "bootsnap", require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -82,18 +80,25 @@ gem "omniauth-google-oauth2", "~> 1.1"
 gem "omniauth-facebook", "~> 9.0"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 
+
+
+# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem "image_processing", "~> 1.2"
 # aws image
 gem 'carrierwave'
 gem "ruby-vips", "~> 2.1"
-gem 'image_processing'
 gem "aws-sdk-s3", require: false
 gem "lightbox2-rails", "~> 2.8"
 
+# 軟刪除
 gem "paranoia", "~> 2.6"
 
+# 美化網址
+# friendly_id > 客制網址 , babosa > 讓網址支援中文
 gem "friendly_id", "~> 5.5"
 gem "babosa", "~> 2.0"
 
-
-
+# 瀏覽數
 gem "impressionist", "~> 2.0"
+
+

@@ -18,6 +18,11 @@ class House < ApplicationRecord
   # 一個房子，有很多被按讚
   has_many :like_states, as: :likeable
 
+  # description 的 rich editor 設定
+  has_rich_text :description
+
+
+
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -33,6 +38,9 @@ class House < ApplicationRecord
       [:title, :description]
     ]
   end  
+
+
+  
 
 
 
