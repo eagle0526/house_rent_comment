@@ -65,23 +65,12 @@
 			  		<span class="text-sm"><%= house.description %></span>
 			  	  </div>
 				  
-              	  <%# 這一區塊是愛心、留言數 %>
-			  	  <%# <div class="flex flex-row px-3 py-1 space-x-2 rounded-lg ">
-			  	    <div class="flex items-center justify-center text-center cursor-pointer text-md">
-			  	      <i class="fa-regular fa-heart"></i>
-			  	      <span class="mx-1 text-md">80</span>
-			  	    </div>
-			  	    <div class="flex items-center justify-center text-center cursor-pointer text-md">							  
-			  	      <i class="fa-regular fa-comment-dots"></i>
-			  	      <span class="mx-1 text-md">80</span>
-			  	    </div>
-			  	  </div>				   %>
 			    </div>
 				<%# 新增房屋時間 %>
 			    <div class="flex items-center justify-between space-x-4">
 			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">
 			  	    <i class="fa-regular fa-clock"></i>
-			  	    <p class="text-xs"><%= house.created_at %></p>
+			  	    <p class="text-xs"><%= house.created_at.strftime("%Y/%m/%d") %></p>
 			  	  </div>
 			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">
 			  	    <i class="fa-regular fa-comment-dots"></i>
