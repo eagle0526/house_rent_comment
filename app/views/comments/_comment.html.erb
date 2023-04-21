@@ -1,25 +1,29 @@
 
 <%# 這個頁面是被選染出來的留言介面 %>
-<%= turbo_frame_tag dom_id(comment) do %>
-  <article data-controller="comment-reply" class="">
-    
-    <p class="my-4">
-      <span><%= comment.user.name %></span>
-      <span class="ml-4 text-xs text-slate-400"><%= comment.created_at %></span>
-    </p>
 
+<article data-controller="comment-reply" class="pl-4 border-l">
+  
+  <p class="my-4">
+    <span><%= comment.user.name %></span>
+    <span class="ml-4 text-xs text-slate-400"><%= time_ago_in_words(comment.created_at) %> ago</span>
+  </p>
+  
+  <%= turbo_frame_tag dom_id(comment) do %>
+    <%# 內容區塊 %>
     <div class="my-5 text-sm text-gray-600">
       <span><%= simple_format(comment.content) %></span>
     </div>
 
+    <%# 點讚區塊 %>
     <small data-controller="comment-like"
            data-comment-id = "<%= comment.id %>"           
-           data-comment-like-state = '<%= current_user.comment_like_state(comment.id) ? current_user.comment_like_state(comment.id).state : 'vacant' if current_user %>'
+           data-comment-like-state = '<%= current_user.comment_like_state(comment.id) ? current_user.comment_like_state(comment.id).state : 'vacant' if current_user 
+           %>'
            >
       <span class="mr-4">        
         <i class="cursor-pointer fa-regular fa-thumbs-up" data-action = "click->comment-like#like" 
-                                                          data-comment-like-target="thumbsUp"></i>
-        
+                                                          data-comment-like-target="thumbsUp">
+        </i>
         <span data-comment-like-target="commentLikeCount">
           <%= comment.like_states.comment_true_count %>
         </span>
@@ -32,7 +36,8 @@
         </span>
       </span>      
     </small>
-    
+
+    <%# 編輯按鈕 %>
     <% if current_user %>
       <% if comment.user_id == current_user.id %>
         <small class="mr-4">
@@ -41,8 +46,10 @@
       <% end %>
     <% end %>
 
+    <%# 回覆按鈕 %>
     <small class="mr-4 cursor-pointer" data-action="click->comment-reply#reply">回覆</small>
-          
+
+    <%# 刪除按鈕 %>
     <% if current_user %>
       <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
         <small class="mr-4">    
@@ -50,22 +57,24 @@
         </small>
       <% end %>
     <% end %>
+    
+    <%# 隱藏的留言表單，點開就可以顯示form %>
     <div class="hidden" data-comment-reply-target="form">
     <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>  
       <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment, url: comments_path(comment.house_id) } %>          
     </div>
-    
-    <hr>
   
+    <hr>
+    
     <%# 這裡的意思是，把該留言的子留言全部選染出來 %>
     <%# ex. c = Comment.find(12)  c.comments => id=12 的全部留言抓出來並選染    %>
     <%# 這裡拿到的comment是 @comments = @house.comments 這個迴圈轉出來的 %>
-    <div class="m-10">
+    <div class="mx-5 my-10">
       <%= render comment.comments %>
     </div>
-    
-  </article>
-<% end %>
+  <% end %>    
+</article>
+
 <%# <hr> %>
 
 
