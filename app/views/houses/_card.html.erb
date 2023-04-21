@@ -6,7 +6,7 @@
       </div>
       <div class="flex flex-col mt-1 mb-2 ml-4">
         <div class="text-sm font-semibold text-gray-600">
-          匿名
+          匿名/<%= current_user.name %>
         </div>
 
         <div class="flex flex-wrap w-full mt-1">
@@ -26,27 +26,14 @@
       </div>
     </div>
 
-    <%# 圖片區塊 %>
-    <div class="border-b border-gray-100"></div>
-    <div class="px-2 mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">                            
-      <div class="flex gap-2">   
-        <div class="overflow-hidden rounded-xl max-h-[30rem] w-1/2">                        
-          <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
-            <%= image_tag house.images.first, class: "object-cover w-full h-full" %>
-          </div>                                                                        
-        </div>
-        <div class="w-1/2 overflow-hidden rounded-xl">                    
-            <div class="grid grid-cols-2 grid-rows-2 gap-4">
-              <% house.images[1..4].each do |image| %>
-              <div class="w-full row-span-1 mr-1 text-xs text-blue-700 cursor-pointer font-base">
-                <%#= image_tag image, class: "object-contain w-full h-full" %>
-                <%= link_to image_tag(image), image.url, data: { lightbox: 'image-gallery' }, class: "object-cover w-full h-full", target: "_blank" %>
-              </div>
-              <% end %>
-            </div>                                                                          
-        </div>
-      </div>                              
+    <%# 圖片輪播區塊 %>
+    <div class="flex items-center justify-center">
+      <div class="w-2/3">
+        <%= render "carousel", house: house %>
+      </div>    
     </div>
+
+
             
     <%# 房子內容 %>
     <div class="px-2 mx-3 mb-6 text-sm text-gray-500"><%= house.description %>... <span class="text-gray-400">看更多</span></div>
