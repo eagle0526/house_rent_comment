@@ -1,19 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
 import { fetchWithoutParams } from "../controllers/lib/fetcher"
 import { dispatchAction } from "../controllers/lib/dispatch"
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faHeartCrack } from '@fortawesome/free-solid-svg-icons' 
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
+
 
 export default class extends Controller {
 
   static targets = [ 'heart', "heartCrack", "houseLikeCount" ]
 
   initialize(){    
-    library.add(faHeart, faHeartCrack)
+    
   }
-  connect() {
-    dom.watch()    
+  connect() {    
 
     // 一進來就先判斷，LikeState中的state到底是空的還是false還是true
     const likeState = this.element.dataset.likeState

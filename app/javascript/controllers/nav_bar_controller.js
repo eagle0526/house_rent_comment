@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faCaretDown, faDoorOpen, faBook, faPlus, faHouse } from '@fortawesome/free-solid-svg-icons' 
-import { faUser } from '@fortawesome/free-regular-svg-icons' 
+// import { library, dom } from '@fortawesome/fontawesome-svg-core'
+// import { faCaretDown, faDoorOpen, faBook, faPlus, faHouse } from '@fortawesome/free-solid-svg-icons' 
+// import { faUser } from '@fortawesome/free-regular-svg-icons' 
 // import { faUser, faChevronDown } from '@fortawesome/free-regular-svg-icons' 
 
 export default class extends Controller {
@@ -9,10 +9,10 @@ export default class extends Controller {
   static targets = [ 'information' ]
 
   initialize(){    
-    library.add(faUser, faCaretDown, faDoorOpen, faBook, faPlus, faHouse)    
+    // library.add(faUser, faCaretDown, faDoorOpen, faBook, faPlus, faHouse)    
   }
   connect() {
-    dom.watch()
+    // dom.watch()
 
     this.infoState = false
 
