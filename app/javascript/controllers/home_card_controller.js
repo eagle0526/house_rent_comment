@@ -1,8 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { fetchWithoutParams } from "../controllers/lib/fetcher"
 import { dispatchAction } from "../controllers/lib/dispatch"
-import { faThumbsUp, faThumbsDown, faHeart, faCommentDots, faClock, faEye } from '@fortawesome/free-regular-svg-icons'
 
 
 export default class extends Controller {
@@ -10,10 +8,9 @@ export default class extends Controller {
   static targets = [ 'houseLikeCount', "houseDisLikeCount" ]
 
   initialize(){    
-    library.add(faThumbsUp, faThumbsDown, faHeart, faCommentDots, faClock, faEye)
+    
   }
-  connect() {
-    dom.watch()    
+  connect() {    
   }
 
   increase() {          

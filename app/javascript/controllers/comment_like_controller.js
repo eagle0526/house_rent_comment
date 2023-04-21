@@ -1,20 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 import { fetchWithoutParams } from "../controllers/lib/fetcher"
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faThumbsUp as regularThumbsUp , faThumbsDown as  regularThumbsUDown } from '@fortawesome/free-regular-svg-icons'
-import { faThumbsUp as solidThumbsUP, faThumbsDown as solidThumbsDown } from '@fortawesome/free-solid-svg-icons' 
 
 export default class extends Controller {
 
   static targets = [ 'thumbsUp', "thumbsDown", "commentLikeCount", "commentDislikeCount" ]
 
   initialize(){    
-    library.add(regularThumbsUp, regularThumbsUDown, solidThumbsUP, solidThumbsDown, )
-  }
-  connect() {
-    dom.watch()
-
     
+  }
+  connect() {    
+
     const commentLikeState = this.element.dataset.commentLikeState
     if (commentLikeState === 'true') {
       // 如果是正讚，讓正讚是solid，倒讚是regular

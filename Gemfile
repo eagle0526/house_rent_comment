@@ -102,3 +102,5 @@ gem "babosa", "~> 2.0"
 gem "impressionist", "~> 2.0"
 
 
+
+gem "font-awesome-sass", "~> 6.4"
