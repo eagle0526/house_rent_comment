@@ -14,7 +14,10 @@
     
     <div class="my-4">
       <%#= f.label :content, '留言' %>      
-      <%= f.text_area :content, placeholder: '留下你的想法' , class: 'form-field h-20 border-transparent w-full placeholder-gray-400 text-sm focus:text-gray-900 focus:bg-white focus:outline-none focus:border-blue-500', data: {action: "click->comment-form#comment"} %>
+      <%= f.text_area :content, 
+        placeholder: "留下你的想法", 
+        class: 'form-field h-20 border-transparent w-full placeholder-gray-400 text-sm focus:text-gray-900 focus:bg-white focus:outline-none focus:border-blue-500', 
+        data: {action: "click->comment-form#comment"} %>
     </div>
 
     
