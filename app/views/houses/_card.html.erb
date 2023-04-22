@@ -27,11 +27,31 @@
     </div>
 
     <%# 圖片輪播區塊 %>
-    <div class="flex items-center justify-center">
-      <div class="w-2/3">
-        <%= render "carousel", house: house %>
-      </div>    
+    <div class="overflow-hidden border-b border-gray-100"></div>
+    <div class="px-2 mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">                            
+      <div class="flex gap-2">           
+        
+        <div class="w-1/2">
+          <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
+            <%= image_tag house.images.first.variant(:first), class: "object-cover w-full h-full rounded-l-xl align-center" %>
+          </div>                                                                        
+        </div>
+
+        <div class="w-1/2 overflow-hidden rounded-r-xl">
+          <div class="grid grid-cols-2 grid-rows-2 gap-2">
+            <% house.images[1..4].each do |image| %>
+            <div class="w-full row-span-1 mr-1 text-xs text-blue-700 cursor-pointer font-base">                
+              <%= link_to image_tag(image.variant(:standard)), image.url, data: { lightbox: 'image-gallery' }, class: "object-cover w-full h-full", target: "_blank"%>
+            </div>
+            <% end %>
+          </div>                                                                          
+        </div>
+
+      </div>                
+
     </div>
+
+
 
 
             

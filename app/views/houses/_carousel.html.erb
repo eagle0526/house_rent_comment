@@ -11,7 +11,9 @@
 	<% house.images.each do |image| %>
 	  <div class="swiper-slide">	    
         <%#= link_to image_tag(image), house_path(house), class: 'w-full mx-auto rounded-lg' %>
-        <%= link_to image_tag(image), image.url, data: { lightbox: 'image-gallery' }, class: "object-cover w-full h-full", target: "_blank" %>
+        <%= link_to image_tag(image.variant(:standard)), image.url, data: { lightbox: 'image-gallery' }, class: "object-contain w-full h-full", target: "_blank" %>
+        
+
 	  </div>
 	<% end %>  
   </div>

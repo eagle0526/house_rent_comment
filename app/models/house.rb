@@ -3,11 +3,16 @@ class House < ApplicationRecord
   # is_impressionable
   is_impressionable :counter_cache => true, :column_name => :houses_count
 
-
   belongs_to :user
+
+  # 圖片
   has_many_attached :images do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
     attachable.variant :normal, resize_to_limit: [300, 300]
+
+    # 每張圖會依照比例縮放
+    attachable.variant :standard, resize_to_fill: [1200, 900]
+    attachable.variant :first, resize_to_fill: [1200, 904]
   end
 
 
