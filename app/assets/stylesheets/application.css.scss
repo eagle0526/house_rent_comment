@@ -16,6 +16,8 @@
 
 @import "font-awesome";
 
+
+
 .swiper-container {
    position: relative;
 }
@@ -34,15 +36,21 @@
 }
 
 
-  
+.swiper-wrapper {
+    // display: flex;
+    // align-items:center;
+    // justify-content: center;      
+}
+
 .swiper-slide {
   background-position: center;
   background-size: cover;
 
-  /* height: 250px; */
+//   height: 250px;
   display: flex;
   align-items:center;
-  justify-content: center;
+  justify-content: center;  
+
 }
   
 
@@ -85,4 +93,3 @@
 .swiper-button-prev:after {
     z-index: 99;
 }
-
