@@ -17,7 +17,14 @@
   </div>
 </section>
 
-<i class="fa-regular fa-bell"></i>
+
+<%# 點下去會出現所有圖片的輪播圖 %>
+<div class="absolute hidden" data-controller="carousel-pop-up"
+                             data-carousel-pop-up-target="page"
+                             data-action="popup_carousel@window->carousel-pop-up#showPop"
+                             >
+  <%= render "carousel", house: @house %>
+</div>
 
 
 
