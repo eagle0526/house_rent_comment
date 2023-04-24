@@ -73,4 +73,6 @@ Rails.application.configure do
   
   config.active_storage.service_urls_expire_in = 1.hour # URL 的過期時間
 
+  # 這一行是避免使用者編輯圖片時，把舊圖片全部刪掉
+  config.active_storage.replace_on_assign_to_many = false
 end
