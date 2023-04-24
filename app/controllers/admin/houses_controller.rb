@@ -36,7 +36,7 @@ module Admin
       if @house.update(params_house)        
         redirect_to admin_house_path(@house), notice: "成功編輯房屋"
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

@@ -104,3 +104,5 @@ gem "impressionist", "~> 2.0"
 
 
 gem "font-awesome-sass", "~> 6.4"
+
+gem "active_storage_validations", "~> 1.0"

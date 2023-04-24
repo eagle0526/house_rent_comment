@@ -4,9 +4,11 @@ class House < ApplicationRecord
   is_impressionable :counter_cache => true, :column_name => :houses_count
 
   belongs_to :user
-
+  
   # 圖片
   has_many_attached :images do |attachable|
+
+    # 每張圖是固定size
     attachable.variant :thumb, resize_to_limit: [100, 100]
     attachable.variant :normal, resize_to_limit: [300, 300]
 
@@ -14,6 +16,10 @@ class House < ApplicationRecord
     attachable.variant :standard, resize_to_fill: [1200, 900]
     attachable.variant :first, resize_to_fill: [1200, 904]
   end
+
+  # 圖片上傳限制
+  validates :images, attached: true, size: {less_than: 1.megabytes, message: '不能超過1MB'} 
+  validates :title, presence: true
 
 
   # 一個房子，有很多的評論
