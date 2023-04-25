@@ -73,4 +73,6 @@ class User < ApplicationRecord
     like_states.find_by(likeable_type: "Comment", likeable_id: comment)
   end
 
+
+
 end

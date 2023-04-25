@@ -72,18 +72,24 @@
 <%# 房子內容 %>
 <div class="px-2 mx-3 mb-6 text-sm text-gray-500"><%= house.description %>... <span class="text-gray-400">看更多</span></div>
             
+            
 <%# 誰點房子讚圖片區塊 %>
 <div class="flex justify-start mb-4 border-t border-gray-100">
+  
   <div class="flex w-full pt-2 pl-5 mt-1">
     <span class="w-8 h-8 px-2 pt-2 mr-2 text-center text-gray-400 transition duration-300 ease-out bg-white border rounded-full cursor-pointer hover:text-red-500">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="14px" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
       </svg>
     </span>
-    <img class="inline-block object-cover w-8 h-8 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
-    <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
-    <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80" alt="">
-    <img class="inline-block object-cover w-8 h-8 -ml-2 text-white border-2 border-white rounded-full shadow-sm cursor-pointer" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2.25&amp;w=256&amp;h=256&amp;q=80" alt="">
+
+    <% @user_click_nice_to_house.each_with_index do |user, index| %>
+      <% if user.avatar.attached? %>
+        <%= image_tag user.avatar, class: (index.zero? ? "user-like-house-icon" : "user-like-house-icon -ml-2") %>
+      <% else %>                  
+        <%= image_tag "/assets/default_avatar.png", class: (index.zero? ? "user-like-house-icon" : "user-like-house-icon -ml-2") %>
+      <% end %>      
+    <% end %>    
   </div>
 
   <%# 房子愛心區塊 %>
@@ -141,4 +147,6 @@
     </div>
   </div>
 </div>
+
+
 
