@@ -33,6 +33,10 @@
     @apply w-full py-2 pl-4 pr-10 text-sm placeholder-gray-400 bg-gray-100 border border-transparent rounded-tg focus:bg-white focus:outline-none focus:border-blue-500 focus:text-gray-900 focus:shadow-outline-blue;
   }       
 
+  .user-like-house-icon {
+    @apply inline-block object-cover w-8 h-8 text-white border-2 border-white rounded-full shadow-sm;
+  }
+
 }
 
 

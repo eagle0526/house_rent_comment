@@ -50,9 +50,4 @@ class House < ApplicationRecord
     ]
   end  
 
-
-  
-
-
-
 end

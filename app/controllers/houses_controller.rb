@@ -22,6 +22,10 @@ class HousesController < ApplicationController
     # 計算瀏覽次數
     impressionist(@house)
 
+
+    # 找出是哪些人點房子讚
+    @user_click_nice_to_house = @house.like_states.house_state_true.each.map { |like| User.find_by(id: like.user_id) }
+
   end
 
 
