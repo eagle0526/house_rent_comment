@@ -15,6 +15,15 @@ class User < ApplicationRecord
   # 一個使用者，按很多留言/房子的讚/倒讚
   has_many :like_states
 
+  # 使用者大頭貼
+  has_one_attached :avatar do |attachable|
+    attachable.variant :thumb, resize_to_limit: [250, 250]
+  end
+
+  # 圖片上傳限制
+  validates :avatar, size: {less_than_or_equal_to: 500.kilobytes, message: '不能超過500KB'} 
+  validates :name, presence: true  
+
 
   # google登入方法
   def self.create_from_provider_data(provider_data)

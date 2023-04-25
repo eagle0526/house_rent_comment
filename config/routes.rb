@@ -8,6 +8,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users do
+      member do
+        delete '/images/:image_id' => 'users#destroy_image', as: :destroy_image
+      end
+    
       resources :houses, shallow: true do
         member do
           delete '/images/:image_id' => 'houses#destroy_image', as: :destroy_image
