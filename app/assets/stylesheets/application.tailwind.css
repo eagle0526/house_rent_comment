@@ -34,7 +34,16 @@
   }       
 
   .user-like-house-icon {
-    @apply inline-block object-cover w-8 h-8 text-white border-2 border-white rounded-full shadow-sm;
+    @apply inline-block object-cover w-8 h-8 text-white border border-black rounded-full shadow-sm;
+  }
+
+
+  .one-twentieth {
+    width: 5%;
+  }
+  
+  .nineteen-twentieths {
+    width: 95%;
   }
 
 }
