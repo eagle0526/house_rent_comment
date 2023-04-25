@@ -1,20 +1,65 @@
-<h2 class="text-lg text-center">使用者列表</h2>
-<div class="my-4">
-  <h3>使用者暱稱：<span class="p-2 border"><%= current_user.name %></span></h3>
-</div>
+<section class="py-20 bg-white"> 
+  
+  <h2 class="text-2xl text-center">修改帳號設定</h2>
 
-<%= form_with model: current_user, url: admin_user_path(current_user.id) do |f| %>
-  <%#= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, class: "form-field" %>
+  <div class="px-10">
+    <%= render "error_messages", user: current_user %>
   </div>
 
-
-  <div class="mt-4">
-    <%= f.submit "修改暱稱", class: "btn-primary" %>
-  </div>
-<% end %>
-
+  <%= form_with model: current_user, url: admin_user_path(current_user.id), class: "bg-white px-10" do |f| %>
+    <div class="flex mt-10 mb-28">
+      <div class="flex w-2/3 border">
+        <div class="flex items-center justify-end w-1/3 pr-5">
+          <p>
+            使用者名稱：
+          </p>
+        </div>
+        <div class="flex items-center w-2/3">
+          <%= f.text_field :name, autofocus: true, class: "form-field" %>
+        </div>
+      </div>
+    
+      <div class="w-1/3 border-2">        
+        <div class="flex items-center">
+        
+          <% if current_user.avatar.attached? %>
+            <div class="relative">
+              <%= image_tag current_user.avatar.variant(:thumb), class: "object-cover w-48 h-48 border rounded-full" %>
+              <div class="absolute top-0 right-0">
+                <%# 下面這一段是，如果今天圖片大小，小於500kb才顯示叉叉按鈕，會加這一段是因為，我model多做一個判斷，就是如果圖片大於500kb，會無法上傳，但這時候，avatar.url會是true %>
+                <% if current_user.avatar.blob.byte_size <= 500000 %>
+                  <%= link_to destroy_image_admin_user_path(current_user, current_user.avatar.id), data: {turbo_method: "delete", confirm: "確定刪除?"} do %>
+                    <div class= 'absolute top-0 right-0 flex items-center justify-center w-5 h-5 mt-2 mr-2 text-white bg-red-600 rounded-full '>
+                      <i class= "text-xs fa-solid fa-x"></i>                                
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>          
+          <% else %>
+            <div class="flex items-center w-auto h-auto rounded-full">
+              <img src="/assets/default_avatar.png" class="object-cover w-48 h-48 border rounded-full" alt="Your Image">
+              <span class="ml-5">此為預設圖片</span>
+            </div>
+          <% end %>
+        </div>
+        
+    
+        <div class="my-4 field">
+          <%= f.file_field :avatar, accept: 'image/png, image/jpeg', maxlength: 500.kilobytes, class: "form-field bg-white w-full border-black" %>
+        </div>
+    
+        <div class="my-4">
+          <p>建議圖片尺寸為 250x250 以上正方形圖片，最大檔案不可超過500kb。如果沒有上傳，會使用系統預設圖片。</p>
+        </div>
+      </div>
+    
+    </div>
+  
+    <div class="flex items-center justify-center">
+      <%= f.submit "儲存個人資料", class: "btn-primary" %>
+    </div>  
+      
+  <% end %>
+</section>
 
