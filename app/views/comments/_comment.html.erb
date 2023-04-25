@@ -1,36 +1,34 @@
 
-
 <%# 這個頁面是被選染出來的留言介面 %>
 
-<article data-controller="comment-reply" class="border-l-2">
+<article data-controller="comment-reply" class="">
+  
 
-  <div class="flex">
-
-    <div class="flex justify-start mt-3 one-twentieth">
-      <div class="">
+  <div>
+    <div class="flex items-center">
+    
+      <div class="mr-4">
         <% if comment.user.avatar.attached? %>
           <%= image_tag comment.user.avatar, class: "user-like-house-icon" %>
         <% else %>
           <%= image_tag "/assets/default_avatar.png", class: "user-like-house-icon" %>
         <% end %>        
       </div>
+      <div>
+        <p class="my-4">
+          <span><%= comment.user.name %></span>
+          <span class="ml-4 text-xs text-slate-400"><%= time_ago_in_words(comment.created_at) %> ago</span>
+        </p>  
+      </div>
     </div>
 
+  
 
-    <div class="nineteen-twentieths">
-      <div class="flex items-center">
-        <div>
-          <p class="my-4">
-            <span><%= comment.user.name %></span>
-            <span class="ml-4 text-xs text-slate-400"><%= time_ago_in_words(comment.created_at) %> ago</span>
-          </p>
-        </div>
-      </div>
-
+    <div class="pl-4 ml-4 border-l">
   
       <%= turbo_frame_tag dom_id(comment) do %>
         <%# 內容區塊 %>
-        <div class="my-5 text-sm text-gray-600">
+        <div class="my-2 text-sm text-gray-600">
           <span><%= simple_format(comment.content) %></span>
         </div>
         <%# 點讚區塊 %>
@@ -72,24 +70,22 @@
               <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", confirm: "確定嗎？"}, class: "text-red-500" %>
             </small>
           <% end %>
-        <% end %>
+        <% end %>    
         <%# 隱藏的留言表單，點開就可以顯示form %>
         <div class="hidden" data-comment-reply-target="form">
         <%# 多渲染一個留言表單，這個表單會傳一些數值到留言表單那邊，把 comment.house當作house傳過去，comment 當作 parent 傳過去 %>  
           <%= render partial: 'comments/form', locals: { house: comment.house, parent: comment, url: comments_path(comment.house_id) } %>          
         </div>
-        <hr>
+        <%# <hr> %>
         <%# 這裡的意思是，把該留言的子留言全部選染出來 %>
         <%# ex. c = Comment.find(12)  c.comments => id=12 的全部留言抓出來並選染    %>
         <%# 這裡拿到的comment是 @comments = @house.comments 這個迴圈轉出來的 %>
         <div class="mt-10">
           <%= render comment.comments %>
         </div>
-      <% end %>
+      <% end %>    
     </div>
-  
   </div>
-
 </article>
 
 <%# <hr> %>
