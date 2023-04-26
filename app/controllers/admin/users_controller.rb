@@ -3,6 +3,11 @@ module Admin
     before_action :authenticate_user!
     before_action :find_user, only: [:destroy_image]
 
+
+    def show
+      
+    end
+
     def edit          
       
     end
