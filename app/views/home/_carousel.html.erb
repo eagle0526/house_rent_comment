@@ -9,8 +9,8 @@
                                 }'>
   <div class="swiper-wrapper">
 	<% house.images.each do |image| %>
-	  <div class="swiper-slide">	    
-        <%= link_to image_tag(image.variant(:standard)), house_path(house), class: 'w-full mx-auto rounded-lg' %>
+	  <div class="swiper-slide">
+      <%= link_to image_tag(image.variant(:standard)), house_path(house), class: 'w-full mx-auto rounded-lg' %>
 	  </div>
 	<% end %>  
   </div>

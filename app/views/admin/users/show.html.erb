@@ -1,0 +1,61 @@
+<section class="flex justify-center w-3/4 mx-auto mt-36">
+
+  <%# 左邊區塊 %>
+  <div class="w-2/3">    
+    
+    <%# 上方區塊 %>
+    <div class="flex items-center p-5 bg-white rounded">
+
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer bg-slate-100">
+        <p class="mr-3">已發佈</p>        
+        <i class="fa-solid fa-upload"></i>
+      </div>
+
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+        <p class="mr-3">已留言</p>        
+        <i class="fa-solid fa-comment"></i>
+      </div>
+      
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+        <p class="mr-3">已蒐藏</p>        
+        <i class="fa-solid fa-notes"></i>
+        <i class="fa-solid fa-notes-medical"></i>        
+      </div>
+    </div>
+
+    <%# 下方區塊 %>
+    <div class="mt-5 rounded">     
+      <%= render "publish_house" %>
+    </div>
+
+  </div>
+
+  <%# 右邊區塊 %>
+  <div class="w-1/3 ml-4 rounded">
+    <%# avatar區塊 %>
+    <div class="rounded-t bg-sky-500">
+      <div class="flex items-center w-auto h-auto p-5 rounded">
+        <img src="/assets/default_avatar.png" class="object-cover w-24 h-24 border rounded" alt="Your Image">    
+      </div>    
+    </div>
+    
+    <%# 個人資訊區塊 %>
+    <div class="bg-white rounded-b">
+      <div class="p-4">
+        <div class="my-5 text-sm">
+          <p class="my-3">信箱：<%= current_user.email %></p>
+          <p class="my-3">暱稱：<%= current_user.name %></p>          
+        </div>
+
+        <div class="flex justify-center my-5">
+          <%= link_to "新增房屋", new_admin_user_house_path(current_user), class: "btn-primary w-full rounded-full flex justify-center" %>
+        </div>
+        <div class="flex justify-center my-5">
+          <%= link_to "編輯個人資訊", edit_admin_user_path(current_user), class: "second-btn w-full rounded-full flex justify-center" %>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</section>
