@@ -60,9 +60,8 @@
   <div class="w-1/3 ml-4 rounded">
     <%# avatar區塊 %>
     <div class="rounded-t bg-sky-500">
-      <div class="flex items-center w-auto h-auto p-5 rounded">
-        <%# <img src="/assets/default_avatar.png" class="object-cover w-24 h-24 border rounded" alt="Your Image">     %>
-        <%= image_tag(current_user.avatar || "/assets/default_avatar.png", class: "object-cover w-24 h-24 border rounded") %>
+      <div class="flex items-center w-auto h-auto p-5 rounded">       
+        <%= image_tag(current_user.avatar.url || "/assets/default_avatar.png", class: "object-cover w-24 h-24 border rounded") %>        
       </div>    
     </div>
     

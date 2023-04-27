@@ -6,7 +6,17 @@ module Admin
 
     def index
 
-      @houses = current_user.houses
+      message = params[:query]
+
+      if message == "留言數"
+        @houses = current_user.houses_ordered_by_comment_count
+      elsif message == "喜歡數"
+        @houses = current_user.houses_ordered_by_like_state_true_count
+      elsif message == "瀏覽數"
+        @houses = current_user.houses_ordered_by_page_view_count
+      else
+        @houses = current_user.houses.order(id: :desc)
+      end      
 
     end
 
@@ -21,7 +31,7 @@ module Admin
       if @house.save
         redirect_to admin_user_houses_path(current_user), notice: "成功新增房屋"
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -54,10 +64,7 @@ module Admin
 
     private
 
-    def params_house
-      # attributes = [ :title, :description, :tel, :address, :owner, images: [] ]
-      # params.require(:house).permit(*attributes)
-      
+    def params_house      
       params.require(:house).permit(:title, :description, :tel, :address, :owner, images: [])
     end
 

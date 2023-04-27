@@ -1,45 +1,87 @@
-<h2>使用者新增的房屋</h2>
+<section class="flex justify-center w-3/4 mx-auto mt-36">
+
+  <%# 左邊區塊 %>
+  <div class="w-2/3">    
+    
+    <%# 上方區塊 %>
+    <div class="flex items-center p-5 bg-white rounded">
+
+      <%= link_to admin_user_houses_path(current_user) do %>
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer bg-slate-100">
+        <p class="mr-3">發佈時間</p>        
+        <i class="fa-solid fa-upload"></i>
+      </div>
+      <% end %>
+
+      <%= link_to admin_user_houses_path(current_user, query: "留言數") do %>
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+        <p class="mr-3">留言數</p>        
+        <i class="fa-solid fa-comment"></i>
+      </div>
+      <% end %>
+      
+      <%= link_to admin_user_houses_path(current_user, query: "喜歡數") do %>
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+        <p class="mr-3">喜歡數</p>                
+        <i class="fa-solid fa-thumbs-up"></i>
+      </div>
+      <% end %>
+      
+      <%= link_to admin_user_houses_path(current_user, query: "瀏覽數") do %>
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+        <p class="mr-3">瀏覽數</p>
+        <i class="fa-solid fa-eye"></i>
+      </div>
+      <% end %>
+    </div>
+
+    <%# 下方區塊 %>
+    <div class="mt-5 rounded">  
+      
+      <%# 這段是渲染users/show.html.erb頁面  %>
+      <% @houses.each do |house| %>   
+        <%= render "house", house: house %>
+      <% end %>
+
+      <%# 但是rails說，如果在回圈裡面用render partail，會造成效率問題，要用collection寫法，因此改成這樣寫 %>
+      <%#= render partial: "house", collection: @houses, as: :house %>
+
+      <%# 上面那一整串推可以縮寫改成這樣 %>
+      <%#= render @houses %>
+
+      <%# !不過現在遇到另外一個問題，就是換成collection後效能好像沒變好，而且還跑出 [2 times] 這個東西! %>
+      
+    </div>
 
 
-<%= link_to "新增房屋", new_admin_user_house_path(current_user), class: "btn-primary" %>
-
-<br>
-
-
-<section>
-  <div>
-    <h3 class="mb-4 text-center">你新增的所有房屋</h3>
   </div>
 
-  <table class="w-full text-base text-left text-gray-500 dark:text-gray-400">
-      <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      
-      <tr>
-          <th class="px-6 py-3">id</th>
-          <th class="px-6 py-3">房屋名稱</th>
-          <th class="px-6 py-3">房屋描述</th>                    
-          <th class="px-6 py-3">圖片</th>          
-          <th class="px-6 py-3">刪除房屋</th>
-      </tr>
-      </thead>
-      
-      
-      <tbody>
-      <% @houses.each do |house| %>
-      <tr>
-          <td class="px-6 py-4"><%= link_to house.id, admin_house_path(house), class: "btn-primary" %></td>
-          <td class="px-6 py-4"><%= house.title %></td>
-          <td class="px-6 py-4"><%= house.description %></td>
-          <% if house.images.first %>
-            <td class="px-6 py-4"><%= image_tag house.images.first.variant(:normal) %></td>
-          <% end %>
-          <td class="px-6 py-4"><%= link_to "刪除房屋", admin_house_path(house.id), data: { turbo_method: "delete", confirm: "確定嗎？" }, class: "second-btn" %></td>
+  <%# 右邊區塊 %>
+  <div class="w-1/3 ml-4 rounded">
+    <%# avatar區塊 %>
+    <div class="rounded-t bg-sky-500">
+      <div class="flex items-center w-auto h-auto p-5 rounded">        
+        <%= image_tag(current_user.avatar.url || "/assets/default_avatar.png", class: "object-cover w-24 h-24 border rounded") %>
+      </div>    
+    </div>
+    
+    <%# 個人資訊區塊 %>
+    <div class="bg-white rounded-b">
+      <div class="p-4">
+        <div class="my-5 text-sm">
+          <p class="my-3">信箱：<%= current_user.email %></p>
+          <p class="my-3">暱稱：<%= current_user.name %></p>          
+        </div>
 
-      </tr>
-      <% end %>  
-      </tbody>
+        <div class="flex justify-center my-5">
+          <%= link_to "新增房屋", new_admin_user_house_path(current_user), class: "btn-primary w-full rounded-full flex justify-center" %>
+        </div>
+        <div class="flex justify-center my-5">
+          <%= link_to "編輯個人資訊", edit_admin_user_path(current_user), class: "second-btn w-full rounded-full flex justify-center" %>
+        </div>
+      </div>
       
-  </table>
-
+    </div>
+  </div>
 
 </section>

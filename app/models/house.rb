@@ -32,6 +32,8 @@ class House < ApplicationRecord
   # description 的 rich editor 設定
   has_rich_text :description
 
+  # 房子的被瀏覽量
+  has_many :page_views, as: :impressionable
 
 
   extend FriendlyId
@@ -48,6 +50,28 @@ class House < ApplicationRecord
       :title,
       [:title, :description]
     ]
-  end  
+  end
 
+
+  scope :ordered_by_comment_count, -> { 
+    left_joins(:comments)
+      .group(:id)
+      .select('houses.*, count(comments.id) as comments_count')
+      .order('comments_count DESC')
+  }
+  
+  scope :ordered_by_like_state_true_count, -> { 
+    left_joins(:like_states)
+      .group(:id)
+      .select('houses.*, count(like_states.id) as like_states_count')
+      .order('like_states_count DESC')
+  }
+  
+
+  scope :ordered_by_page_view_count, -> {
+    joins(:impressions)
+    .group(:id)
+    .select('houses.*, COUNT(impressions.id) AS page_views_count')
+    .order('page_views_count DESC')
+  }
 end

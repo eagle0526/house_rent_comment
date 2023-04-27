@@ -74,6 +74,12 @@
             <%= house.impressionist_count(:filter => :session_hash) %>
           </div>
         </div>
+        <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
+          published: 
+          <div class="ml-1 text-gray-400 text-ms"> 
+            <%= house.created_at.strftime("%Y/%m/%d") %>
+          </div>
+        </div>
       </div>
       <div class="flex justify-end w-full mx-5 mt-3 text-xs">
         <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md">Likes: 
