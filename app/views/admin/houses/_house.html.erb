@@ -1,5 +1,5 @@
 
-<% current_user.houses.each do |house| %>
+
   <%= link_to house_path(house) do %>
   <div class="pb-8 mb-10 bg-white border-b-4 cursor-pointer hover:shadow-lg hover:border-black">
   
@@ -8,7 +8,7 @@
       
       <% if house.user.avatar.attached? %>
         <div class="w-auto h-auto rounded-full">
-          <%= image_tag house.user.avatar, class: "object-cover w-12 h-12 rounded-full shadow" %>    
+          <%= image_tag house.user.avatar, class: "object-cover w-12 h-12 rounded-full shadow" %>
         </div>  
       <% else %>
         <div class="w-auto h-auto rounded-full">
@@ -91,4 +91,3 @@
 
   </div>
   <% end %>
-<% end %>
