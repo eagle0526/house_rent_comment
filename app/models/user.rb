@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # 一個使用者，按很多留言/房子的讚/倒讚
   has_many :like_states
 
-  # 一個使用者，有很多的瀏覽次數
+  # 一個使用者，有很多瀏覽房子的次數
   has_many :page_views
 
   # 使用者大頭貼
@@ -74,6 +74,23 @@ class User < ApplicationRecord
   # 找到指定的comment
   def comment_like_state(comment)
     like_states.find_by(likeable_type: "Comment", likeable_id: comment)
+  end
+
+
+
+  # house 那邊有 ordered_by_comment_count 這個 scope，主要就是房屋要跟根據留言數做排序
+  def houses_ordered_by_comment_count
+    houses.ordered_by_comment_count
+  end
+
+  # house 那邊有 ordered_by_like_state_true_count 這個 scope，主要就是房屋要跟根據喜歡數做排序
+  def houses_ordered_by_like_state_true_count
+    houses.ordered_by_like_state_true_count
+  end
+
+  # house 那邊有 ordered_by_page_view_count 這個 scope，主要就是房屋要跟根據瀏覽量做排序
+  def houses_ordered_by_page_view_count
+    houses.ordered_by_page_view_count
   end
 
 
