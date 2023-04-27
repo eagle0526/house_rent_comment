@@ -6,27 +6,53 @@
     <%# 上方區塊 %>
     <div class="flex items-center p-5 bg-white rounded">
 
+      <%= link_to admin_user_path(current_user) do %>
       <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer bg-slate-100">
         <p class="mr-3">已發佈</p>        
         <i class="fa-solid fa-upload"></i>
       </div>
+      <% end %>
 
+      <%= link_to admin_user_path(current_user, query: "已留言") do %>
       <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
         <p class="mr-3">已留言</p>        
         <i class="fa-solid fa-comment"></i>
       </div>
+      <% end %>
       
+      <%= link_to admin_user_path(current_user, query: "已點讚") do %>
       <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
-        <p class="mr-3">已蒐藏</p>        
-        <i class="fa-solid fa-notes"></i>
-        <i class="fa-solid fa-notes-medical"></i>        
+        <p class="mr-3">已點讚</p>                
+        <i class="fa-solid fa-thumbs-up"></i>
       </div>
+      <% end %>
+      
+      <%= link_to admin_user_path(current_user, query: "已瀏覽") do %>
+      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+        <p class="mr-3">已瀏覽</p>
+        <i class="fa-solid fa-eye"></i>
+      </div>
+      <% end %>
     </div>
 
     <%# 下方區塊 %>
-    <div class="mt-5 rounded">     
-      <%= render "publish_house" %>
+    <div class="mt-5 rounded">  
+
+      <%# 這段是渲染users/show.html.erb頁面  %>
+      <% @houses.each do |house| %>   
+        <%= render "house", house: house %>
+      <% end %>
+
+      <%# 但是rails說，如果在回圈裡面用render partail，會造成效率問題，要用collection寫法，因此改成這樣寫 %>
+      <%#= render partial: "house", collection: @houses, as: :house %>
+
+      <%# 上面那一整串推可以縮寫改成這樣 %>
+      <%#= render @houses %>
+
+      <%# !不過現在遇到另外一個問題，就是換成collection後效能好像沒變好，而且還跑出 [2 times] 這個東西! %>
+      
     </div>
+
 
   </div>
 
@@ -35,7 +61,8 @@
     <%# avatar區塊 %>
     <div class="rounded-t bg-sky-500">
       <div class="flex items-center w-auto h-auto p-5 rounded">
-        <img src="/assets/default_avatar.png" class="object-cover w-24 h-24 border rounded" alt="Your Image">    
+        <%# <img src="/assets/default_avatar.png" class="object-cover w-24 h-24 border rounded" alt="Your Image">     %>
+        <%= image_tag(current_user.avatar || "/assets/default_avatar.png", class: "object-cover w-24 h-24 border rounded") %>
       </div>    
     </div>
     
