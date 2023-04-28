@@ -1,0 +1,22 @@
+<%# avatar區塊 %>
+<div class="rounded-t bg-sky-500">
+  <div class="flex items-center w-auto h-auto p-5 rounded">       
+    <%= image_tag(current_user.avatar.url || "/assets/default_avatar.png", class: "object-cover w-24 h-24 border rounded") %>        
+  </div>    
+</div>
+
+<%# 個人資訊區塊 %>
+<div class="bg-white rounded-b">
+  <div class="p-4">
+    <div class="my-5 text-sm">
+      <p class="my-3">信箱：<%= current_user.email %></p>
+      <p class="my-3">暱稱：<%= current_user.name %></p>          
+    </div>
+    <div class="flex justify-center my-5">
+      <%= link_to "新增房屋", new_admin_user_house_path(current_user), class: "btn-primary w-full rounded-full flex justify-center" %>
+    </div>
+    <div class="flex justify-center my-5">
+      <%= link_to "編輯個人資訊", edit_admin_user_path(current_user), class: "second-btn w-full rounded-full flex justify-center" %>
+    </div>
+  </div>  
+</div>

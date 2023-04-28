@@ -30,7 +30,7 @@
             </td>
           <% else %>
             <td class="px-6 py-4">            
-              <div class="grid grid-cols-4 gap-2" data-controller="house-delete">
+              <div class="grid grid-cols-4 gap-2" data-controller="house-image">
                 <% @house.images.each do |image| %>
                   <div class="relative">
                     <%= link_to destroy_image_admin_house_path(@house, image), data: {turbo_method: "delete", confirm: "確定刪除?"} do %>

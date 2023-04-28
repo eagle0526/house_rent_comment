@@ -26,7 +26,7 @@
   }
 
   .form-field {
-    @apply w-4/5 px-4 py-2 bg-gray-100 rounded;
+    @apply w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-400 rounded focus:border-black;
   }
 
   .comment-field {    
