@@ -1,7 +1,5 @@
 
-
-  <%= link_to house_path(house) do %>
-  <div class="pb-8 mb-10 bg-white border-b-4 cursor-pointer hover:shadow-lg hover:border-black">
+  <div class="mb-10 bg-white hover:shadow-lg">
   
     <%# 最上方區塊 %>
     <div class="flex flex-row px-2 py-3 mx-3">
@@ -95,5 +93,14 @@
       </div>
     </div>
 
+    <div class="flex items-center justify-center mt-10 border">
+      <div class="flex items-center justify-center w-1/2">
+        <%= link_to "前往留言", house_path(house), class: "w-full py-2 bg-blue-500 flex items-center justify-center hover:bg-blue-400 text-white" %>
+      </div>
+      <div class="w-1/2">
+        <%= link_to "編輯房屋資訊", edit_admin_house_path(house), class: "w-full py-2 bg-red-500 flex items-center justify-center hover:bg-red-400 text-white" %>
+      </div>
+    </div>
+
   </div>
-  <% end %>
+
