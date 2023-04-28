@@ -100,3 +100,26 @@
     display: inline-block;
     width: 100%;
 }
+
+
+
+
+
+
+.trix-button-row {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
+}
+
+
+.fileUploader {
+    border: 1px solid black;
+}
+
+
+.image-upload > input {
+    display: none;
+}
+.image-upload > label {
+  cursor:pointer;
+}

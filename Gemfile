@@ -89,6 +89,9 @@ gem 'carrierwave'
 gem "ruby-vips", "~> 2.1"
 gem "aws-sdk-s3", require: false
 gem "lightbox2-rails", "~> 2.8"
+# 圖片限制
+gem "active_storage_validations", "~> 1.0"
+
 
 # 軟刪除
 gem "paranoia", "~> 2.6"
@@ -102,7 +105,6 @@ gem "babosa", "~> 2.0"
 gem "impressionist", "~> 2.0"
 
 
-
+# ruby版的font-awesome(icon)
 gem "font-awesome-sass", "~> 6.4"
 
-gem "active_storage_validations", "~> 1.0"
