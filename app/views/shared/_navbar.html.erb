@@ -11,7 +11,7 @@
             <%# 新增房屋區塊，下面那一行註解是最初的形式 %>
             <%#= link_to "新增房屋", admin_user_houses_path(current_user), class:"mr-2 text-lg hover:text-major" %>
             <%= link_to admin_user_houses_path(current_user) do %>
-              <div class="flex items-center px-4 py-2 mx-2 border cursor-pointer hover:bg-blue-300">
+              <div class="flex items-center px-4 py-2.5 mx-2 border cursor-pointer hover:bg-blue-300">
                 <i class="fa-solid fa-plus"></i>
               </div>
             <% end %>
@@ -70,12 +70,6 @@
             </div>          
           </li>          
         <% else %>
-          <%# <li class= "mr-2 text-lg hover:text-major"> %>
-            <%#= link_to '註冊', new_user_registration_path, class: "btn-primary" %>
-          <%# </li> %>
-          <%# <li class= "text-lg hover:text-major"> %>
-            <%#= link_to '登入', new_user_session_path, class: "second-btn" %>
-          <%# </li>   %>
           <li>
             <button class= "relative mx-3 navbar-btn", data-action="click->nav-bar#login">
               <p>註冊 / 登入</p>

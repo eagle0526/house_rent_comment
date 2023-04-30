@@ -22,7 +22,7 @@ export default class extends Controller {
       filename.appendChild(span);
     }
 
-    filename.classList.remove('hidden');
+    // filename.classList.remove('hidden');
 
   }
 }

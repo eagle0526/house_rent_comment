@@ -5,23 +5,19 @@ module Admin
 
 
     def show
-      # @houses = current_user.houses
+
       message = params[:query]
 
-      if message == "已留言"
-        @houses = current_user.comments.uniq(&:house_id).map { |comment| House.find_by(id: comment.house_id) }
-      elsif message == "已點讚"
-        @houses = current_user.like_states.house_state_true.map { |like| House.find_by(id: like.likeable_id) }
-      elsif message == "已瀏覽"
-        @houses = current_user.page_views.where(impressionable_type: "House").pluck(:impressionable_id).uniq.map { |view| House.find_by(id: view) }
-      else
-        @houses = current_user.houses
+      if message == "已留言"        
+        @houses = current_user.comments_ordered_by_time
+      elsif message == "已點讚"        
+        @houses = current_user.liked_ordered_by_time
+      elsif message == "已瀏覽"        
+        @houses = current_user.viewed_ordered_by_time
+      else        
+        @houses = current_user.published_ordered_by_time
       end
-
-
-
-
-      # render html: message
+      
     end
 
     def edit          
