@@ -77,6 +77,7 @@ class User < ApplicationRecord
   end
 
 
+  # 以下三個方法是使用者的房屋排列用的
 
   # house 那邊有 ordered_by_comment_count 這個 scope，主要就是房屋要跟根據留言數做排序
   def houses_ordered_by_comment_count
@@ -93,6 +94,28 @@ class User < ApplicationRecord
     houses.ordered_by_page_view_count
   end
 
+  
+  # 以下四個方法是使用者介面的
 
+  # 使用者有評論過的房子，並依照留言時間排序
+  def comments_ordered_by_time
+    comments.order(created_at: :desc).map(&:house).uniq
+    # comments.order(created_at: :desc).map(&:house).uniq = comments.order(created_at: :desc).map { |comment| House.find_by(id: house_id) }.uniq
+  end
+
+  # 使用者按過讚的房子
+  def liked_ordered_by_time
+    like_states.house_state_true.order(created_at: :desc).map { |like| House.find_by(id: like.likeable_id) }
+  end
+
+  # 使用者瀏覽過的房子
+  def viewed_ordered_by_time
+    page_views.where(impressionable_type: "House").order(created_at: :desc).pluck(:impressionable_id).uniq.map { |view_id| House.find_by(id: view_id) }
+  end
+
+  # 使用者發布的房子照發佈時間排序
+  def published_ordered_by_time
+    houses.order(id: :desc)
+  end  
 
 end

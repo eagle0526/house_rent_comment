@@ -16,4 +16,8 @@ class Comment < ApplicationRecord
 
   # content 的 rich editor 設定
   # has_rich_text :content  
+
+
+  
+
 end
