@@ -7,10 +7,8 @@ export default class extends Controller {
 
   static targets = [ 'houseLikeCount', "houseDisLikeCount" ]
 
-  initialize(){    
-    
-  }
   connect() {    
+
   }
 
   increase() {          

@@ -108,3 +108,6 @@ gem "impressionist", "~> 2.0"
 # ruby版的font-awesome(icon)
 gem "font-awesome-sass", "~> 6.4"
 
+
+# infinite-scrolling
+gem "pagy", "~> 6.0"

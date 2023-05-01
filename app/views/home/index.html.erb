@@ -24,6 +24,8 @@
   </div>
 </section>
 
+
+
 <% @houses.each do |house| %>
   <section class="m-10" data-controller="home-card"
   						data-house-id="<%= house.id %>"
@@ -106,9 +108,41 @@
 		    </div>
 		<%# end %>
 	  </div>	  
-    </div>	
-  
+    </div>
+	
   </section>
 <% end %>  
 
 
+
+<div>
+
+
+  <div class="flex items-center justify-between">
+    <h1 class="text-4xl font-bold">Widgets</h1>    
+  </div>
+
+  <div id="houses" class="min-w-full">
+    <%= render @houses %>
+    <%#= render partial: "houses/house", collection: @houses, as: :house %>
+
+	<%#= render partial: "comments/comment", collection: @comments, as: :comment %>
+	<%#= render @comments %>
+
+  </div>
+
+  <div id="pager" class="flex justify-between min-w-full my-8">
+    <div>
+      <% if @pagy.prev %>
+        <%= link_to "< Previous page", houses_path(page: @pagy.prev), class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800" %>
+      <% end %>
+    </div>
+    <div class="text-right">
+      <% if @pagy.next %>
+        <%= link_to "Next page >", houses_path(page: @pagy.next), class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800" %>
+      <% end %>
+    </div>
+  </div>	
+
+
+</div>
