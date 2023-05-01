@@ -1,3 +1,147 @@
-<h2>房屋頁面</h2>
+<section class="relative flex items-center justify-center py-32 mt-10 bg-gray-500" data-controller="home-header">
+  <img src="/assets/home.jpg" class="absolute object-cover w-full h-full" alt="Your Image">
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div class="mx-auto max-w-[43rem] relative flex flex-wrap">
+    <div class="w-full text-center">
+      <p class="text-lg font-medium leading-8 text-white">Bad House Comment</p>
+      <h1 class="mt-3 text-[3.5rem] font-bold leading-[4rem] tracking-tight text-white">幫大學生避開惡房東的平台</h1>
+    </div>
+
+    <div class="relative flex items-center justify-center w-full gap-4 mt-6">
+      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform rounded-md bg-indigo-600/95 hover:bg-indigo-700">依照房屋名稱搜尋</a>
+      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform border rounded-md border-slate-200 hover:bg-black">依照縣市搜尋</a>
+    </div>
+
+    <div class="relative flex w-full mt-10">
+      <%= form_with(url: root_path, method: :get, class: "flex items-center w-full justify-between" )do |form| %>
+        <%= form.text_field :search, placeholder: "輸入房屋名稱", class: "form-field w-full placeholder-black" %>
+        <%= button_tag type:'submit', class: 'btn-primary px-8 py-2' do %>
+          <i class="text-2xl text-white fa-solid fa-magnifying-glass"></i>
+        <% end %>        
+      <% end %>
+    </div>    
+  </div>
+</section>
 
 
+
+<% @houses.each do |house| %>
+  <section class="m-10" data-controller="home-card"
+  						data-house-id="<%= house.id %>"
+  						data-current-user-id="<%= current_user ? current_user.id : 'Logged out' %>">
+  
+  
+    <!-- component -->	
+    <div class='flex items-center justify-center my-10'>
+	  <div class="p-4 items-center justify-center w-[1200px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
+	  
+	    <%# 這一段連結，是整張卡片的連結 %>
+	    <%#= link_to house_path(house), class: "p-4 items-center justify-center w-[1200px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl 
+		hover:rounded-2xl" do %>		
+
+		  <%# card 圖片，之後要改成羅輪播圖 %>
+		  <div class="w-1/3">
+		  	<%# 這是單張圖片 %>
+		    <%#= image_tag house.images.first, class: 'block h-100 mx-auto rounded-lg' %>
+			
+			<%# 這是輪播圖 %>
+			<%= render "index_carousel", house: house %>
+		  </div>
+		  
+
+
+			<%# 卡片右側區塊 %>
+		    <div class="p-5 pl-0 sm:w-8/12">
+			  <div class="space-y-2">
+			    <%# 房屋標題 %>
+			    <div class="space-y-4">
+			  	  <h4 class="font-semibold text-justify text-md text-cyan-900">
+			  	    <%= house.title %>
+			  	  </h4>
+			    </div>
+			    <div class="flex items-center justify-between py-4 space-x-4 border-b-4">
+			  	  <div class="flex gap-3 space-y-1">
+              		<%# 這個是大頭貼圖，如果以後有加上大頭貼，再補 %>
+			  		<%# <img  src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"  class="w-8 h-8 rounded-full" /> %>
+			  		<span class="text-sm"><%= house.description %></span>
+			  	  </div>
+				  
+			    </div>
+				<%# 新增房屋時間 %>
+			    <div class="flex items-center justify-between space-x-4">
+			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">
+			  	    <i class="fa-regular fa-clock"></i>
+			  	    <p class="text-xs"><%= house.created_at.strftime("%Y/%m/%d") %></p>
+			  	  </div>
+			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">
+			  	    <i class="fa-regular fa-comment-dots"></i>
+			  	    <p class="text-xs"><%= house.comments.size %></p>
+			  	  </div>
+			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">			  	    
+			  	    <i class="fa-regular fa-eye"></i>
+			  	    <p class="text-xs"><%= house.impressionist_count(:filter => :session_hash) %></p>
+			  	  </div>
+				  
+              	  <%# 這一區塊是倒讚、正讚數 %>
+			  	  <div class="flex flex-row space-x-1">
+			  	    <div class="thumb-btn" data-action="click->home-card#decrease">
+				  	  <span>
+				  	    <i class="text-xl fa-regular fa-thumbs-down"></i>
+				  	  </span>			  	      
+			  	  	  <span data-home-card-target="houseDisLikeCount">
+				  	    <%= house.like_states.house_false_count %>
+				  	  </span>
+			  	    </div>
+			  	  	<div class="bg-green-500 thumb-btn shadow-green-600" data-action="click->home-card#increase">
+				  	  <span>
+				  	    <i class="text-xl fa-regular fa-thumbs-up"></i>
+				  	  </span>			  		  
+			  	  	  <span data-home-card-target="houseLikeCount">					    
+			      		 <%= house.like_states.house_true_count %>
+				  	  </span>
+			  	  	</div>
+			  	  </div>
+			    </div>
+
+			  </div>
+		    </div>
+		<%# end %>
+	  </div>	  
+    </div>
+	
+  </section>
+<% end %>  
+
+
+<div>
+
+
+  <div class="flex items-center justify-between">
+    <h1 class="text-4xl font-bold">Widgets</h1>    
+  </div>
+
+  <div id="houses" class="min-w-full">
+    <%= render @houses %>
+    <%#= render partial: "houses/house", collection: @houses, as: :house %>
+
+	<%#= render partial: "comments/comment", collection: @comments, as: :comment %>
+	<%#= render @comments %>
+
+  </div>
+
+  <div id="pager" class="flex justify-between min-w-full my-8">
+    <div>
+      <% if @pagy.prev %>
+        <%= link_to "< Previous page", houses_path(page: @pagy.prev), class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800" %>
+      <% end %>
+    </div>
+    <div class="text-right">
+      <% if @pagy.next %>
+        <%= link_to "Next page >", houses_path(page: @pagy.next), class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800" %>
+      <% end %>
+    </div>
+  </div>	
+
+
+</div>
