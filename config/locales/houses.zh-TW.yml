@@ -1,0 +1,14 @@
+zh-TW:
+  houses: 
+    Create House: "新增房屋"
+
+  activerecord:
+    errors:
+      models:
+        house:
+          attributes:
+            title:
+              blank: "任務標題不能為空"
+            images: 
+              blank: "圖片不能為空"
+

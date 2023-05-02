@@ -18,7 +18,7 @@ class House < ApplicationRecord
   end
 
   # 圖片上傳限制
-  validates :images, attached: true, size: {less_than: 1.megabytes, message: '不能超過1MB'} 
+  validates :images, size: {less_than: 1.megabytes, message: '不能超過1MB'} 
   validates :title, presence: true
 
 
