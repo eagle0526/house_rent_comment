@@ -10,57 +10,73 @@
           <li>
             <%# 新增房屋區塊，下面那一行註解是最初的形式 %>
             <%#= link_to "新增房屋", admin_user_houses_path(current_user), class:"mr-2 text-lg hover:text-major" %>
-            <%= link_to admin_user_houses_path(current_user) do %>
-              <div class="flex items-center px-4 py-2.5 mx-2 border cursor-pointer hover:bg-blue-300">
+            <%= link_to new_admin_user_house_path(current_user) do %>
+              <div class="flex items-center px-4 py-3 mx-2 border cursor-pointer hover:bg-blue-300">
                 <i class="fa-solid fa-plus"></i>
               </div>
             <% end %>
           </li>
+
           <li>
-            <%= link_to current_user.email, admin_user_path(current_user), class:"mx-2 text-lg hover:text-major" %>
-          </li>
-          <li>
-            <div class= "px-6 py-2 mx-3 border cursor-pointer hover:bg-gray-100", data-action="click->nav-bar#info">
-              <div class="">
-                <span>
-                  <i class="fa-regular fa-user"></i>
+            <div class= "px-6 py-2 mx-3 text-sm border cursor-pointer hover:bg-gray-100", data-action="click->nav-bar#info">
+              <div class="flex items-center justify-center">
+                <span class="mr-4">
+                 <%= image_tag(current_user.avatar.url || "/assets/default_avatar.png", class: "object-cover w-6 h-6 border rounded") %> 
                 </span>
-               <span>                   
+
+                <span class="mr-4">
+                  <%= current_user.name? ? current_user.name : current_user.email %>
+                </span>
+
+                <span>                   
                   <i class="fa-solid fa-caret-down"></i>
-               </span>                 
+                </span>                 
               </div>
 
               <%# 以下是點開個人資料的區塊  %>
-              <div class="absolute border top-[3.5em] right-[1.5em] bg-white hidden" data-nav-bar-target="information">                
+              <div class="absolute border top-[4.4em] right-[1.7em] bg-white hidden rounded" data-nav-bar-target="information">                
+
+                <%= link_to admin_user_path(current_user) do %>
+                  <div class="flex items-center px-12 py-4 border rounded-t cursor-pointer hover:bg-blue-300">
+                    <div class="w-1/4">
+                      <i class="fa-solid fa-clock-rotate-left"></i>       
+                    </div>
+                    <div class="w-3/4">
+                      <p>瀏覽過往資訊</p>
+                    </div>                                        
+                  </div>
+                <% end %>
+
+               <%= link_to edit_admin_user_path(current_user.id) do %>
+                  <div class="flex items-center px-12 py-4 border cursor-pointer hover:bg-blue-300">
+                    <div class="w-1/4">
+                      <i class="mr-10 fa-solid fa-book"></i>               
+                    </div>
+                    <div class="w-3/4">
+                      <p>修改個人資料</p>
+                    </div>                                        
+                  </div>
+                <% end %>                
 
                 <%= link_to admin_user_houses_path(current_user) do %>
-                  <div class="flex items-center px-8 py-4 border cursor-pointer hover:bg-blue-300">
-                    <div class="w-1/3">
-                      <i class="mr-5 fa-solid fa-house"></i>                
+                  <div class="flex items-center px-12 py-4 border rounded-t cursor-pointer hover:bg-blue-300">
+                    <div class="w-1/4">
+                      <i class="mr-10 fa-solid fa-house"></i>                
                     </div>
-                    <div class="w-2/3">
+                    <div class="w-3/4">
                       <p>管理房屋</p>
                     </div>                                        
                   </div>
                 <% end %>
 
-                <%= link_to edit_admin_user_path(current_user.id) do %>
-                  <div class="flex items-center px-8 py-4 border cursor-pointer hover:bg-blue-300">
-                    <div class="w-1/3">
-                      <i class="mr-5 fa-solid fa-book"></i>               
-                    </div>
-                    <div class="w-2/3">
-                      <p>個人資料</p>
-                    </div>                                        
-                  </div>
-                <% end %>
+ 
                 
                 <%= link_to destroy_user_session_path, data: {turbo_method: :delete} do  %>
-                  <div class="flex items-center px-8 py-4 border cursor-pointer hover:bg-blue-300">
-                    <div class="w-1/3">
-                      <i class="mr-5 fa-solid fa-door-open"></i>               
+                  <div class="flex items-center px-12 py-4 border rounded-b cursor-pointer hover:bg-blue-300">
+                    <div class="w-1/4">
+                      <i class="mr-10 fa-solid fa-door-open"></i>               
                     </div>
-                    <div class="w-2/3">
+                    <div class="w-3/4">
                       <p>登出</p>
                     </div>
                   </div>

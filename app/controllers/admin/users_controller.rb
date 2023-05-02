@@ -8,15 +8,16 @@ module Admin
 
       message = params[:query]
 
-      if message == "已留言"        
-        @houses = current_user.comments_ordered_by_time
-      elsif message == "已點讚"        
-        @houses = current_user.liked_ordered_by_time
-      elsif message == "已瀏覽"        
-        @houses = current_user.viewed_ordered_by_time
-      else        
-        @houses = current_user.published_ordered_by_time
-      end
+      @houses = case message
+                when "已留言"
+                  current_user.comments_ordered_by_time
+                when "已點讚"
+                  current_user.liked_ordered_by_time
+                when "已瀏覽"
+                  current_user.viewed_ordered_by_time
+                else
+                  current_user.published_ordered_by_time
+                end
       
     end
 
