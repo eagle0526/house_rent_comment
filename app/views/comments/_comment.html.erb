@@ -68,7 +68,7 @@
         <% if current_user %>
           <% if comment.user_id == current_user.id && comment.comments.size == 0 %>
             <small class="mr-4">    
-              <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", confirm: "確定嗎？"}, class: "text-red-500" %>
+              <%= link_to '刪除留言', comment_path(comment), data: {turbo_method: "delete", turbo_confirm: "確定嗎？"}, class: "text-red-500" %>
             </small>
           <% end %>
         <% end %>    
