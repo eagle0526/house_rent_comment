@@ -28,7 +28,7 @@
               <div class="absolute top-0 right-0">
                 <%# 下面這一段是，如果今天圖片大小，小於500kb才顯示叉叉按鈕，會加這一段是因為，我model多做一個判斷，就是如果圖片大於500kb，會無法上傳，但這時候，avatar.url會是true %>
                 <% if current_user.avatar.blob.byte_size <= 500000 %>
-                  <%= link_to destroy_image_admin_user_path(current_user, current_user.avatar.id), data: {turbo_method: "delete", confirm: "確定刪除?"} do %>
+                  <%= link_to destroy_image_admin_user_path(current_user, current_user.avatar.id), data: {turbo_method: "delete", turbo_confirm: "確定刪除?"} do %>
                     <div class= 'absolute top-0 right-0 flex items-center justify-center w-5 h-5 mt-2 mr-2 text-white bg-red-600 rounded-full '>
                       <i class= "text-xs fa-solid fa-x"></i>                                
                     </div>
