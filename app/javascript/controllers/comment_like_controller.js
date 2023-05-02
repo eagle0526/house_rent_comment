@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { fetchWithoutParams } from "../controllers/lib/fetcher"
+import { dispatchAction } from "../controllers/lib/dispatch"
 
 export default class extends Controller {
 
@@ -26,10 +27,12 @@ export default class extends Controller {
   like() {        
 
     const commentId = this.element.dataset.commentId
-    const token = document.querySelector("meta[name='csrf-token']").content    
+    const userId = this.element.dataset.currentUserId
 
-
-    fetchWithoutParams(`/comments/${commentId}/like`, "PATCH")
+    if (userId === 'Logged out') {
+      dispatchAction("popup")
+    } else {
+      fetchWithoutParams(`/comments/${commentId}/like`, "PATCH")
       .then(({status, likeCommentCount, dislikeCommentCount}) => {
         if (status === "liked comment") {
           this.likeButtonSolid()
@@ -47,15 +50,18 @@ export default class extends Controller {
       .catch((err) => {
         console.log(err);
       })
-
+    }
   }
 
   dislike() {        
 
     const commentId = this.element.dataset.commentId
-    const token = document.querySelector("meta[name='csrf-token']").content
+    const userId = this.element.dataset.currentUserId
 
-    fetchWithoutParams(`/comments/${commentId}/dislike`, "PATCH")
+    if (userId === 'Logged out') {
+      dispatchAction("popup")
+    } else {
+      fetchWithoutParams(`/comments/${commentId}/dislike`, "PATCH")
       .then(({status, likeCommentCount, dislikeCommentCount}) => {
 
         if (status === "disliked comment") {
@@ -75,7 +81,7 @@ export default class extends Controller {
       .catch((err) => {
         console.log(err);
       })
-
+    }
   }
 
   likeButtonSolid() {

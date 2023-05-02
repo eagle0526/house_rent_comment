@@ -34,8 +34,9 @@
         <%# 點讚區塊 %>
         <small data-controller="comment-like"
                data-comment-id = "<%= comment.id %>"           
-               data-comment-like-state = '<%= current_user.comment_like_state(comment.id) ? current_user.comment_like_state(comment.id).state : 'vacant' if current_user 
+               data-comment-like-state = '<%= current_user.comment_like_state(comment.id) ? current_user.comment_like_state(comment.id).state : 'vacant' if current_user
                %>'
+               data-current-user-id="<%= current_user ? current_user.id : 'Logged out' %>"
                >
           <span class="mr-4">        
             <i class="cursor-pointer fa-regular fa-thumbs-up" data-action = "click->comment-like#like" 
