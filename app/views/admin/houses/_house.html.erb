@@ -1,106 +1,109 @@
 
-  <div class="mb-10 bg-white hover:shadow-lg">
+<div class="relative mb-10 bg-white hover:shadow-lg">
+
+  <%# 最上方區塊 %>
+  <div class="flex flex-row px-2 py-3 mx-3">
+    
+    <% if house.user.avatar.attached? %>
+      <div class="w-auto h-auto rounded-full">
+        <%= image_tag house.user.avatar, class: "object-cover w-12 h-12 rounded-full shadow" %>
+      </div>  
+    <% else %>
+      <div class="w-auto h-auto rounded-full">
+        <img src="/assets/default_avatar.png" class="object-cover w-12 h-12 rounded-full shadow" alt="Your Image">              
+      </div>
+    <% end %>
   
-    <%# 最上方區塊 %>
-    <div class="flex flex-row px-2 py-3 mx-3">
+  
+    
+    <div class="flex flex-col mt-1 mb-2 ml-4">
+      <div class="text-sm font-semibold text-gray-600">
+        匿名/<%= house.user.name %>
+      </div>
+      <div class="flex flex-wrap w-full mt-1">
+        <div class="w-full mr-1 text-xs text-blue-700 font-base">
+          <p>房屋：<%= house.title %></p>
+        </div>
+        <div class="w-full mr-1 text-xs text-blue-700 font-base">
+          <p>電話：<%= house.tel %></p>
+        </div>
+        <div class="w-full mr-1 text-xs text-blue-700 font-base">
+          <p>地址：<%= house.address %></p>
+        </div>
+        <div class="w-full mr-1 text-xs text-blue-700 font-base">
+          <p>房東：<%= house.owner %></p>                  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <%# 圖片輪播區塊 %>
+  <div class="mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">
+    <%# 左邊圖片 %>
+    <div class="flex">      
+      <div class="w-1/2 mr-1 text-xs text-blue-700 font-base">
+        <%= image_tag(house.images.first || "/assets/home.jpg", class: "object-cover w-full rounded align-center") %>
+      </div>
       
-      <% if house.user.avatar.attached? %>
-        <div class="w-auto h-auto rounded-full">
-          <%= image_tag house.user.avatar, class: "object-cover w-12 h-12 rounded-full shadow" %>
-        </div>  
-      <% else %>
-        <div class="w-auto h-auto rounded-full">
-          <img src="/assets/default_avatar.png" class="object-cover w-12 h-12 rounded-full shadow" alt="Your Image">              
+      <% if house.images.second.present? %>
+        <div class="w-1/2 mr-1 text-xs text-blue-700 cursor-pointer font-base">
+          <%= image_tag house.images.second, class: "object-cover w-full rounded align-center" %>
         </div>
       <% end %>
-    
-    
-      
-      <div class="flex flex-col mt-1 mb-2 ml-4">
-        <div class="text-sm font-semibold text-gray-600">
-          匿名/<%= house.user.name %>
-        </div>
-        <div class="flex flex-wrap w-full mt-1">
-          <div class="w-full mr-1 text-xs text-blue-700 font-base">
-            <p>房屋：<%= house.title %></p>
-          </div>
-          <div class="w-full mr-1 text-xs text-blue-700 font-base">
-            <p>電話：<%= house.tel %></p>
-          </div>
-          <div class="w-full mr-1 text-xs text-blue-700 font-base">
-            <p>地址：<%= house.address %></p>
-          </div>
-          <div class="w-full mr-1 text-xs text-blue-700 font-base">
-            <p>房東：<%= house.owner %></p>                  
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <%# 圖片輪播區塊 %>
-    <div class="mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">
-      <%# 左邊圖片 %>
-      <div class="flex">      
-        <div class="w-1/2 mr-1 text-xs text-blue-700 font-base">
-          <%= image_tag(house.images.first || "/assets/home.jpg", class: "object-cover w-full rounded align-center") %>
-        </div>
-        
-        <% if house.images.second.present? %>
-          <div class="w-1/2 mr-1 text-xs text-blue-700 cursor-pointer font-base">
-            <%= image_tag house.images.second, class: "object-cover w-full rounded align-center" %>
-          </div>
-        <% end %>
-      </div>    
-    </div>
-    
-                
-    <%# 留言、喜歡次數 %>
-    <div class="flex w-full border-t border-gray-100" data-controller="house-like-count"
-                                                        data-action = 'increase@window->house-like-count#increase decrease@window->house-like-count#decrease'
-                                                        data-amount = "<%= house.like_states.select { |like| like.state }.size %>"
-                                                        >
-      <div class="flex flex-row mx-5 mt-3 text-xs">
-        <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
-          Comments:
-          <div class="ml-1 text-gray-400 text-ms">
-            <%= house.comments.size %>
-          </div>
-        </div>
-        <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
-          Views: 
-          <div class="ml-1 text-gray-400 text-ms"> 
-            <%= house.impressionist_count(:filter => :session_hash) %>
-          </div>
-        </div>
-        <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
-          published: 
-          <div class="ml-1 text-gray-400 text-ms"> 
-            <%= house.created_at.strftime("%Y/%m/%d") %>
-          </div>
-        </div>
-      </div>
-      <div class="flex justify-end w-full mx-5 mt-3 text-xs">
-        <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md">Likes: 
-          <div class="ml-1 text-gray-400 text-ms" data-house-like-count-target="likeCount">
-            <%= house.like_states.house_true_count %>
-          </div>
-        </div>
-        <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md" >disLikes: 
-          <div class="ml-1 text-gray-400 text-ms" data-house-like-count-target="disLikeCount">
-            <%= house.like_states.house_false_count %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex items-center justify-center mt-10 border">
-      <div class="flex items-center justify-center w-1/2">
-        <%= link_to "前往留言", house_path(house), class: "w-full py-2 bg-blue-500 flex items-center justify-center hover:bg-blue-400 text-white" %>
-      </div>
-      <div class="w-1/2">
-        <%= link_to "編輯房屋資訊", edit_admin_house_path(house), class: "w-full py-2 bg-red-500 flex items-center justify-center hover:bg-red-400 text-white" %>
-      </div>
-    </div>
-
+    </div>    
   </div>
+  
+              
+  <%# 留言、喜歡次數 %>
+  <div class="flex w-full border-t border-gray-100" data-controller="house-like-count"
+                                                      data-action = 'increase@window->house-like-count#increase decrease@window->house-like-count#decrease'
+                                                      data-amount = "<%= house.like_states.select { |like| like.state }.size %>"
+                                                      >
+    <div class="flex flex-row mx-5 mt-3 text-xs">
+      <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
+        Comments:
+        <div class="ml-1 text-gray-400 text-ms">
+          <%= house.comments.size %>
+        </div>
+      </div>
+      <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
+        Views: 
+        <div class="ml-1 text-gray-400 text-ms"> 
+          <%= house.impressionist_count(:filter => :session_hash) %>
+        </div>
+      </div>
+      <div class="flex items-center mb-2 mr-4 font-normal text-gray-700 rounded-md">
+        published: 
+        <div class="ml-1 text-gray-400 text-ms"> 
+          <%= house.created_at.strftime("%Y/%m/%d") %>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end w-full mx-5 mt-3 text-xs">
+      <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md">Likes: 
+        <div class="ml-1 text-gray-400 text-ms" data-house-like-count-target="likeCount">
+          <%= house.like_states.house_true_count %>
+        </div>
+      </div>
+      <div class="flex items-center mb-2 mr-4 text-gray-700 rounded-md" >disLikes: 
+        <div class="ml-1 text-gray-400 text-ms" data-house-like-count-target="disLikeCount">
+          <%= house.like_states.house_false_count %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center justify-center mt-10 border">
+    <div class="flex items-center justify-center w-1/2">
+      <%= link_to "前往留言", house_path(house), class: "w-full py-2 bg-blue-500 flex items-center justify-center hover:bg-blue-400 text-white" %>
+    </div>
+    <div class="w-1/2">
+      <%= link_to "編輯房屋資訊", edit_admin_house_path(house), class: "w-full py-2 bg-red-500 flex items-center justify-center hover:bg-red-400 text-white" %>
+    </div>
+  </div>
+
+
+  <div class="absolute px-3 py-2 text-gray-400 rounded-full cursor-pointer top-3 right-5 hover:bg-slate-200">
+    <i class="fa-solid fa-ellipsis"></i>
+  </div>
+</div>
 
