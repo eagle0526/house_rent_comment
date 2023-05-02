@@ -3,7 +3,7 @@ class HousesController < ApplicationController
   
 
   def index
-    @pagy, @houses = pagy(House.all, items: 3)
+    @pagy, @houses = pagy(House.all, items: 4)
   end
 
   def create

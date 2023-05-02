@@ -1,0 +1,14 @@
+<div id="pager" class="flex justify-center min-w-full my-8">
+  <div>
+    <% if pagy.next %>
+      <%= link_to(
+        "載入更多",
+        houses_path(page: pagy.next),
+        class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800",
+        data: {
+          turbo_frame: "page_handler"
+        }
+      ) %>
+    <% end %>
+  </div>
+</div>
