@@ -6,6 +6,7 @@ zh-TW:
       x_minutes: "%{count} 分鐘前"
       x_seconds: "%{count} 秒前"
       less_than_x_minutes: "少於 %{count} 分鐘"
+      about_x_hours: "少於 %{count} 小時"
 
   helpers:
     submit:

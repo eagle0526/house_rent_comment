@@ -32,6 +32,11 @@
 			  	    <%= house.title %>
 			  	  </h4>
 			    </div>
+			    <div class="space-y-4">
+			  	  <h4 class="text-sm text-justify text-gray-500">
+			  	    地址：<%= house.address %>
+			  	  </h4>
+			    </div>
 			    <div class="flex items-center justify-between py-4 space-x-4 border-b-4">
 			  	  <div class="flex gap-3 space-y-1">
               		<%# 這個是大頭貼圖，如果以後有加上大頭貼，再補 %>
@@ -52,7 +57,10 @@
 			  	  </div>
 			  	  <div class="flex flex-row my-4 space-x-1 text-grey-500">			  	    
 			  	    <i class="fa-regular fa-eye"></i>
-			  	    <p class="text-xs"><%= house.impressionist_count(:filter => :session_hash) %></p>
+			  	    <p class="text-xs">
+					  <%#= house.impressionist_count(:filter => :session_hash) %>
+					  <%= house.houses_count %>
+					</p>
 			  	  </div>
 				  
               	  <%# 這一區塊是倒讚、正讚數 %>

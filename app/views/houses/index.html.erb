@@ -1,4 +1,4 @@
-<section class="relative flex items-center justify-center py-32 mt-10 bg-gray-500" data-controller="home-header">
+<section class="relative flex items-center justify-center py-32 mt-10 bg-gray-500" data-controller="root--header">
   <img src="/assets/home.jpg" class="absolute object-cover w-full h-full" alt="Your Image">
   <div class="absolute inset-0 bg-black opacity-50"></div>
 
@@ -9,18 +9,35 @@
     </div>
 
     <div class="relative flex items-center justify-center w-full gap-4 mt-6">
-      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform rounded-md bg-indigo-600/95 hover:bg-indigo-700">依照房屋名稱搜尋</a>
-      <a href="#" class="px-5 py-3 font-medium text-white transition-colors transform border rounded-md border-slate-200 hover:bg-black">依照縣市搜尋</a>
+      <p class="px-5 py-3 font-medium text-white transition-colors transform rounded-md cursor-pointer bg-indigo-600/95 hover:bg-indigo-700"
+         data-action="click->root--header#searchName"
+         >
+        依照房屋名稱搜尋
+      </p>
+      <p class="px-5 py-3 font-medium text-white transition-colors transform border rounded-md cursor-pointer border-slate-200 hover:bg-black"
+         data-action="click->root--header#searchStreet"
+         >
+        依照街道搜尋
+      </p>
     </div>
 
-    <div class="relative flex w-full mt-10">
-      <%= form_with(url: root_path, method: :get, class: "flex items-center w-full justify-between" )do |form| %>
-        <%= form.text_field :search, placeholder: "輸入房屋名稱", class: "form-field w-full placeholder-black" %>
+    <div class="relative w-full mt-10" data-root--header-target="houseName">
+      <%= form_with(url: root_path, method: :get, class: "flex items-center w-full justify-between" ) do |form| %>
+        <%= form.text_field :title, placeholder: "請輸入房屋名稱", class: "form-field w-full placeholder-black" %>
         <%= button_tag type:'submit', class: 'btn-primary px-8 py-2' do %>
           <i class="text-2xl text-white fa-solid fa-magnifying-glass"></i>
-        <% end %>        
+        <% end %>
       <% end %>
-    </div>    
+    </div>
+    
+    <div class="relative hidden w-full mt-10" data-root--header-target="houseStreet">
+      <%= form_with(url: root_path, method: :get, class: "flex items-center w-full justify-between" ) do |form| %>
+        <%= form.text_field :street, placeholder: "請輸入社區、街道、地標名", class: "form-field w-full placeholder-black" %>
+        <%= button_tag type:'submit', class: 'btn-primary px-8 py-2' do %>
+          <i class="text-2xl text-white fa-solid fa-magnifying-glass"></i>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </section>
 

@@ -3,7 +3,18 @@ class HousesController < ApplicationController
   
 
   def index
-    @pagy, @houses = pagy(House.all, items: 4)
+    # @pagy, @houses = pagy(House.search_by_address(params[:keyword]), items: 4)
+    houses = if params[:title]
+               House.search_by_title(params[:title])
+             elsif params[:street]
+               House.search_by_address(params[:street])
+             else
+               House.order_by_time
+             end
+
+    @pagy, @houses = pagy(houses, items: 4)
+
+
   end
 
   def create
