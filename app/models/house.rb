@@ -97,5 +97,12 @@ class House < ApplicationRecord
 
   # 房子依照創造時間排列
   scope :order_by_time, -> {order(created_at: :desc)}
+
+
+  # 簡短的文章
+  def short_description
+    description.to_plain_text.truncate(200)
+  end
+
 end
 

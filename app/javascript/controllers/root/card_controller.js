@@ -1,11 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
-import { fetchWithoutParams } from "../controllers/lib/fetcher"
-import { dispatchAction } from "../controllers/lib/dispatch"
+import { fetchWithoutParams } from "../lib/fetcher"
+import { dispatchAction } from "../lib/dispatch"
 
 
 export default class extends Controller {
 
-  static targets = [ 'houseLikeCount', "houseDisLikeCount" ]
+  static targets = [ 'houseLikeCount', "houseDisLikeCount", "shortDescription", "fullDescription" ]
 
   connect() {    
 
@@ -56,9 +56,18 @@ export default class extends Controller {
       }
   }
 
+  showFullDescription() {
+    this.changeDescription(this.shortDescriptionTarget, this.fullDescriptionTarget)
+  }
+
   setTextContent(houseLikeCount, houseDislikeCount) {
     this.houseLikeCountTarget.textContent = houseLikeCount
     this.houseDisLikeCountTarget.textContent = houseDislikeCount
+  }
+
+  changeDescription(fieldOne, fieldTwo) {
+    fieldOne.classList.add("hidden")    
+    fieldTwo.classList.remove("hidden")    
   }
 
 }
