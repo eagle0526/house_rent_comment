@@ -53,6 +53,7 @@ class House < ApplicationRecord
   end
 
 
+  #以下是 user model 會用的scope 
   scope :ordered_by_comment_count, -> { 
     left_joins(:comments)
       .group(:id)
@@ -74,4 +75,27 @@ class House < ApplicationRecord
     .select('houses.*, COUNT(impressions.id) AS page_views_count')
     .order('page_views_count DESC')
   }
+
+
+
+  # 以下是首頁的scope
+  # 首頁搜尋的scope，根據房子的街道名稱
+  scope :search_by_address, -> (street) {     
+    joins(:impressions)
+      .where("address LIKE ?", "%#{street}%") 
+      .group("houses.id")
+      .order("COUNT(impressions.id) DESC")    
+  }
+  
+  # 首頁搜尋的scope，根據房子的標題
+  scope :search_by_title, -> (title) { 
+    joins(:impressions)
+      .where("title LIKE ?", "%#{title}%") 
+      .group("houses.id")
+      .order("COUNT(impressions.id) DESC")
+  }
+
+  # 房子依照創造時間排列
+  scope :order_by_time, -> {order(created_at: :desc)}
 end
+
