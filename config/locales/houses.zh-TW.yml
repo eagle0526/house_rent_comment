@@ -1,6 +1,6 @@
 zh-TW:
   houses: 
-    Create House: "新增房屋"
+    Create_House: "修改房屋資訊"
 
   activerecord:
     errors:
@@ -8,7 +8,7 @@ zh-TW:
         house:
           attributes:
             title:
-              blank: "任務標題不能為空"
+              blank: "房屋名稱不能為空"
             images: 
               blank: "圖片不能為空"
 
