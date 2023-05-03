@@ -1,4 +1,4 @@
-
+<% if house.images.attached? %>
 <div class="swiper-container" data-controller="carousel" 
                               data-carousel-options-value='{
                                 "pagination": { "el": ".swiper-pagination", 
@@ -8,11 +8,13 @@
                                 "effect": "fade"
                                 }'>
   <div class="swiper-wrapper">
-	<% house.images.each do |image| %>
-	  <div class="swiper-slide">
-      <%= link_to image_tag(image.variant(:standard)), house_path(house), class: 'w-full mx-auto rounded-lg' %>
-	  </div>
-	<% end %>  
+  
+	  <% house.images.each do |image| %>
+    
+	    <div class="swiper-slide">
+        <%= link_to image_tag(image.variant(:standard)), house_path(house), class: 'w-full mx-auto rounded-lg' %>
+	    </div>
+	  <% end %>  
   </div>
 
   <!-- Add Pagination -->
@@ -28,3 +30,8 @@
   </div>  
   
 </div>
+<% else %>
+  <div class="rounded-lg">
+    <%= link_to image_tag("/assets/default_image.jpg"), house_path(house), class: 'w-full mx-auto rounded-lg' %>
+  </div>  
+<% end %>
