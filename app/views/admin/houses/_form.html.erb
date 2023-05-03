@@ -9,8 +9,8 @@
       <div class="flex flex-wrap items-center p-4 rounded">
         
         <div class="w-full text-lg border-b-2 border-white">
-          <div class="pb-4">
-            <p>Create a house</p>
+          <div class="pb-4">            
+            <p> <%= t 'houses.Create_House' %></p>
           </div>        
         </div>
 
@@ -21,7 +21,7 @@
   
         
         <div class="flex flex-wrap items-center w-full p-5 mt-5 bg-white rounded">
-  
+          
           <div class="w-full my-4">          
             <%= f.text_field :title, placeholder: "房屋名稱", class: 'form-field' %>
           </div>
@@ -50,7 +50,7 @@
               <label class="btn-primary">
                 <i class="mr-5 fa-solid fa-camera"></i>
                 <p>上傳圖片</p>
-                <span class="hidden">            
+                <span class="hidden">
                   <%= f.file_field :images, id: "fileUploader", multiple: true, accept: 'image/png, image/gif, image/jpeg', maxlength: 1.megabytes, 
                                             data: { house_image_target: "fileUploader", action: "change->house-image#upload" } %>
                 </span>
@@ -64,8 +64,8 @@
             <div class="grid grid-cols-4 gap-2 mt-2">
             
               <% house.images.each do |image| %>
-                <div class="relative">
-                  <% if image %>            
+                <div class="relative">                  
+                  <% if image.blob.byte_size <= 1000000 %>
                     <%= link_to destroy_image_admin_house_path(house, image), data: {turbo_method: "delete", turbo_confirm: "確定刪除?"} do %>            
                       <div class= 'absolute top-0 right-0 flex items-center justify-center w-5 h-5 mt-2 mr-2 text-white bg-red-600 rounded-full '>
                         <i class= "text-xs fa-solid fa-x"></i>
