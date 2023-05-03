@@ -34,15 +34,20 @@
   </div>
 </div>
 
-<%# 圖片輪播區塊 %>    
+<%# 圖片輪播區塊 %>
+
+
 <div class="relative px-2 mx-3 mt-6 text-sm font-medium text-gray-400 mb-7">
-  <div class="flex gap-2">           
+  <div class="flex gap-2">
+    <% if house.images.attached? %>
     <%# 左邊圖片 %>
     <div class="w-1/2">
       <div class="w-full mr-1 text-xs text-blue-700 cursor-pointer font-base">
-        <%= image_tag house.images.first.variant(:first), class: "object-cover w-full h-full rounded-l-xl align-center" %>
+        <%= image_tag(house.images.first.variant(:first), class: "object-cover w-full h-full rounded-l-xl align-center") %>
+        <%#= image_tag(house.images.first || "/assets/home.jpg", class: "object-cover w-full rounded align-center") %>
       </div>                                                                        
     </div>
+
     <%# 右邊圖片 %>
     <div class="w-1/2 overflow-hidden rounded-r-xl">
       <div class="grid grid-cols-2 grid-rows-2 gap-2">
@@ -62,6 +67,12 @@
         查看所有圖片 - <%= house.images.size %> 張 -> 
       </p>
     </div>
+
+    <% else %>
+      <div class="w-1/2">
+        <%= image_tag "/assets/default_image.jpg", class: "object-cover w-full h-full rounded-l-xl align-center" %>
+      </div>
+    <% end %>    
   </div>
 </div>
 
