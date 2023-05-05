@@ -24,7 +24,7 @@ class HousesController < ApplicationController
   def show
 
     @comment = @house.comments.new
-    @comments = @house.comments.readonly.with_deleted.where("parent_id IS NULL OR parent_id = 0")
+    @comments = @house.root_full_comments
 
     # 喜歡房子的數量    
     @liked_houses_count = @house.like_states.house_true_count

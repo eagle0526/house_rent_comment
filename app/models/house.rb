@@ -104,5 +104,12 @@ class House < ApplicationRecord
     description.to_plain_text.truncate(200)
   end
 
+
+  # 留言沒有parent_id的scope，代表這則留言是root留言，並且被軟刪除掉的留言也會一起抓到
+  def root_full_comments
+    comments.readonly.with_deleted.where("parent_id IS NULL OR parent_id = 0")     
+  end
+
+
 end
 
