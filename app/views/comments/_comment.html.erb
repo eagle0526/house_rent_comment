@@ -19,6 +19,7 @@
           <span><%= comment.user.name %></span>
           <span class="ml-4 text-xs text-slate-400">            
             <%= time_ago_in_words(comment.created_at) %>
+            (<%= comment.created_at.strftime("%Y/%m/%d - %T") %>)
           </span>
         </p>  
       </div>
@@ -31,7 +32,7 @@
       <%= turbo_frame_tag dom_id(comment) do %>
         <%# 內容區塊 %>
         <div class="my-2 text-sm text-gray-600">
-          <span><%= simple_format(comment.content) %></span>
+          <span><%= comment.deleted_at ? "這則留言被該用戶刪除" : simple_format(comment.content) %></span>
         </div>
         <%# 點讚區塊 %>
         <small data-controller="comment-like"
@@ -84,7 +85,7 @@
         <%# ex. c = Comment.find(12)  c.comments => id=12 的全部留言抓出來並選染    %>
         <%# 這裡拿到的comment是 @comments = @house.comments 這個迴圈轉出來的 %>
         <div class="mt-10">
-          <%= render comment.comments %>
+          <%= render comment.comments.readonly.with_deleted %>
         </div>
       <% end %>    
     </div>
