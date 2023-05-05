@@ -24,12 +24,12 @@ class HousesController < ApplicationController
   def show
 
     @comment = @house.comments.new
-    @comments = @house.comments.where("parent_id IS NULL OR parent_id = 0").includes(:user)        
+    @comments = @house.comments.readonly.with_deleted.where("parent_id IS NULL OR parent_id = 0")
 
     # 喜歡房子的數量    
     @liked_houses_count = @house.like_states.house_true_count
     # 不喜歡房子的數量    
-    @dislikeed_houses_count = @house.like_states.house_false_count
+    @disliked_houses_count = @house.like_states.house_false_count
 
     # 計算瀏覽次數
     impressionist(@house)
@@ -37,6 +37,9 @@ class HousesController < ApplicationController
 
     # 找出是哪些人點房子讚
     @user_click_nice_to_house = @house.like_states.house_state_true.each.map { |like| User.find_by(id: like.user_id) }
+
+
+    @goods = @house.comments.readonly.with_deleted
 
   end
 
@@ -51,20 +54,20 @@ class HousesController < ApplicationController
     # 喜歡的數量
     @liked_houses_count = @house.like_states.select { |like| like.state }.size
     # 不喜歡的數量
-    @dislikeed_houses_count = @house.like_states.size - @house.like_states.select { |like| like.state }.size
+    @disliked_houses_count = @house.like_states.size - @house.like_states.select { |like| like.state }.size
 
 
     if house_like_state
       if house_like_state.state == true
         house_like_state.delete            
-        render json: { status: 'delete house like_state', houseLikeCount: @liked_houses_count-1, houseDislikeCount: @dislikeed_houses_count }
+        render json: { status: 'delete house like_state', houseLikeCount: @liked_houses_count-1, houseDislikeCount: @disliked_houses_count }
       else
         house_like_state.update(state: true)                
-        render json: { status: 'covert house dislike to liked', houseLikeCount: @liked_houses_count+1, houseDislikeCount: @dislikeed_houses_count-1 }
+        render json: { status: 'covert house dislike to liked', houseLikeCount: @liked_houses_count+1, houseDislikeCount: @disliked_houses_count-1 }
       end
     else
       current_user.like_states.create(state: true, likeable: @house)            
-      render json: { status: 'liked house', houseLikeCount: @liked_houses_count+1, houseDislikeCount: @dislikeed_houses_count }
+      render json: { status: 'liked house', houseLikeCount: @liked_houses_count+1, houseDislikeCount: @disliked_houses_count }
     end    
   end
 
@@ -77,20 +80,20 @@ class HousesController < ApplicationController
     # 喜歡的數量
     @liked_houses_count = @house.like_states.select { |like| like.state }.size
     # 不喜歡的數量
-    @dislikeed_houses_count = @house.like_states.size - @house.like_states.select { |like| like.state }.size
+    @disliked_houses_count = @house.like_states.size - @house.like_states.select { |like| like.state }.size
 
     if like_state
       if like_state.state == false
         like_state.delete
-        render json: { status: 'delete house like_state', houseLikeCount: @liked_houses_count, houseDislikeCount: @dislikeed_houses_count-1 }
+        render json: { status: 'delete house like_state', houseLikeCount: @liked_houses_count, houseDislikeCount: @disliked_houses_count-1 }
       else
         like_state.update(state: false)
-        render json: { status: 'covert house like to disliked', houseLikeCount: @liked_houses_count-1, houseDislikeCount: @dislikeed_houses_count+1}
+        render json: { status: 'covert house like to disliked', houseLikeCount: @liked_houses_count-1, houseDislikeCount: @disliked_houses_count+1}
       end
             
     else
       current_user.like_states.create(state: false, likeable: @house)
-      render json: { status: 'disliked houses', houseLikeCount: @liked_houses_count, houseDislikeCount: @dislikeed_houses_count+1 }
+      render json: { status: 'disliked houses', houseLikeCount: @liked_houses_count, houseDislikeCount: @disliked_houses_count+1 }
     end
     
   end
