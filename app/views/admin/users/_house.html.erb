@@ -44,7 +44,7 @@
       <%# 左邊圖片 %>
       <div class="flex">      
         <div class="w-1/2 mr-1 text-xs text-blue-700 font-base">
-          <%= image_tag(house.images.first || "/assets/home.jpg", class: "object-cover w-full rounded align-center") %>
+          <%= image_tag(house.images.first || "/assets/default_image.jpg", class: "object-cover w-full rounded align-center") %>
         </div>
         
         <% if house.images.second.present? %>
