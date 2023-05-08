@@ -34,14 +34,20 @@
         <div class="my-6 text-sm text-gray-600">
           <span>這則留言被該用戶刪除</span>
         </div>
+        <div class="my-6 text-sm text-gray-600">
+          <span class="font-bold">ip地址: <%= comment.ip_address %></span>
+        </div>
       <% else %>
 
         <%= turbo_frame_tag dom_id(comment) do %>
         
           <%# 內容區塊 %>
           <div class="my-2 text-sm text-gray-600">
-            <span><%= comment.deleted_at ? "這則留言被該用戶刪除" : simple_format(comment.content) %></span>
+            <span><%= simple_format(comment.content) %></span>
           </div>
+          <div class="my-6 text-sm text-gray-600">
+            <span class="font-bold">ip地址: <%= comment.ip_address %></span>
+          </div>          
           <%# 點讚區塊 %>
           <small data-controller="comment-like"
                  data-comment-id = "<%= comment.id %>"           

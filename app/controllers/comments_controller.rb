@@ -103,7 +103,7 @@ class CommentsController < ApplicationController
   end
 
   def params_comment
-    params.require(:comment).permit(:content).merge(house: @house, parent_id: params[:parent_id])
+    params.require(:comment).permit(:content).merge(house: @house, parent_id: params[:parent_id], ip_address: request.remote_ip)
   end
 
   def find_comment
