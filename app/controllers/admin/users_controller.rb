@@ -6,9 +6,9 @@ module Admin
 
     def show
 
-      message = params[:query]
+      @message = params[:query]
 
-      @houses = case message
+      @houses = case @message
                 when "已留言"
                   current_user.comments_ordered_by_time
                 when "已點讚"

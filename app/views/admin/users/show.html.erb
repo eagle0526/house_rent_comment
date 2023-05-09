@@ -14,28 +14,28 @@
     <div class="flex items-center p-5 bg-white rounded">
 
       <%= link_to admin_user_path(current_user) do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer bg-slate-100">
+      <div class="<%= @message == nil ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">已發佈</p>        
         <i class="fa-solid fa-upload"></i>
       </div>
       <% end %>
 
       <%= link_to admin_user_path(current_user, query: "已留言") do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+      <div class="<%= @message == '已留言' ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">已留言</p>        
         <i class="fa-solid fa-comment"></i>
       </div>
       <% end %>
       
       <%= link_to admin_user_path(current_user, query: "已點讚") do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+      <div class="<%= @message == '已點讚' ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">已點讚</p>                
         <i class="fa-solid fa-thumbs-up"></i>
       </div>
       <% end %>
       
       <%= link_to admin_user_path(current_user, query: "已瀏覽") do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+      <div class="<%= @message == '已瀏覽' ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">已瀏覽</p>
         <i class="fa-solid fa-eye"></i>
       </div>
