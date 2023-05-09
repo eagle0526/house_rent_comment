@@ -10,31 +10,35 @@
   <div class="w-2/3">    
     
     <%# 上方區塊 %>
-    <div class="flex items-center p-5 bg-white rounded">
+    <div class="flex items-center p-5 bg-white rounded" data-controller="admin--houses--house-filter">
 
-      <%= link_to admin_user_houses_path(current_user) do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer bg-slate-100">
+      <%= link_to admin_user_houses_path(current_user), data: { admin__houses__house_filter_target: "published", 
+                                                                action: "click->admin--houses--house-filter#filterPublished" } do %>      
+      <div class="<%= @message == nil ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">發佈時間</p>        
         <i class="fa-solid fa-upload"></i>
       </div>
       <% end %>
 
-      <%= link_to admin_user_houses_path(current_user, query: "留言數") do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+      <%= link_to admin_user_houses_path(current_user, query: "留言數"), data: { admin__houses__house_filter_target: "commentsCount", 
+                                                                                action: "click->admin--houses--house-filter#filterCommentsCount"} do %>
+      <div class="<%= @message == '留言數' ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">留言數</p>        
         <i class="fa-solid fa-comment"></i>
       </div>
       <% end %>
       
-      <%= link_to admin_user_houses_path(current_user, query: "喜歡數") do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+      <%= link_to admin_user_houses_path(current_user, query: "喜歡數"), data: { admin__houses__house_filter_target: "likesCount", 
+                                                                                action: "click->admin--houses--house-filter#filterLikesCount"} do %>
+      <div class="<%= @message == '喜歡數' ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">喜歡數</p>                
         <i class="fa-solid fa-thumbs-up"></i>
       </div>
       <% end %>
       
-      <%= link_to admin_user_houses_path(current_user, query: "瀏覽數") do %>
-      <div class="flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer hover:bg-slate-100">
+      <%= link_to admin_user_houses_path(current_user, query: "瀏覽數"), data: { admin__houses__house_filter_target: "viewsCount", 
+                                                                                action: "click->admin--houses--house-filter#filterViewsCount"} do %>
+      <div class="<%= @message == '瀏覽數' ? 'text-blue-700 bg-slate-100 user-house-filter hover:bg-slate-100' : 'user-house-filter bg-white' %>">
         <p class="mr-3">瀏覽數</p>
         <i class="fa-solid fa-eye"></i>
       </div>

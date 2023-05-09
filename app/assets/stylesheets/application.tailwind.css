@@ -37,6 +37,10 @@
     @apply inline-block object-cover w-8 h-8 text-white border border-black rounded-full shadow-sm;
   }
 
+  .user-house-filter {
+    @apply flex items-center justify-center px-6 py-2 mr-4 text-blue-700 rounded-full cursor-pointer bg-slate-100;
+  }
+
 
   .one-twentieth {
     width: 5%;

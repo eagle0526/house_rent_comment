@@ -6,17 +6,20 @@ module Admin
 
     def index
 
-      message = params[:query]
+      @message = params[:query]
 
-      if message == "留言數"
+      if @message == "留言數"
         @houses = current_user.houses_ordered_by_comment_count
-      elsif message == "喜歡數"
+      elsif @message == "喜歡數"
         @houses = current_user.houses_ordered_by_like_state_true_count
-      elsif message == "瀏覽數"
+      elsif @message == "瀏覽數"
         @houses = current_user.houses_ordered_by_page_view_count
       else
         @houses = current_user.houses.order(id: :desc)
       end      
+
+
+      # render html: params
 
     end
 
